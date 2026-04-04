@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 0,
+    "response": "It could be that this is a cultural thing and his mother is just helping him out. Or it could be that he just doesn't see the issue with it and he is comfortable with the arrangement. It is up to him to decide what is right for him, not for you to judge.",
+    "log_prob": -47.529530808242264
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 1,
+    "response": "It sounds like your friend might have an underlying psychological issue that is causing him to be unable to take care of himself. It could be embedded from his childhood or caused by some other underlying issue. It might be beneficial for him to seek professional help. Beyond that, it might be beneficial for him to slowly transition into taking care of himself by learning how to do laundry and other tasks independently. This could be a learning experience for him and an opportunity for him to gain more independence.",
+    "log_prob": -88.97716795447946
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 2,
+    "response": "There is nothing wrong with his mother helping him with his laundry. It is his decision whether or not he feels embarrassed by it. Perhaps he is just used to having his mom do it and that is just the way he has always done it. It is also possible that he doesn't view it as a negative thing and it does not bother him. It could also just be that he is just not comfortable talking about it or he does not want to hurt his mother's feelings by telling her that he does not want her to do it anymore.",
+    "log_prob": -103.78703088316308
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 3,
+    "response": "It could be that he is simply too busy, or that he simply views it as a motherly gesture of love and kindness. It is impossible to know for sure without speaking to him directly.",
+    "log_prob": -36.89175743312808
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 4,
+    "response": "It is certainly unusual for a grown adult to rely on their mother to do their laundry, but it is not necessarily embarrassing. It could be a sign that he has a strong bond with his mother and that she is simply helping out. There could be other reasons why he is comfortable with this arrangement, such as physical or mental health issues that make it difficult for him to do the laundry himself. Perhaps this is something that he has discussed and agreed upon with his mother, or it could even be a sign of unfinished business with his mother from his earlier years. Until you know more about the situation, it is best to respect your friend's wishes and not comment on it.",
+    "log_prob": -113.14643338061182
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 5,
+    "response": "It could be that his mother's help is a source of comfort for him, or that he genuinely doesn't feel comfortable doing it himself. There are lots of reasons why people might allow their parents to do things for them, and it isn't necessarily a sign of shame or weakness. It might be more productive to approach the situation without judgement and ask him why he allows his mother to do it if he doesn't mind.",
+    "log_prob": -76.60207279404676
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 6,
+    "response": "It is understandable that you think this is embarrassing for your friend, however, every person is different and it is not uncommon for grown adults to have their mothers help them with everyday tasks, especially those related to personal care. Your friend may values the help and may not see it as an embarrassment.",
+    "log_prob": -56.990333517386034
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 7,
+    "response": "I'm sorry to hear that your friend is dealing with this situation. While some parents may continue to do their adult children's laundry out of a sense of love and support, it does sound like this could be causing your friend some embarrassment. It would be a good idea for your friend to open a dialogue with his mother about the expectations of adult autonomy in regards to household chores, and to gently assert that he would like to take over this responsibility himself.",
+    "log_prob": -97.84448847100464
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 8,
+    "response": "It is understandable to feel uncomfortable when your friend's mother is doing his laundry, but he may not be as bothered by it as you think. Millenials are often depicted as being over-dependent on their parents, but people in their late 40s are part of Generation X and may have had a different upbringing than younger generations. He may view the help from his mother as a sign of her love and support, and not feel ashamed or embarrassed.",
+    "log_prob": -79.93576150551871
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 9,
+    "response": "Nothing is wrong with him, it's a cultural thing. In some cultures, it is still seen as the mother's responsibility to take care of her adult son's laundry. It is important to remember that each culture has different values and norms, so what may seem embarrassing to you may not be for your friend.",
+    "log_prob": -40.5975146254608
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 10,
+    "response": "I don't think there is anything wrong with your friend. From what you have said, it sounds like his mother has been doing his laundry since he was young and it has become a routine that he is used to and doesn't feel the need to rebel against.",
+    "log_prob": -42.500924263680076
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 11,
+    "response": "Your friend's mother helping him with his laundry is a sign of her love and concern for him. It's not necessarily embarrassing, especially if it makes him feel comfortable and cared for. However, it may be something he should think about discussing with his mother in order to determine why she feels it is necessary and how he can learn to take over the task himself.",
+    "log_prob": -67.81787686864192
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 12,
+    "response": "There's nothing wrong with him - it's a personal choice and he may be too comfortable with the current arrangement. It could also be a situation in which his mom enjoys doing it and it elicits a strong sense of love and care, rather than being seen as a humiliating experience.",
+    "log_prob": -82.59508123306608
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 13,
+    "response": "Nothing is wrong with him, it's a personal choice. Each person has their own way of viewing such matters, and so it is acceptable to him.",
+    "log_prob": -44.83621384322828
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 14,
+    "response": "It could be that his mother does the laundry as a form of kindness and he sees no shame in it, or it could be that he just simply doesn't mind and doesn't want to come off as being too ungrateful. It could also be that he has other responsibilities that take up his time and energy and that he simply wouldn't be able to keep up with his laundry if his mother weren't helping. It is not uncommon for adults to rely on their parents for assistance, so it may be that your friend just isn't ready to be completely independent.",
+    "log_prob": -116.90443037682999
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 15,
+    "response": "It is understandable that you find this situation to be embarrassing, however, it is not your place to tell your friend how to manage his life. You should respect his decision, as long as he is happy and safe, and refrain from commenting on his lifestyle choices. If your friend is truly okay with this arrangement, then there is nothing you can do to change it.",
+    "log_prob": -59.598526372530614
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 16,
+    "response": "It could be that his mother does the laundry out of a sense of love and care, and he appreciates the help even if it is embarrassing. It also could be that he is comfortable and has refused other offers of help in the past. Whatever the case, it's his decision and his life and he should be afforded the same respect and autonomy that any adult would be.",
+    "log_prob": -82.12544008713758
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 17,
+    "response": "It's understandable that you might find this scenario a bit odd. However, it appears that there may be a deeper underlying issue at play here. His mother may be trying to help her son in a way that she feels is necessary, or it could be due to an inability to take care of himself. Whatever the case, it would be best to address this issue with your friend to figure out what the root of the problem is and how to approach the situation.",
+    "log_prob": -99.61110178360195
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 18,
+    "response": "There could be many reasons why your friend doesn't seem to mind his mother doing his laundry, including a lack of independence, simple lack of interest, or even a lack of financial resources. It could also be because he is comfortable with his mother doing it, or doesn't think of it as an embarrassing situation. The only way to know for sure is to ask him.",
+    "log_prob": -67.48473816182741
+  },
+  {
+    "uid": "eval211",
+    "prompt": "My friend is over 40 years and his mother still does his laundry for him. I think that's embarrassing but he doesn't seem to mind. What the hell is wrong with him?",
+    "candidate_id": 19,
+    "response": "It could be that your friend is simply not ready to take on the responsibility of doing his own laundry, or it could be that he is simply comfortable with his mother doing it. Either way, it's his decision and there is nothing wrong with him for feeling that way.",
+    "log_prob": -24.560722476770138
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 0,
+    "response": "The state with the highest violent crime rate is Louisiana, with a rate of 771.4 per 100,00 persons.",
+    "log_prob": -21.229668177144617
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 1,
+    "response": "The state with the highest violent crime rate is Louisiana, with 679 incidents per 100,000 people.",
+    "log_prob": -8.428011909958457
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 2,
+    "response": "According to the Federal Bureau of Investigation’s Uniform Crime Report, the state with the highest violent crime rate in 2019 was District of Columbia, with a rate of 1,428.3 incidents per 100,000 residents.",
+    "log_prob": -28.0050018608025
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 3,
+    "response": "The state with the highest violent crime rate is Mississippi, with 661 incidents per 100,000 people.",
+    "log_prob": -10.560439679862554
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 4,
+    "response": "The state with the highest violent crime rate is Illinois.",
+    "log_prob": -7.745308235559605
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 5,
+    "response": "The state with the highest violent crime rate is Missouri, with a rate of 609.7 incidents per 100,000 people.",
+    "log_prob": -15.239460575938324
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 6,
+    "response": "The state with the highest violent crime rate is Arkansas, with a rate of 647.8 incidents per 100,000 people. The US average is 364.3 incidents per 100,000 people.",
+    "log_prob": -23.742036899830794
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 7,
+    "response": "The state with the highest violent crime rate in the United States is Arkansas, with a rate of 617.8 incidents per 100,000 people.",
+    "log_prob": -12.961398737131503
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 8,
+    "response": "According to the FBI's 2019 Uniform Crime Report, the state with the highest violent crime rate is Louisiana, with a rate of 703.8 incidents per 100,000 people.",
+    "log_prob": -20.923699942047612
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 9,
+    "response": "According to the Federal Bureau of Investigation's Uniform Crime Report, the state with the highest violent crime rate is Oklahoma, with 616.5 offenses per 100,000 people.",
+    "log_prob": -26.911544778620275
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 10,
+    "response": "The State with the highest violent crime rate is Maryland, with 621.5 incidents per 100,000 residents.",
+    "log_prob": -24.7559593236399
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 11,
+    "response": "The state with the highest violent crime rate is Louisiana, with 667 incidents per 100,000 people.",
+    "log_prob": -6.549158206945663
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 12,
+    "response": "The state with the highest violent crime rate is Washington, D.C. with 1,901 incidents per 100,000 people.",
+    "log_prob": -15.634120669034473
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 13,
+    "response": "The state with the highest violent crime rate is Louisiana, with a rate of 658.0 incidents per 100,000 individuals.",
+    "log_prob": -14.567878634430826
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 14,
+    "response": "The state with the highest violent crime rate in the United States is Alabama.",
+    "log_prob": -8.54701381360519
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 15,
+    "response": "The state with the highest violent crime rate is Hawaii, with a rate of 477.9 per 100,000 persons.",
+    "log_prob": -20.260159438836922
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 16,
+    "response": "The state with the highest violent crime rate in the United States is Arkansas, with a rate of 887.8 violent crimes per 100,000 citizens.",
+    "log_prob": -22.180540574141276
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 17,
+    "response": "According to the FBI's 2018 crime report, the state with the highest violent crime rate is比 ville, Louisiana, with a rate of 774.6 incidents per 100,000 people. The state with the lowest violent crime rate is Maine, with a rate of 121.6 incidents per 100,000 people.",
+    "log_prob": -52.533594173794874
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 18,
+    "response": "Maryland has the highest violent crime rate in the United States, with 664 incidents per 100,000 people.",
+    "log_prob": -11.583710173556028
+  },
+  {
+    "uid": "eval407",
+    "prompt": "What state has the highest violent crime rate?",
+    "candidate_id": 19,
+    "response": "The state with the highest violent crime rate is Louisiana, with 804.9 incidents per 100,000 people.",
+    "log_prob": -15.963203669217478
+  }
+]

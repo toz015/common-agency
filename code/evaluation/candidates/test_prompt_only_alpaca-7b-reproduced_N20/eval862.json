@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 0,
+    "response": "I'm sorry, the bot does not have any information about mail carriers. You can contact your local post office for assistance.",
+    "log_prob": -21.97849983000907
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 1,
+    "response": "Did you try looking in your mailbox? Your mail carrier should have left a note indicating the date and time they delivered your package. If you still can't find them, you can also call the local post office to inquire about the status of your package.",
+    "log_prob": -32.72686115079114
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 2,
+    "response": "Have you tried contacting your local post office? They should be able to provide you with the name and contact information of your local mail carrier.",
+    "log_prob": -8.432594270697905
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 3,
+    "response": "Is your mail carrier named John? If so, he usually delivers mail around this time. You can also check your address on the USPS website to see who your local carrier is and their delivery schedule.",
+    "log_prob": -26.310730655757368
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 4,
+    "response": "You can contact your local post office to inquire about your mail carrier.",
+    "log_prob": -3.205144045328211
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 5,
+    "response": "Do you know the name of your mail carrier?",
+    "log_prob": -5.274344620304419
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 6,
+    "response": "Your local post office should be able to provide you with your mail carrier's name and information. You can also contact your local carrier's union for assistance.",
+    "log_prob": -14.788240591217857
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 7,
+    "response": "You can contact your local post office for assistance in locating your mail carrier.",
+    "log_prob": -6.725507369333627
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 8,
+    "response": "Your mail carrier should be listed on your postal address. You can also ask your family or neighbors if they know who your mail carrier is. You can also contact your local post office to inquire about your mail carrier.",
+    "log_prob": -25.239644389719786
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 9,
+    "response": "Have you tried looking around your neighborhood? Your mail carrier should have a distinctive uniform or other identifier that should help you spot them. You could also contact your local post office to find out the name and contact information of your mail carrier. Alternatively, you can also use the USPS tracking system to look up your mail carrier's delivery route and estimated delivery times.",
+    "log_prob": -60.42501645256459
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 10,
+    "response": "Your mail carrier's name is _______ and their contact information is _______.",
+    "log_prob": -10.998223617616304
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 11,
+    "response": "Did you try looking in your mailbox? Your mail carrier should have left a note regarding any packages or mail that needs to be signed for.",
+    "log_prob": -17.198041871336955
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 12,
+    "response": "Your local post office should be able to help you locate your local mail carrier. You can also contact the local post office and provide them with your address so they can look it up in their records and provide you with your mail carrier's contact information.",
+    "log_prob": -26.540701412177043
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 13,
+    "response": "Is your mail carrier named Mark? If so, their current route includes delivering mail to homes on L Street, First Avenue, and Broadway. You can also contact your local post office for their contact information.",
+    "log_prob": -48.236028195300435
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 14,
+    "response": "You can contact your local post office to find out who your mail carrier is.",
+    "log_prob": -3.8158079346753766
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 15,
+    "response": "You can find your local mail carrier by visiting the USPS website and entering your zip code.",
+    "log_prob": -11.5413034514321
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 16,
+    "response": "You can contact your local post office to find out who your mail carrier is.",
+    "log_prob": -3.8158079346753766
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 17,
+    "response": "I am sorry, I couldn't find the information that you need. I suggest that you contact your local post office to inquire about your mail carrier.",
+    "log_prob": -31.002952496859848
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 18,
+    "response": "Your mail carrier's name is [name].",
+    "log_prob": -6.922963652473982
+  },
+  {
+    "uid": "eval862",
+    "prompt": "I am looking for my mail carrier.",
+    "candidate_id": 19,
+    "response": "Your mail carrier should be wearing a uniform with a mail carrier logo and a name tag. You can also check with your local post office to see if they can provide any assistance.",
+    "log_prob": -21.653993122711995
+  }
+]

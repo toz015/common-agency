@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 0,
+    "response": "Yes, your current open accounts on your credit report are: [list of accounts].",
+    "log_prob": -5.849042660891428
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 1,
+    "response": "Your current open accounts on your credit report include your credit cards, loans, and lines of credit. It will also list any accounts that are currently being reported to the credit bureaus, such as mortgages, auto loans, and student loans. It will not include closed accounts, such as those that have been paid in full, or accounts that are no longer being reported.",
+    "log_prob": -38.93894708648735
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 2,
+    "response": "Yes, your current open accounts on your credit report include your mortgage, auto loan, credit card accounts, personal loans, and any other accounts that are reported to the credit bureaus. You can request a copy of your credit report from each of the three major credit bureaus (Experian, TransUnion, and Equifax) once a year at www.annualcreditreport.com.",
+    "log_prob": -37.46462626371635
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 3,
+    "response": "Your current open accounts on your credit report include the following:",
+    "log_prob": -7.950551906875262
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 4,
+    "response": "Your current open accounts on your credit report include credit cards, store cards, mortgages, and loans, among other accounts. The number of open accounts will vary from person to person, as each person has different types of accounts that they may have opened over the years. To view your current open accounts, you can obtain a free credit report from each of the three major credit bureaus every year at www.annualcreditreport.com.",
+    "log_prob": -47.07567619125484
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 5,
+    "response": "Your current open accounts on your credit report are:",
+    "log_prob": -6.506607750705371
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 6,
+    "response": "Your current open accounts on your credit report include accounts with credit card companies, banks, and other lenders. These accounts may include credit cards, personal loans, and lines of credit.",
+    "log_prob": -12.43830888024877
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 7,
+    "response": "Your current open accounts on your credit report include accounts with both positive and negative information. Positive information would include accounts that are current and in good standing, such as credit cards, auto loans, and student loans. Negative information would include accounts that are in default or have gone to collections, such as unpaid medical bills or unpaid fines. \n\nYou can access your credit report from each of the three major credit bureaus free of charge once every 12 months through www.annualcreditreport.com. You can also request a copy of your credit report from each bureau by contacting them directly. See www.consumer.ftc.gov/articles/0152-free-credit-reports for more information on how to request your credit report.",
+    "log_prob": -84.57893684355321
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 8,
+    "response": "Your current open accounts on your credit report include your credit card accounts, installment loan accounts, mortgage loans, student loans, and other miscellaneous accounts, such as store accounts.",
+    "log_prob": -26.364805011384647
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 9,
+    "response": "Your current open accounts on your credit report include credit cards, bank accounts, and other accounts such as retail accounts and utility accounts. You can view your current open accounts on your credit report by accessing your free credit report summary at www.annualcreditreport.com.",
+    "log_prob": -27.77234920824776
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 10,
+    "response": "Your current open accounts on your credit report include credit cards, loans, and other accounts that have been opened but are not yet closed.",
+    "log_prob": -7.528355586616954
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 11,
+    "response": "Your credit report likely contains information about your current open accounts, including credit cards, loans, and more. Information about your open accounts will be listed in a section of your credit report titled \"Account History\". This section will list all of your open accounts and the date you opened them, the current balance and the name of the creditor. It will also list the credit limit for each account, if applicable.",
+    "log_prob": -70.10691760994075
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 12,
+    "response": "Your current open accounts on your credit report include accounts with credit card companies, banks, and other lenders. These accounts may include credit cards, personal loans, auto loans, and mortgages.  Your report also shows the date each account was opened, the name of the creditor, the type of account, and the current balance for each account.",
+    "log_prob": -31.62752178572464
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 13,
+    "response": "The current open accounts on your credit report include credit cards, loans, and other revolving credit lines. You can view the details of your open accounts on your credit report by ordering a copy from a credit reporting agency. You can also visit each creditor's website to access your account information.",
+    "log_prob": -43.9390086536647
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 14,
+    "response": "Your current open accounts on your credit report are listed as follows: \n\n1. Bank of America Credit Card with a balance of $1,439\n2. Chase Credit Card with a balance of $4,561\n3. Barclaycard with a balance of $2,317\n4. Capital One Credit Card with a balance of $2,507\n5. Citibank Credit Card with a balance of $3,674\n6. Department Store Credit Card with a balance of $1,372\n7. Synchrony Bank Credit Card with a balance of $3,470\n8. Walmart Store Credit Card with a balance of $139\n9. Home Depot Credit Card with a balance of $1,606\n10. Macy's Store Credit Card with a balance of $1,705\n11. JC Penney Credit Card with a balance of $641\n12. ChatElCredoX Store Credit Card with a balance of $1,301\n13. RBFCU Credit Card with a balance of $3,905\n14. Old Navy Credit Card with a balance of $422\n15. Barnes & Noble Credit Card with a balance of $671",
+    "log_prob": -259.8321716032599
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 15,
+    "response": "Your current open accounts on your credit report include a credit card, store card, and any other type of accounts that are currently listed on your credit report.",
+    "log_prob": -24.33623769465703
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 16,
+    "response": "Your current open accounts on your credit report include accounts with a balance owed, as well as accounts that are closed or in collection. Some examples of open accounts include credit cards, store cards, personal loans, and mortgages.",
+    "log_prob": -26.81811605617667
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 17,
+    "response": "Your current open accounts on your credit report include your credit card accounts, loan accounts, and other credit accounts that are currently active. Your credit report also lists any collections or public records that have been reported to the credit bureaus.",
+    "log_prob": -24.0511784636019
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 18,
+    "response": "Your current open accounts on your credit report include one account with a bank, one account with a department store, and one account with a credit card company. There may be additional accounts that have been updated within the last 30 days.",
+    "log_prob": -22.658555780644747
+  },
+  {
+    "uid": "eval502",
+    "prompt": "Can you tell me my current open accounts on my credit report?",
+    "candidate_id": 19,
+    "response": "Your current open accounts on your credit report include accounts with credit card companies, banks, and other lenders. Some examples of open accounts include credit card accounts, store cards, installment loans, and mortgages. Your credit report will also show accounts that have been closed within the last two years.",
+    "log_prob": -26.271919118730466
+  }
+]

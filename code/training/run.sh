@@ -1,4 +1,4 @@
-cuda=0,1,2,3,4,5,6,7
+cuda=0
 exp_name=4r1_4r2_2epoch_0.5p
 
 lora_r2=4
@@ -67,7 +67,7 @@ accelerate launch --gpu_ids $cuda --main_process_port 29500 --num_processes $num
     --bf16=True \
     --max_prompt_length=512 \
     --max_length=1024 \
-    --report_to="wandb" \
+    --report_to="none" \
     --remove_unused_columns=False 
 
 echo "Finished training $output_dir"

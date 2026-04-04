@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 0,
+    "response": "I'll try. Can you tell me your friend's name and the High School you both attended?",
+    "log_prob": -21.02112032676098
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 1,
+    "response": "It depends on what information you have about your friend from High School. If you know their full name, their maiden name if applicable, and where they used to live during High School, we can try and look them up using online directories. If you only have a nickname or a partial name, it may be more difficult to locate them.",
+    "log_prob": -45.01399828676722
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 2,
+    "response": "Unfortunately, I'm not able to help you locate your friend from high school as social media platforms are not equipped to handle such requests. However, I would recommend searching for her through traditional means such as phone book or by using public records.",
+    "log_prob": -59.63725504340238
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 3,
+    "response": "Sure, I can help you find your friend from High School. First, let me ask you a few questions to help narrow down your search. What was her maiden name? Where did she live when you were in High School? What year did you graduate?\n\nOnce I have your answers, I can check out a few resources to help locate her. For instance, using social media platforms such as Instagram and Facebook, I can search for people with similar names in the same area you were in High School. Additionally, sites like White Pages and Spokeo may be able to provide current contact information for her. I'll also look through yearbooks, if available, to find any updated contact information that may have been provided by members of the school. \n\nI hope this helps and I can assist you in finding your friend from High School. Let me know if you have any other questions.",
+    "log_prob": -156.81147863558908
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 4,
+    "response": "I can try! Do you remember your friend's name and when/where you both attended High School?",
+    "log_prob": -21.083861759008357
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 5,
+    "response": "Sure, I can help you find your friend from High School. Do you remember her name or any other information that could help identify her?",
+    "log_prob": -12.500735953664389
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 6,
+    "response": "I can try to help you track down your friend from High School. The best way to do this is through online search engines, such as Google. Searching for her with phrases such as her name and hometown or her name and school can result in finding her social media profiles and other contact information. If you are not able to find her online, then you could also try searching public records, such as phone books or white pages, to obtain her mailing address or contact information.",
+    "log_prob": -96.5668918531751
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 7,
+    "response": "I can help you try to find your friend from High School. First, you can try looking through your old address book or Facebook friends list to see if you have her contact information. If not, you can search for her using an online people search engine or with public records databases. You can also try searching for her on social media platforms such as Facebook, Twitter, and Instagram. If all else fails, you can contact her family or former teachers to ask if they have any updated contact information for your friend.",
+    "log_prob": -66.23393816755288
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 8,
+    "response": "Sure, I can help you find your friend from High School. First, let me ask you a few questions to help me find the right information. What was your friend's maiden name? What High School did you both attend? What year did you graduate? Did your friend move away after you graduated or did she stay in the same area?",
+    "log_prob": -39.49136093587822
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 9,
+    "response": "Sure. You can try searching for your friend using an online people search engine, such as Pipl. You can also search for her on social media platforms, such as Facebook and Twitter. If you have a mutual friend, you could also ask them for her contact information.",
+    "log_prob": -39.54635813504456
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 10,
+    "response": "Sure, I can help you find your friend from High School. You can look through your contacts list or use an online people search engine to find her. If you know any details about her, such as her maiden name, current city or hobbies, you can also use those to narrow your search. Once you've found her, you can reach out to her through whatever contact information you have. Good luck!",
+    "log_prob": -54.7480021426436
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 11,
+    "response": "Gladly! I can help you find your friend from High School. The best way to find someone is through a people search service. A people search service can provide you with a person's name, current address, phone number, email address, etc. – all useful tools to track down someone. Additionally, you may want to search public records like birth records, death records, marriage records, and court records. Websites likewhitepages.com, pipl.com, and zapět.com are great resources for finding someone. Once you have this information, you can contact your friend and tell them how wonderful it is to hear from you!",
+    "log_prob": -147.31060426043928
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 12,
+    "response": "Yes, sure! We can use a people search engine to help you find your friend. You can provide the search engine with as much information as possible, such as your friend's name and any other personal details that may help narrow down the search results.",
+    "log_prob": -39.69790440744487
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 13,
+    "response": "I'd be happy to help you try and find your friend from High School. First, you can try reaching out to her via social media websites like Facebook and Twitter. If that doesn't work, you can also try searching through classmates.com, or searching through public records to get her contact information. Good luck!",
+    "log_prob": -49.644658890329765
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 14,
+    "response": "Sure, I can help you find your friend from High School. I can look up her contact information in the school's alumni database or try to locate her on social media.",
+    "log_prob": -17.355026110873553
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 15,
+    "response": "It may be possible to find your friend from high school with the help of social media. You can search for her on popular networks such as Facebook, Instagram, and Twitter, or use a people search engine to find her contact information. Alternatively, you may be able to obtain her contact information from another mutual friend.",
+    "log_prob": -50.313873203001094
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 16,
+    "response": "Sure! I can try to help you look for your friend from High School. First, you should try checking other social media platforms like Facebook or Instagram. You can also ask mutual friends if they know her contact information. If you are still unable to find her, you can try looking up her maiden name and using that to search for her in public records.",
+    "log_prob": -64.08875252816142
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 17,
+    "response": "I can help you try to track down your friend from High School. First, let’s look at online profiles - does she have a Facebook profile, Twitter handle, or any other online handles that you can look for her? You could also try calling some of the people from your old school to see if they know where she is. If you don't have any luck, you may want to try contacting the school and asking for help in locating your friend.",
+    "log_prob": -90.33280122269298
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 18,
+    "response": "Unfortunately, I cannot help you locate a specific person without more information. If you have an email address or other contact information for your friend, you could try searching online through social media or other public databases. Alternatively, you could try searching through school yearbooks or other High School records to find out more information about your friend.",
+    "log_prob": -53.45169149918365
+  },
+  {
+    "uid": "eval81",
+    "prompt": "I'd like to get a hold of a friend from High School, can you help me find her?",
+    "candidate_id": 19,
+    "response": "It may be possible to find your friend using online search tools such as social media networks, public records, and people search databases. You can also try contacting old classmates or teachers that may know where she is now.",
+    "log_prob": -40.6470244340162
+  }
+]

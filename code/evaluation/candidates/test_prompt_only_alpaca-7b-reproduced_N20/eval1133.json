@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 0,
+    "response": "Hello! It's so great to have you over. Please make yourself comfortable and let me know if there's anything you need.",
+    "log_prob": -11.130949743455368
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 1,
+    "response": "It is always a good idea to greet guests with a warm, genuine smile when they come over to your house. You could also offer them a cup of coffee or tea, and ask them to make themselves comfortable in the living room.",
+    "log_prob": -35.77457764859946
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 2,
+    "response": "Welcome! It's great to have you here!",
+    "log_prob": -4.543255705298854
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 3,
+    "response": "Welcome! It's so great to have you over! Make yourself comfortable and enjoy your stay.",
+    "log_prob": -9.7692865849234
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 4,
+    "response": "Welcome! It's so nice to have you over. Please make yourself comfortable and help yourself to whatever you need. I'm so happy you could come over!",
+    "log_prob": -17.413836706109223
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 5,
+    "response": "Welcome! It's so great to have you here! I'm so happy you could make it!",
+    "log_prob": -12.550290568912594
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 6,
+    "response": "You should greet your guests by offering them a warm welcome and giving them a tour of your house. You could also offer them something to drink and make sure they feel comfortable.",
+    "log_prob": -23.302087764346652
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 7,
+    "response": "It's always great to have guests over! A simple greeting would be \"Welcome! It's great to have you here!\" You could also offer them something to drink or food, ask them about their day, or offer them a tour of your home.",
+    "log_prob": -40.27873238701499
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 8,
+    "response": "You should welcome your guests with a warm greeting, such as \"welcome to my house\" or \"it's so great to have you here\". You could also offer them a drink, like a glass of water or some iced tea, and show them around your house.",
+    "log_prob": -44.76996181093909
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 9,
+    "response": "It is customary to offer guests a warm and welcoming greeting when they arrive at your house. Traditional greetings may include a handshake and a polite phrase such as, \"It's nice to meet you\", \"Welcome!\", \"Thank you for coming\", or \"I'm so glad you could make it\". Additionally, depending on the culture and customs of the guests, it is polite to ask them to take off their shoes before entering the house.",
+    "log_prob": -54.209900799558106
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 10,
+    "response": "You could greet your guests with a warm and friendly welcoming. Ask them about their day and inquire how you can help them relax. Offer them a drink and show them to their seats. Also, remember to make them feel comfortable and make them feel at home.",
+    "log_prob": -66.22630090954496
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 11,
+    "response": "Greet your guests warmly when they come over to your house. Exchange pleasantries like asking them how their day has been, or if there is anything they need help with. Make sure to offer refreshments like water, tea or coffee, and introduce them to any other guests who may be present. Let your guests know that they are welcome and appreciated.",
+    "log_prob": -61.19623326155971
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 12,
+    "response": "It is always a good idea to greet your guests warmly when they arrive at your house. You can say things like, \"Hello! It's so great to have you here!\" or \"It's so wonderful to see you!\" You can also offer your guests a nice beverage, like coffee or tea, and offer them something to eat, like a snack. This shows that you are happy to have them and are ready to take care of them.",
+    "log_prob": -65.99248559543491
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 13,
+    "response": "It is always a good idea to greet your guests warmly when they come over to your house. You could offer them a warm welcome by saying, \"It's so great to have you here! Please make yourself comfortable.\" A friendly smile and an invitation for them to take a seat is always appreciated.",
+    "log_prob": -37.91692047570734
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 14,
+    "response": "It is a pleasure to have you over. Welcome!",
+    "log_prob": -6.440844770058902
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 15,
+    "response": "Welcome! It's so great to have you here. Please make yourself comfortable and let me know if there's anything you need.",
+    "log_prob": -6.166381193426204
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 16,
+    "response": "Welcome! It's great to have you here. Please make yourself comfortable and let me know if you need anything.",
+    "log_prob": -6.287204239982877
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 17,
+    "response": "It is usually polite to welcome guests in a warm and friendly manner when they arrive at your house. You could say something like, \"Welcome to my house! Please come in, and make yourself comfortable.\" You could also offer them a beverage or a snack.",
+    "log_prob": -36.98548473696303
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 18,
+    "response": "Greet your guests when they come over to your house with a warm welcome and a hug. Ask them how their day has been and listen attentively to their answers. Make them feel comfortable and special.",
+    "log_prob": -28.733864660854977
+  },
+  {
+    "uid": "eval1133",
+    "prompt": "How should I greet guests when they come over to my house?",
+    "candidate_id": 19,
+    "response": "It is customary to greet guests with a warm welcome when they come over to your house. A simple, \"Hello! It's so great to have you here!\" would be a good way to kick off the visit. You could also offer them a refreshing drink or let them sit and relax in a comfortable chair while you get them settled in. An optional (and warm) gesture would be to offer them a tour of your home. This gives them an opportunity to get to know your place and feel welcome.",
+    "log_prob": -96.28056256304387
+  }
+]

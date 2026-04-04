@@ -43,6 +43,7 @@ with torch.no_grad():
 with open('./all.json', 'w') as f:
     json.dump(new_dataset, f)
 
+random.seed(42)
 random.shuffle(new_dataset)
 with open('./train.json', 'w') as f:
     json.dump(new_dataset[:8000], f)

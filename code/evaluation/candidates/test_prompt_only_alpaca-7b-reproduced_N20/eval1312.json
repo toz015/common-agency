@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 0,
+    "response": "Blankets are not used in friendly fire situations because they can easily be mistaken for hostile combatants and cause unnecessary casualties.",
+    "log_prob": -22.40493475695257
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 1,
+    "response": "Friendly fire is when a military unit accidentally fires upon its own troops. Blankets cannot prevent friendly fire, but they can help protect soldiers from the physical effects of being shot, such as shrapnel and other debris. Additionally, wearing a blanket can help distinguish friendly troops from enemy forces in certain conditions.",
+    "log_prob": -54.65347418000965
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 2,
+    "response": "Friendly fire victims can be identified by the absence of blankets as they will be wearing protective gear to prevent any injury from errant shots.",
+    "log_prob": -37.314234265420964
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 3,
+    "response": "The soldiers may be wearing protective gear that prevents them from getting too hot or too cold, so the blankets may not be necessary. Additionally, the friendly fire incident could have occurred in a hot climate, in which case using blankets would be unnecessary due to the high temperatures.",
+    "log_prob": -39.495585109915964
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 4,
+    "response": "Sometimes friendly fire accidents happen even when precautions are taken. In these cases, it is impossible to reduce the risk of friendly fire completely. In addition, some weapons such as guns and missiles do not generate much heat or smoke, making it difficult to tell them apart from enemy weapons in the darkness. That is why, even when friendly forces wear blankets, some accidents can still happen.",
+    "log_prob": -95.65771925991703
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 5,
+    "response": "Blankets are often used to identify friendly forces in combat and confuse enemy forces, but in this situation it is unclear who the actual enemy is. Using blankets would likely only lead to further confusion.",
+    "log_prob": -48.694935332854584
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 6,
+    "response": "Blankets are not used because friendly fire affects both parties, including those not directly involved in the fight. When enemies are shooting at each other, each side takes fire from the other and has the opportunity to grab a blanket in order to protect themselves. However, when friendly forces are shooting at each other, there is no such warning, and thus blankets are not used to avoid any possible unintentional injury.",
+    "log_prob": -120.01140899490747
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 7,
+    "response": "The military often uses ammunition designed to minimize collateral damage and friendly fire. This type of ammunition usually does not leave behind fragments which would cause injury from a blanket. Additionally, these types of ammunition often have a dull sound which would not cause alarm if it were mistakenly fired by friendly troops.",
+    "log_prob": -70.1045059411183
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 8,
+    "response": "The use of blankets can prevent friendly fire by making the vehicle or soldier more visible. However, in some situations, this may not be an option due to operational security or practical considerations. Additionally, some types of friendly fire are not preventable, such as when shots are fired from the ground or air to a target that is too close for the shooter to identify friend from foe.",
+    "log_prob": -78.78382880207118
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 9,
+    "response": "Friendly fire is when troops fire upon friends or allies instead of enemies. Blankets are not used to prevent friendly fire because this type of fire is accidental; it is not intentional, like enemy fire. Blankets can make it harder for troops to target their enemies, so they are not used to prevent friendly fire.",
+    "log_prob": -55.71530045109807
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 10,
+    "response": "The use of blankets is intended to avoid friendly fire, while in this situation the friendly fire has already occurred and the blankets would not be able to prevent further injury.",
+    "log_prob": -32.17452964597578
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 11,
+    "response": "This could be for a variety of reasons. Blankets are heavy and can be cumbersome to wear in combat. Furthermore, friendly fire blankets can be mistaken for hostile targets, especially in low visibility or at night. Some militaries have also experimented with using friendly fire retro-reflective tape, which can increase the visibility of friendly forces in the darkness. Regardless, every military unit must weigh the benefits of friendly fire protection against the practicalities of wearing a blanket in combat.",
+    "log_prob": -128.4318880635537
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 12,
+    "response": "Blankets are used to prevent friendly fire, but they are not always used. For example, if the friendly forces are in combat with an enemy force that is wearing body armor, blankets may not be sufficient to prevent the friendly forces from being injured. Therefore, other measures, such as marking targets or using colored smoke, may be used instead.",
+    "log_prob": -57.77431244975196
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 13,
+    "response": "Blankets are normally used to prevent friendly fire, but if the fire is accidentally caused by the soldier's own weapon, then the blanket won't be effective. Furthermore, blankets can only protect soldiers from small arms fire; they cannot protect them from more powerful weapons such as artillery or mortars.",
+    "log_prob": -59.6485834515247
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 14,
+    "response": "The soldiers may not have had blankets with them, or the blankets may not have been sufficient to stop the bleeding from the gunshot wounds. It’s also possible that they were in areas where the cold was too severe for blankets to be of much help. Additionally, gunshot wounds can cause severe bleeding that even blankets may be unable to stop.",
+    "log_prob": -63.29910702361167
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 15,
+    "response": "Blankets are often used to mark friendly units and distinguish them from enemy units. However, in this situation, the troops have not had time to set up markers or identify each other, so the mistake is likely due to thefog of war.",
+    "log_prob": -50.61481953926159
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 16,
+    "response": "Friendly fire situations are often very difficult to identify, even with the use of blankets. In some cases, the two sides may be so close to each other that the blankets cannot be used to clearly differentiate the two groups. Additionally, there can be instances in which the wrong color blanket is used in an attempt to hide, resulting in exposure instead of protection.",
+    "log_prob": -94.3304587098155
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 17,
+    "response": "Friendly fire situations can be difficult to distinguish, as the victims and perpetrators may be in close proximity. In order to minimize casualties, it is common for deployed soldiers to wear brightly colored clothing or armor so that their friends can easily identify them. Blankets are also typically used to highlight the area and clearly differentiate friendly soldiers from the enemy.",
+    "log_prob": -91.40972534051718
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 18,
+    "response": "The reasons why blankets are not used when it is friendly fire are multiple. Firstly, blankets can be easily ripped or torn, resulting in the casualties still being struck by stray bullets. Secondly, blankets can be misused by the enemy as a means of camouflage. Finally, blankets are heavy and cumbersome, making them difficult to transport and carry in combat situations. Instead, army personnel are trained to yell \"friendly!\" or \"non-combatant!\" when encountering an accidental target.",
+    "log_prob": -130.13788159467498
+  },
+  {
+    "uid": "eval1312",
+    "prompt": "Why aren’t they using blankets if it’s friendly fire?",
+    "candidate_id": 19,
+    "response": "The friendly fire incident might not have been intentional, so the people involved probably didn’t have blankets with them. They might have been in the middle of battle, and there wasn't enough time to grab a blanket before the shots were fired. Additionally, they might have been too far away from their base or military posts to get a blanket quickly.",
+    "log_prob": -84.47880796156915
+  }
+]

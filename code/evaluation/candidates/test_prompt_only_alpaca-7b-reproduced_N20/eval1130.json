@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 0,
+    "response": "The sun makes our hair lighter because the light from the sun is able to penetrate the hair follicles and change the chemical structure of the hair. This changes the color of the hair from darker to lighter. The sun makes our skin darker because the light from the sun is reflected back before it can penetrate the skin and thus has no effect on the color of the skin.",
+    "log_prob": -42.352306492233765
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 1,
+    "response": "The sun makes our hair lighter because when ultraviolet radiation from the sun hits our hair, the radiation changes the melanin in our hair follicles, causing the hair color to lighten. Meanwhile, the sun darkens our skin because when the UV radiation hits our skin, it causes the production of melanin to increase, leading to tanning or darkening of the skin.",
+    "log_prob": -43.23753837659251
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 2,
+    "response": "This is due to the Sun's UV radiation. The UV radiation that reaches the Earth's surface can penetrate the skin, but is too weak to penetrate the hair follicles. Therefore, the UV radiation only affects the color of the hair, making it lighter and more blonde. On the other hand, the UV radiation darkens the skin due to its higher absorbance of UV radiation.",
+    "log_prob": -48.57298155574972
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 3,
+    "response": "The sun’s ultraviolet radiation destroys pigment cells in the skin, known as melanocytes, causing the skin to darken. But the hair draws in the UV radiation, which weakens the pigment cells in the hair shaft, making the hair lighter.",
+    "log_prob": -60.8787754034897
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 4,
+    "response": "The sun makes our hair lighter because it is the ultraviolet radiation in sunlight that reacts with the melanin in our hair and causes it to become darker. Meanwhile, our skin absorbs the ultraviolet radiation and this leads to increased production of melanin, resulting in darker skin.",
+    "log_prob": -34.314290957868366
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 5,
+    "response": "The sun makes our hair lighter because the hair follicles absorb most of the UVA rays, which work to darken the pigment in the hair. The skin, however, absorbs most of the UVB rays from the sun, which work to darken the skin’s pigment, making it appear darker.",
+    "log_prob": -46.35261430006102
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 6,
+    "response": "The sun makes our hair lighter because the hair follicles are more sensitive to UV rays than the skin. The UV rays from the sun genetically alter the melanin in the hair follicles, which makes the hair lighter. However, the skin is more protected from the UV rays since it produces more melanin, which darkens the skin with greater exposure to the sun.",
+    "log_prob": -57.87531569562634
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 7,
+    "response": "The sun makes our hair lighter because the sun’s ultraviolet rays damage the pigment in hair, causing it to lighten. Meanwhile, the sun’s ultraviolet rays protect our skin from further damage, which causes it to darken.",
+    "log_prob": -31.68031772409708
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 8,
+    "response": "The sun makes our hair lighter because it is dormant melanin in the hair shaft that absorbs the ultraviolet light from the sun, thus darkening the hair strand. Meanwhile, it makes our skin darker because the melanin in our skin also absorbs the ultraviolet light from the sun, which is then darkened when it is exposed to oxygen in the atmosphere.",
+    "log_prob": -67.33750234176364
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 9,
+    "response": "The sun makes our hair lighter because the pigment in hair absorbs most of the sun's ultraviolet rays, which cause the hair to bleach. Our skin, however, absorbs the sun's ultraviolet rays as well as its visible light, which causes the skin to darken.",
+    "log_prob": -38.4734512384249
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 10,
+    "response": "The sun's ultraviolet radiation is responsible for lightening our hair and darkening our skin due to the greater absorption of UVA radiation by melanin, which is responsible for hair and skin color. UVA radiation is capable of penetrating deeper into the skin than UVB radiation, resulting in greater tanning and darkening of the skin.",
+    "log_prob": -49.64044513563999
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 11,
+    "response": "The sun's ultraviolet radiation can damage the cells in the top layer of skin. This causes more melanin to be produced, leading to darkness in the skin. However, the hair follicles in our scalp are protected by the hair itself and do not usually get damaged, resulting in lighter hair.",
+    "log_prob": -56.619473461421876
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 12,
+    "response": "The sun makes our hair lighter because the melanin in our hair absorbs much of the sun's UVB radiation, while our skin absorbs UVA and UVB radiation. The sun's UVA radiation increases the amount of melanin produced, which makes our skin darker.",
+    "log_prob": -33.287745722420254
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 13,
+    "response": "The sun's ultraviolet rays are responsible for the lightening of hair and darkening of skin. Ultraviolet rays contain energy which damages the hair cells, causing them to fall out and making hair lighter in color. Meanwhile, the skin acts as a barrier to protect the deeper layers from damage. The ultraviolet rays can penetrate the skin, but the deeper layers are protected, causing the skin to become darker in color.",
+    "log_prob": -70.11975434086474
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 14,
+    "response": "The sun's ultraviolet radiation causes chemical reactions in the skin, resulting in the darkening that we see. Meanwhile, the light hair strands absorb the radiation, leading to lighter coloration.",
+    "log_prob": -33.389057136903375
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 15,
+    "response": "The sun's ultraviolet rays darken our skin because the melanin in our skin is absorbing the energy from the sun. Meanwhile, the sun's UVA rays lighten our hair because these rays are not enough to darken our skin, but they are strong enough to lighten the melanin in our hair, making it appear lighter.",
+    "log_prob": -44.42746349536105
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 16,
+    "response": "The sun produces ultraviolet radiation, which is responsible for lightening our hair because it can penetrate the hair follicle and change the pigmentation. Meanwhile, the sun's radiation doesn't penetrate the skin as deeply, causing the skin to darken.",
+    "log_prob": -41.86037299046825
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 17,
+    "response": "The sun’s ultraviolet rays cause hair follicles to produce more melanin to protect the skin from UV damage. At the same time, the UV rays also darken the skin by damaging the melanin in the skin cells, resulting in a tan.",
+    "log_prob": -36.090172161528244
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 18,
+    "response": "The sun's ultraviolet rays cause chemical reactions with the melanin in our hair and skin. The rays make the melanin cells in our hair weaker, so the hair is lighter. Meanwhile, the melanin in our skin absorbs more of the rays, making the skin darker.",
+    "log_prob": -52.39308871014009
+  },
+  {
+    "uid": "eval1130",
+    "prompt": "Why does the sun make our hair lighter but make our skin darker?",
+    "candidate_id": 19,
+    "response": "The sun's ultraviolet radiation breaks down the melanin in our skin, which causes it to darken. Meanwhile, the sun's UV radiation has the opposite effect on our hair, which is why it becomes lighter when exposed to the sun.",
+    "log_prob": -22.263379422575326
+  }
+]

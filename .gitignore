@@ -1,0 +1,14 @@
+# Installers
+Miniconda3-*.sh
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# PDFs
+*.pdf
+
+# Evaluation cache / logs
+code/evaluation/cache/
+code/evaluation/sweep.log

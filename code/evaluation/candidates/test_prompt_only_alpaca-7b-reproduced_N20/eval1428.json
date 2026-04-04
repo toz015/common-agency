@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 0,
+    "response": "It's up to you whether or not you send Christmas cards to people you don't talk to often. If you have a friendly relationship with them, then sending them a card might be a nice way to reconnect. If you don't have a strong relationship, then it might be better to not send a card in order to avoid seeming like you're expecting something.",
+    "log_prob": -47.94102788009832
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 1,
+    "response": "If you have relationships with people that you care about, even if you don't talk often, I'd suggest sending them a Christmas card. It's a nice way to show you are thinking of them and that you care. However, if there are people you don't want to send a card to for whatever reason, you don't have to. It's completely your decision.",
+    "log_prob": -54.58241840265532
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 2,
+    "response": "If you want to send a Christmas card to someone but don't have regular contact with them, it's probably OK to do so. You can include a short note wishing them a Merry Christmas and saying that you hope their year has been going well. It will show that you are thinking of them during the holiday season.",
+    "log_prob": -58.947928351741666
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 3,
+    "response": "It's a great idea to send Christmas cards to people you care about, even if you don't talk to them often. Christmas cards are a fun way to stay connected and show you are thinking of them. You can always add a short personal message to the card to let them know you are thinking of them.",
+    "log_prob": -35.24538676214138
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 4,
+    "response": "It is always nice to show appreciation and spread holiday cheer by sending Christmas Cards. If you have contact with someone, even if it is limited, it might be nice to send them a card. It doesn't have to be a long or detailed message, just a brief greeting to show you are thinking of them during the holidays. If you feel more comfortable sending a digital greeting, you can also do that. Ultimately, it is up to you and what you are comfortable with.",
+    "log_prob": -76.79426373762522
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 5,
+    "response": "It is always nice to let people know you are thinking of them, even if you don't talk or communicate with them often. If you have a good relationship with them and see them happily during the holidays, it would be courteous to send them a Christmas card. If you don't have regular contact with them and don't see them often during the holidays, you may want to consider sending a more generic holiday email or card instead.",
+    "log_prob": -93.52795776195467
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 6,
+    "response": "Sounds like it might be a good idea to send cards to the people you are on good terms with and/or talk to regularly, but then also consider sending a more generic card to other acquaintances or people you may not talk to as often but still want to show goodwill towards during this festive time of year.",
+    "log_prob": -75.01533966225202
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 7,
+    "response": "It's totally up to you whether or not you send Christmas cards to people you don't talk to much. If you want to send them, it will be a nice gesture regardless of the amount of communication you have. If you're not sure, you could send a short message with the card to reconnect a bit.",
+    "log_prob": -42.16444436766437
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 8,
+    "response": "If you have a relationship with someone, it does not have to be close to warrant sending a card at Christmas. But if you are not sure, it may be best to leave them off your list.",
+    "log_prob": -42.35314352519981
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 9,
+    "response": "I think it's a nice gesture to send Christmas cards to people, even if you don't talk to them as much as you'd like. If it's a person who means a lot to you, it's a good way to stay in touch and show you are thinking of them. Even if it's only a brief exchange, it could mean a lot. So I'd say go for it, send out the cards and wish the person a merry Christmas.",
+    "log_prob": -83.27669152909527
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 10,
+    "response": "It's perfectly okay to not send Christmas cards to everyone. If you haven't been in contact with some people lately or don't talk to them often, it's understandable that you may want to skip sending them Christmas cards. Maybe consider sending them an email or text instead, to let them know that you are thinking of them during the holidays.",
+    "log_prob": -59.38331216290129
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 11,
+    "response": "It's okay to send Christmas cards to people with whom you might not have regular contact. It's still a nice way to acknowledge their presence in your life, even if it's not a regular part of your communication. It's like the saying goes, \"It is better to give than to receive,\" and sending a Christmas card is a way of giving even if you don't personally speak to that person often.",
+    "log_prob": -89.8503955578642
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 12,
+    "response": "It's completely up to you if you want to send Christmas cards to people you don't talk to often. If you want to maintain the relationship you have with these people, then it may be a nice gesture to send them a Christmas card. If you don't feel the need to communicate much, then it might be better to focus on sending cards to people you're closer with.",
+    "log_prob": -49.805140892084864
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 13,
+    "response": "It's a good idea to send Christmas cards to people you are close to and who are important to you. If there are people you are not sure about, you can always send a holiday greeting message instead of a card. Or, you can send a card with a brief note wishing them well for the season. Sending cards is a great way to stay connected and let people know you are thinking of them, so if you can, send cards to those you are closest to!",
+    "log_prob": -62.419405222377065
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 14,
+    "response": "If you're not sure you should send Christmas cards to certain people, it might be best to leave them off your list. When sending cards, it's often best to focus on those you have a strong connection with and talk to frequently, as cards are usually seen as a way to stay connected. Additionally, make sure the cards you send reflect your feelings for that person, as a generic card or one with a generic message may not be as meaningful.",
+    "log_prob": -84.55491389093584
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 15,
+    "response": "It depends on the relationship you have with those people. If you are not close with them, then it might not be appropriate to send Christmas cards. If you want to stay in touch with them, then you could send a holiday greeting card or an email instead.",
+    "log_prob": -30.371325098847592
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 16,
+    "response": "It's okay to send Christmas cards to people you're not in regular contact with, as long as you have some sort of relationship with them. You don't have to be best friends to send a card, as long as you have some connection. It can be a nice way to stay in touch and show them you're thinking of them. If you're not sure, you can just write a short note saying you're thinking of them and hope they have a great Christmas.",
+    "log_prob": -62.34248630911043
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 17,
+    "response": "It's up to you whether or not to send Christmas cards to people you don't talk to much. If you feel like it will make you feel more festive and cheerful to send cards to everyone, then go ahead. If you don't feel like it's necessary, then don't worry about it. In the end, it is your decision.",
+    "log_prob": -39.1035535187666
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 18,
+    "response": "If you are not sure if you should send Christmas Cards to someone, it might be beneficial to include a short personalized message on the card to indicate that you are thinking of them. That way, even if you don't communicate often, you can still demonstrate your holiday cheer.",
+    "log_prob": -54.983139165135526
+  },
+  {
+    "uid": "eval1428",
+    "prompt": "I am working on Christmas Cards and have a lot done, but there are some people I am not sure I should send cards to because I don't talk or communicate with them much.  What's your thoughts?",
+    "candidate_id": 19,
+    "response": "Sending Christmas cards to people you're not in regular contact with can be a nice way to maintain connection and show you care. However, if you don't talk or communicate much with certain people, you may want to reconsider. Think about whether or not it would be worth the effort for the small amount of joy it may bring. If it wouldn't, you can always skip them next year.",
+    "log_prob": -70.24456756601205
+  }
+]
