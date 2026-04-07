@@ -81,11 +81,11 @@ def load_model(dir_or_model, classification=False, token_classification=False, r
     original_model_name = model_name
 
     if classification:
-        model = AutoModelForSequenceClassification.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, use_auth_token=True, device_map=device_map)  # to investigate: calling torch_dtype here fails.
+        model = AutoModelForSequenceClassification.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, token=False, device_map=device_map)  # to investigate: calling torch_dtype here fails.
     elif token_classification:
-        model = AutoModelForTokenClassification.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, use_auth_token=True, device_map=device_map)
+        model = AutoModelForTokenClassification.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, token=False, device_map=device_map)
     elif rl:
-        model = AutoModelForCausalLMWithValueHead.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, use_auth_token=True, 
+        model = AutoModelForCausalLMWithValueHead.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, token=False,
                                                                   peft_config=peft_config, device_map=device_map)
     else:
         if model_name.endswith("GPTQ") or model_name.endswith("GGML"):
@@ -95,7 +95,7 @@ def load_model(dir_or_model, classification=False, token_classification=False, r
                                                         # use_triton=True, # breaks currently, unfortunately generation time of the GPTQ model is quite slow
                                                         quantize_config=None, device_map=device_map)
         else:
-            model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, use_auth_token=True, device_map=device_map)
+            model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True, torch_dtype=dtype, token=False, device_map=device_map)
 
     if is_lora_dir:
         try:
