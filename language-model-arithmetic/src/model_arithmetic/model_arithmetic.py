@@ -635,11 +635,14 @@ class ModelArithmetic(PreTrainedModel):
                 
         to_sample_indices = [i for i in range(len(continuation_tokens)) if all_kept[i] and not self.trigger_end[i]]
 
+        # Reset per-step chosen-token logprob buffer (one entry per current batch slot, None if not sampled).
+        self._last_chosen_logprobs = [None] * len(continuation_tokens)
         if len(to_sample_indices) > 0:
             # do batch sampling
+            pre_sample_lens = [len(continuation_tokens[i]) for i in to_sample_indices]
             all_required_histories = torch.stack([
                 self.create_sample_logprobs(
-                    self.logprobs_history[i][len(continuation_tokens[i])], 
+                    self.logprobs_history[i][len(continuation_tokens[i])],
                     temperature=temperature,
                     top_k=top_k,
                     top_p=top_p
@@ -647,7 +650,12 @@ class ModelArithmetic(PreTrainedModel):
             ])
             new_tokens = self.normal_sample(all_required_histories)
             for i in range(len(to_sample_indices)):
-                continuation_tokens[to_sample_indices[i]].append(new_tokens[i].item())
+                seq_idx = to_sample_indices[i]
+                tok = new_tokens[i].item()
+                # Capture log pi_PARM(token) under the BLENDED, pre-temperature distribution.
+                blended_logprobs = self.logprobs_history[seq_idx][pre_sample_lens[i]]
+                self._last_chosen_logprobs[seq_idx] = float(blended_logprobs[tok].item())
+                continuation_tokens[seq_idx].append(tok)
 
         for i in models_ran:
             self.model_last_token_prediction[i] = [len(continuation_tokens[j]) for j in range(len(continuation_tokens))]
@@ -739,7 +747,7 @@ class ModelArithmetic(PreTrainedModel):
         torch.cuda.empty_cache()
 
     def generate_text(self, sentences, max_new_tokens=1024, stop_texts=None, batch_size=None,
-                 temperature=1.0, top_p=1.0, top_k=0, num_return_sequences=1, do_speculation=False, use_cache=True, **kwargs):
+                 temperature=1.0, top_p=1.0, top_k=0, num_return_sequences=1, do_speculation=False, use_cache=True, return_token_logprobs=False, **kwargs):
         """Generates text based on the input params
 
         Args:
@@ -782,6 +790,7 @@ class ModelArithmetic(PreTrainedModel):
 
         generated_texts = ["" for _ in range(len(sentences))]
         generated_tokens = [[] for _ in range(len(sentences))]
+        token_logprobs = [[] for _ in range(len(sentences))]
         current_indices = [i for i in range(0, min(len(sentences), batch_size))]
         next_index = len(current_indices)
         
@@ -792,8 +801,13 @@ class ModelArithmetic(PreTrainedModel):
         while len(current_indices) > 0:
             start_time = time.time()
             generated_tokens_batch = [generated_tokens[index] for index in current_indices]
-            next_tokens = self.next_token_speculative(generated_tokens_batch, top_p, top_k, 
+            next_tokens = self.next_token_speculative(generated_tokens_batch, top_p, top_k,
                                                       temperature, speculation=do_speculation, use_cache=use_cache)
+            # Capture chosen-token logprobs (one per current_indices slot, may be None if not sampled this step).
+            step_chosen_logprobs = list(getattr(self, "_last_chosen_logprobs", [None] * len(next_tokens)))
+            for ci, lp in enumerate(step_chosen_logprobs):
+                if lp is not None:
+                    token_logprobs[current_indices[ci]].append(lp)
             for i in range(len(next_tokens)):
                 next_tokens[i] = self.run_retroactive_operators(i, next_tokens[i], temperature, top_k, top_p)
                 self.clear_model_prediction_history(i, next_tokens[i], temperature, top_k, top_p)
@@ -842,7 +856,9 @@ class ModelArithmetic(PreTrainedModel):
                     self.model_input_tokens[runnable_operator_id].set_inputs([start_sentences[index] for index in current_indices])
 
             self.monitor.add_result(element=time.time() - start_time)
-            
+
+        if return_token_logprobs:
+            return generated_texts, token_logprobs
         return generated_texts
 
     def generate(self, input_ids, attention_mask=None, do_sample=False, max_new_tokens=1024, 

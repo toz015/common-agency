@@ -47,7 +47,7 @@ def load_tokenizer(dir_or_model):
     return tokenizer
 
 def load_model(dir_or_model, classification=False, token_classification=False, return_tokenizer=False, dtype=torch.bfloat16, load_dtype=True, 
-                rl=False, peft_config=None, device_map="auto", adapter_name='adapter'):
+                rl=False, peft_config=None, device_map={"": 0}, adapter_name='adapter'):
     """
     This function is used to load a model based on several parameters including the type of task it is targeted to perform.
     

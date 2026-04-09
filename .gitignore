@@ -9,6 +9,14 @@ __pycache__/
 # PDFs
 *.pdf
 
-# Evaluation cache / logs
+# Evaluation cache / logs / generated artifacts
 code/evaluation/cache/
-code/evaluation/sweep.log
+code/evaluation/cache_parm/
+code/evaluation/candidates_parm/
+code/evaluation/candidates_parm_smoke/
+code/evaluation/candidates_parm_smoke_spec/
+code/evaluation/candidates/hh_rlhf_test_prompts_llama-7b-sft-float32_N20/
+code/evaluation/epec_results/
+code/evaluation/*.log
+code/evaluation/Untitled
+code/evaluation/pareto_compare.png
