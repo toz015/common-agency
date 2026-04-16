@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 0,
+    "response": "Yes, suspended Twitter accounts can be unlocked by providing proof of identification and relating to the reason for the suspension.",
+    "log_prob": -17.16748469041113
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 1,
+    "response": "There is no way to guarantee that your Twitter account will not be suspended, however there are steps you can take to try and remove the suspension. You should start by reading the Twitter rules and making sure that your account wasn't suspended due to a violation of those rules. If your account was suspended in error, you can file an appeal and provide evidence of your account's wrongful suspension.",
+    "log_prob": -57.509079598961186
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 2,
+    "response": "Yes, depending on the reason for the suspension, you may be able to appeal the suspension and have it lifted.",
+    "log_prob": -6.150754598000503
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 3,
+    "response": "Yes, suspensions can usually be lifted if the user contacts Twitter and provides a valid reason for the suspension to be lifted.",
+    "log_prob": -15.769178649305559
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 4,
+    "response": "Yes, you can. To get your Twitter account reinstated, you need to vigorously follow the Twitter's support tweak and submit a ticket to the Twitter support team. You will need to provide sufficient proof that you are the owner of the account, along with details about the suspicious activity, in order to get the suspension lifted.",
+    "log_prob": -74.09198263885628
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 5,
+    "response": "Yes, you can appeal the suspension from within the Twitter app by going into your Settings -> Account -> Appeal Suspension. You'll need to provide information about why the suspension should be lifted. Twitter will then review your appeal and either lift the suspension or provide an explanation as to why it cannot be lifted.",
+    "log_prob": -34.67084473648333
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 6,
+    "response": "Yes, it is possible to appeal a Twitter account suspension. To do so, you must visit the Help Center and fill out the online form. You will need to provide information about yourself and a detailed explanation of why you believe your account should not have been suspended. Twitter will review your appeal and will let you know whether or not they've overturned the suspension.",
+    "log_prob": -46.59431298440177
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 7,
+    "response": "Yes, you can file an appeal to have your Twitter suspension lifted if you feel that it was done in error. You will need to provide evidence to show why the suspension was wrongly implemented, and your account may be reinstated if Twitter determines that the suspension was unfair.",
+    "log_prob": -38.5308995029518
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 8,
+    "response": "Yes, you can appeal the suspension by going through Twitter's verification process. You can also reach out to Twitter for help if you believe your account was suspended in error.",
+    "log_prob": -14.569594846787822
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 9,
+    "response": "Yes, it is possible to get a suspended Twitter account reinstated. First, you'll need to appeal the decision to suspend the account. Twitter provides an online form for appealing a suspension. After submitting the form, you'll need to wait for a response from Twitter. You'll also need to follow any instructions provided to you in the suspension email. If the suspension was the result of a terms of service violation, you'll need to abide by Twitter's terms of service in order to have the suspension lifted. It is also important to note that it can take some time for Twitter to respond to suspension appeals, so it is important to be patient.",
+    "log_prob": -92.24191557720877
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 10,
+    "response": "Yes, you may be able to appeal the suspension of your Twitter account. To do so, you will need to visit Twitter's Help Center and fill out an online form to request reconsideration of the suspension. Twitter will review your account and decide whether to reinstate it. It is important to be honest and provide any relevant details when filling out the form. If your account is still suspended after the reconsideration, you can contact Twitter directly for more information and help.",
+    "log_prob": -63.85855714387367
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 11,
+    "response": "Yes, you can request an appeal of the suspension from Twitter and provide an explanation as to why your account should not have been suspended. If your account was suspended due to a violation of the Twitter rules or policies, you must ensure that you have corrected this violation before you can have the suspension lifted.",
+    "log_prob": -43.915681977719714
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 12,
+    "response": "Yes, if your Twitter account has been suspended, you may be able to appeal the suspension and get it removed. Generally, suspensions are only lifted if the user has violated Twitter's terms of service, so if you believe your account was suspended in error, you should contact Twitter customer service and provide evidence that the suspension was wrongfully enforced.",
+    "log_prob": -37.76351758098542
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 13,
+    "response": "Yes, you can appeal the suspension by providing verifiable information that proves your identity. If Twitter is unsatisfied with the verification, they may choose to keep the suspension in place.",
+    "log_prob": -23.36565952528929
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 14,
+    "response": "It depends on the reason for the suspension. If Twitter determines that the account was suspended due to a violation of the Twitter Rules, then the suspension cannot be appealed or reversed. However, if the suspension was the result of a mistake or an error, then Twitter may be willing to review the suspension and lift it if the violation has been resolved. It's best to contact Twitter customer support to inquire about the specific reason for the suspension and to ask how it can be resolved.",
+    "log_prob": -56.50288052079073
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 15,
+    "response": "Yes, you can appeal a suspension of your Twitter account by contacting Twitter Support.",
+    "log_prob": -12.929778963534545
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 16,
+    "response": "Yes, it is possible to get a suspended Twitter account reinstated. The first step is to contact Twitter customer service and provide evidence that the account was not being used in violation of the company's terms of service. If the suspension was caused by a mistake or technical error, the customer service team should be able to help resolve the issue and reinstate the account.",
+    "log_prob": -36.740556059309256
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 17,
+    "response": "Yes, you can appeal the suspension and provide evidence that the suspension was wrongfully issued. If your account was suspended due to a terms of service violation, you must follow the terms of service to have it reinstated. You may also be able to contact Twitter customer service to request that the suspension be removed.",
+    "log_prob": -46.166375381037824
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 18,
+    "response": "Yes, you can appeal the suspension by providing proof of identity and explaining why your account should not have been suspended. Once the suspension is lifted, you will be able to access your account.",
+    "log_prob": -15.717591669207536
+  },
+  {
+    "uid": "eval208",
+    "prompt": "If your Twitter account is suspended, can you get the suspension removed?",
+    "candidate_id": 19,
+    "response": "Yes, depending on the reason for the suspension, Twitter may be able to lift the suspension. You can contact Twitter Support to explain the situation and request a review of your suspension. Twitter will use discretion to consider the situation and make a determination regarding whether the suspension can be lifted.",
+    "log_prob": -57.54991649362955
+  }
+]

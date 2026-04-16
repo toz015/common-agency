@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 0,
+    "response": "The basic idea of card counting in blackjack is to keep a tally of the number of aces and high-value cards that have been dealt. High-value cards are useful for making strong hands, while aces can help you form blackjacks, which have a higher payout than other hands. Once you know the count, you can make better decisions when it comes to splitting, doubling down, and when to hit or stand.",
+    "log_prob": -63.457142017818114
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 1,
+    "response": "Yes, counting cards can help you win at blackjack. The basic idea is to keep track of the cards that have been dealt so that you can have an understanding of the proportion of cards that are in the deck and make an informed decision on when to hit, stand or double down. There are various card counting systems that you can use, but the most popular ones are the Hi-Lo and the KO Count. You can find detailed instructions and practice cards to get a better understanding of how to count cards. In addition, you can also use computer applications that can help track cards for you.",
+    "log_prob": -94.28938246138932
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 2,
+    "response": "Yes, counting cards can definitely give you an edge over the casino at blackjack. There are several card counting systems available, but the most popular and simplest one is the Hi-Lo count. To use this system, you just add one to your score whenever you see a ten or an ace and you subtract one whenever you see a card from two to six. \n\nOnce you know the value of the cards that have been dealt, you can use that information to make better decisions. Let’s say that the value of the cards on the table is more than the value that you need to have in order to win. You can then start to play more aggressively in order to get closer to 21 and increase your chances of winning. \n\nThe most important if you use card counting is to practice and keep track of your results so that you can make any adjustments needed. With a little practice, you can become a great blackjack card counter and increase your chances of winning.",
+    "log_prob": -163.9103499345518
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 3,
+    "response": "Counting cards is a technique that can help you increase your chances of winning at blackjack by letting you know when you have an advantage or a disadvantage. To count cards, keep a tally of the cards that have been dealt and what type of cards they are (e.g. suited vs. unsuited cards). Once you have an idea of what cards have been dealt, you can make an informed decision on whether to hit, stand, or double down. There are several methods of card counting, including the Hi-Low method, which can help you make the best decisions for winning at blackjack.",
+    "log_prob": -89.67144178712584
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 4,
+    "response": "Yes, counting cards can be a great way to help you win at blackjack. The basic premise of counting cards is to keep track of the high and low valued cards that have been dealt, so that you can make an informed decision on when to increase or decrease your wager. To do this, you should assign a value of +1 to 2, -1 to 3, 0 for 4, 0 for 5, and +1 for 6 and higher cards. Counting cards involves keeping track of the running total of these values, so that you can tell when you have an advantage and can increase your wager.",
+    "log_prob": -74.3833446536164
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 5,
+    "response": "Yes, counting cards can give you an edge at blackjack. The simplest card counting system is called \"basic strategy,\" which involves keeping a count of the number of high cards and low cards that have been dealt. Once you have a good understanding of basic strategy, you can increase the accuracy of your count by using more advanced techniques. For example, you could add the number of aces and twos that have been dealt, or use a reverse-counting system, which subtracts the counts instead of adding them.",
+    "log_prob": -66.2218025327602
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 6,
+    "response": "Counting cards is a way to track the cards that have been played and deduce what cards are likely to be left in the deck. This can be used to an individual's advantage if they know the right strategies. The most popular way to count cards is the Hi-Lo method, which involves keeping track of the number of high cards (aces and 10s) and low cards (2-9) that have been played. As the count gets higher, it is generally a good idea to bet more. However, it is important to remember that casinos have plenty of security measures in place and card-counting is not as easy as it seems.  Moreover, the casino may also be aware of card-counting and take steps to prevent it. It is generally recommended to learn advanced betting strategies instead.",
+    "log_prob": -136.79641296088585
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 7,
+    "response": "Counting cards is a legitimate way to gain an advantage when playing blackjack. The basic idea is to keep track of the cards that have been dealt, so that you can have an idea of which cards are still in the deck. You can use this information to make informed decisions about whether to hit, stand, split or double down. For example, if you know that there are a lot of cards left in the deck that are beneficial to you, you can be more aggressive in betting and increasing your winning chances. To learn more, you could read up on card counting systems or attend a course to learn how to count cards properly.",
+    "log_prob": -101.17549517601788
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 8,
+    "response": "Yes, counting cards can give you a strategic advantage over the house in blackjack. To learn how to count cards, you should start by getting familiar with the basic strategy for the game. After that, you can learn to keep track of the cards that have been dealt and use that information to make better decisions. There are several card-counting techniques that you can use, such as the hi-lo method and the kelly criterion. With a bit of practice, you can develop your own unique card-counting system that works best for you.  Good luck!",
+    "log_prob": -64.86393026733845
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 9,
+    "response": "Counting cards involves keeping track of the ratio of high cards to low cards that have been dealt in order to determine the probability of certain outcomes, like getting blackjack or winning a hand. It can be a difficult process to learn, but there are several resources available to help you practice and perfect the skill. We recommend seeking out online tutorials or books to help you learn how to get started.",
+    "log_prob": -83.10310497156786
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 10,
+    "response": "Yes, counting cards can be an effective way to improve your chances of winning at blackjack. There are a few card counting methods that you can use, such as the Hi-Lo method, which involves keeping track of the number of high cards and low cards that have been dealt with. By keeping track of the cards that have been played, you can gain an advantage and increase your chances of winning.",
+    "log_prob": -40.29739956786915
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 11,
+    "response": "Yes, counting cards can help you achieve a strategic advantage at blackjack. The most popular card counting system is the Hi-Lo system, which records the number of high cards and low cards in the deck. As cards are dealt, you add the value of each card dealt to the total of the running count. When the total runs high, it's usually a good time to hit or double down. When the count is low, it's a good time to stay or split. With practice, you should be able to count cards quickly and accurately in order to improve your odds of winning.",
+    "log_prob": -81.6150000634384
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 12,
+    "response": "Card counting is a strategy that can help you win at blackjack by recognizing the going trends in the cards and making those trends work to your advantage. Become familiar with the basic strategy of blackjack and learn how to keep count of the cards that have been dealt. Look for cards that are lower in number than average or cards that are of a certain value such as face or picture cards. As you get a better handle on the cards, you can start to make more intelligent decisions as to when to hit, stand or double down. Having a good grasp of card counting can be an invaluable tool in winning at blackjack.",
+    "log_prob": -168.40049334270702
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 13,
+    "response": "Counting cards in blackjack requires keeping track of the remaining cards in the deck and assigning a value to each card. The goal of card counting is to keep track of the cards that have been dealt so that you can make an informed decision on whether to hit or stand. To count cards successfully, you must keep track of the running count (the total number of high-value cards that have been dealt) and the adverse Count (the total number of low-value cards that have been dealt). \n\nTo learn more detailed strategies for card counting, there are a number of books and websites that you can explore.",
+    "log_prob": -117.54507270593399
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 14,
+    "response": "Counting cards can be useful when playing blackjack, but it is a complex strategy with many rules. To help you get started, it is recommended to practice basic card counting first. Start by just tracking the high and low cards (seeing if more cards have been dealt to the higher or lower-numbered boxes) and then move on to more intricate betting strategies. It may also be helpful to use a blackjack card-counting app on your phone to keep track of your count.",
+    "log_prob": -138.39776239753587
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 15,
+    "response": "Counting cards can definitely help you improve your chances of winning at blackjack. The most common way to count cards is known as \"basic card counting,\" which involves assigning a value to each card from two to ace (e.g., 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, Ace). The count starts at one and increases with each consecutive card of high value up to 10. \n\nWhen a card of low value (2-6) is played, the counter reduces his/her count by the value of the card. Conversely, when a card of high value (7-10, or an Ace) is played, the count increases by the value of the card. For example, if the count is two when an eight is played, the count would increase to 10.",
+    "log_prob": -130.00137497301205
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 16,
+    "response": "Yes, counting cards can indeed be an effective way to improve your odds of winning at blackjack. The most common counting system is known as the Hi-Lo system, which involves keeping track of the number of high and low cards that have been dealt. By keeping track of this information, you can gain an understanding of the current makeup of the remaining cards in the deck and make an informed decision on when to hit or stand. Additionally, you can keep track of certain cards, such as aces, which can be useful for strategic play.",
+    "log_prob": -69.70297283519221
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 17,
+    "response": "Yes, counting cards can give you an advantage at blackjack. To learn how to count cards, you can take a class or purchase books or videos which explain the process. Once you have mastered the fundamental strategy, you can begin to practice counting cards. As you learn, you can keep track of the cards you have seen in order to make informed decisions about when to make your bets.",
+    "log_prob": -70.22685718341154
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 18,
+    "response": "Yes. One way to count cards in blackjack is to create a system of symbols and counts to keep track of the number of cards of each value that have been dealt. You can then use this information to make a more informed betting decision. For example, if there are fewer low cards left in the deck you can increase your wager. Alternatively, if there are a lot of high cards left in the deck you can reduce your bets.",
+    "log_prob": -72.5577990132133
+  },
+  {
+    "uid": "eval1007",
+    "prompt": "I have heard that counting cards can help me win at blackjack.  Can you give me some advice on how to do that?",
+    "candidate_id": 19,
+    "response": "Yes, counting cards can help you win at blackjack. To do it, you need to assign a value to each card in the deck based on its order in the deck (for example, an ace is 1 point, a king is 1 point, etc.). Then, as cards are drawn, you need to keep track of the point total of the cards that have been seen. When the point total of the unseen cards exceeds a certain amount, you know it's likely that the dealer has a favorable hand and you should take additional steps to improve your chances of winning.",
+    "log_prob": -64.74178581875935
+  }
+]

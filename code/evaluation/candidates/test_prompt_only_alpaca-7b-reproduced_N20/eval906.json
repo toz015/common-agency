@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 0,
+    "response": "It depends on the situation. The law requires emergency vehicles to exercise due care in order to reach the destination as quickly as possible, however the driver may be obligated to help the person if it is safe to do so. If it is not safe to stop, the ambulance may continue on its route and the driver may be liable for administrative or civil penalties.",
+    "log_prob": -64.57540779927956
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 1,
+    "response": "No, the ambulance would not stop to help the person it knocked down. Its priority is to get to the patient in need as quickly as possible and it would not be able to do so if it stopped to help someone else.",
+    "log_prob": -12.364775000433148
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 2,
+    "response": "It depends on the situation. If the ambulance is on a priority call, it may not have time to stop, but if it is not on a priority call, it should stop to help whoever is in need.",
+    "log_prob": -25.34261092352955
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 3,
+    "response": "No, the ambulance would not stop to help the person it knocked down, as its priority would be to get to the person who needs medical attention as quickly as possible. However, the paramedics inside the ambulance would likely provide basic first aid to the person they had knocked down until more help arrives.",
+    "log_prob": -32.65351120418949
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 4,
+    "response": "No, the ambulance would not be required to stop to help the person it knocked down. Its priority is to reach the person who needs help as quickly as possible, so it would keep going.",
+    "log_prob": -13.269562756786847
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 5,
+    "response": "No, the ambulance would not be required to stop to help the person it knocked down. It is only obligated to assist the person for which it was originally called.",
+    "log_prob": -18.732032186297367
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 6,
+    "response": "It depends on the laws and regulations of the country. In most countries, the ambulance would have to stop in order to help the victim, as the paramedics' priority is to save lives.",
+    "log_prob": -29.86524405054501
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 7,
+    "response": "It depends on the situation. If the ambulance is on its way to save someone's life, it may not be able to stop. However, if it is able to stop, it should remain at the scene until help is rendered.",
+    "log_prob": -30.338458519487915
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 8,
+    "response": "No, the ambulance would not stop to help the person it knocked down. Its priority is to reach the person in need as quickly as possible.",
+    "log_prob": -4.9642008441598975
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 9,
+    "response": "The ambulance would have to stop in order to help the person it knocked down, depending on the severity of the situation. It is important to assess the situation and provide assistance when appropriate.",
+    "log_prob": -32.16310575688578
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 10,
+    "response": "No, the ambulance would not stop to help the person it knocked down. Its priority is to reach the person in need as quickly as possible and provide medical assistance.",
+    "log_prob": -9.70195239885765
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 11,
+    "response": "No, the ambulance wouldn't stop to help the person it knocked down. Its priority is to get to the patient that needs help as quickly as possible.",
+    "log_prob": -13.099905498616174
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 12,
+    "response": "No, the ambulance wouldn't stop in this situation because its priority is to save the person who needs help the most.",
+    "log_prob": -20.323501736938617
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 13,
+    "response": "No, the ambulance would not stop to help the person it knocked down. Its priority is to get to the person who needs help as quickly as possible.",
+    "log_prob": -4.551749230924081
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 14,
+    "response": "No, the ambulance would not stop to help them, as its priority is to get to the person who needs medical attention as quickly as possible. However, any responsible paramedics in the ambulance would make sure the person they knocked down is okay and safe, before continuing on their way.",
+    "log_prob": -35.366401194666864
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 15,
+    "response": "No, the ambulance would not stop to help the person it knocked down. Its priority is to reach the destination as quickly as possible to save the person who needs help.",
+    "log_prob": -8.017339546322766
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 16,
+    "response": "No, the ambulance would not stop to help the person it knocked down. Its main priority is to reach the person in need as quickly as possible.",
+    "log_prob": -7.3189608971863365
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 17,
+    "response": "No, the ambulance would not stop to help the person it knocked down since its priority is to reach the person in need as quickly as possible.",
+    "log_prob": -6.796975304427399
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 18,
+    "response": "No, it wouldn't. The ambulance is on its way to save someone else's life, so it would not be able to stop to help the person it knocked down.",
+    "log_prob": -12.994914013345571
+  },
+  {
+    "uid": "eval906",
+    "prompt": "If there’s an ambulance on its way to save someone and it knocks down someone, would it stop to help them?",
+    "candidate_id": 19,
+    "response": "No, the ambulance would not stop to help the person it knocked down. The purpose of the ambulance is to assist the person in need, not to stop to help someone else. The ambulance would only stop if there is an emergency medical personnel on board or if there is a medical emergency at the scene.",
+    "log_prob": -35.61681902666553
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 0,
+    "response": "The owners of the animal would ultimately decide whether you are allowed to keep it or not. You should consult them before making any decisions.",
+    "log_prob": -29.82385894505842
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 1,
+    "response": "It depends on the situation. If the animal is lost and needs help finding its owner, then it is generally not legal to keep the animal. However, if the animal is injured or abandoned, it may be legal to keep it, as long as you have the appropriate permits and training to take care of the animal. If the animal belongs to someone else but has strayed onto your property, it is generally best to contact the owner and let them claim their animal.",
+    "log_prob": -63.19327546790964
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 2,
+    "response": "It depends on the circumstances. If the animal came to your home as a lost or stray animal, then it may be possible to keep it. However, it is important to understand that you would become responsible for the animal, including providing food, shelter, and care. If the animal is owned by someone else and was brought to your home without permission, then it is probably against the law and you should not keep it.",
+    "log_prob": -61.542349744318926
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 3,
+    "response": "It depends on the situation. If the animal is lost or abandoned, then yes, you may keep it. However, if the animal is owned by someone else, then you should try to find the owner and return the animal to them.",
+    "log_prob": -15.363538870996308
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 4,
+    "response": "It depends on the situation. It is likely that you may not be allowed to keep the animal if it belongs to someone else, as it is likely that the animal has an owner. You should check with the animal's owner first before taking further action.",
+    "log_prob": -40.86869779041899
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 5,
+    "response": "No, you cannot keep another person's animal even if it comes to your home. It is illegal to keep someone else's animal without their permission.",
+    "log_prob": -12.02509076522665
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 6,
+    "response": "It depends on the animal, the circumstances, and local laws. You should check with an expert to find out if you are allowed to keep the animal if it comes to your home.",
+    "log_prob": -20.375808892749774
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 7,
+    "response": "No, it is not legal to keep someone else's animal without their permission.",
+    "log_prob": -6.185710069642937
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 8,
+    "response": "It depends on the situation. If the animal is lost and you find it, then yes you can keep it. However, if the animal is someone else's pet, then it is likely that you cannot keep it as it is not yours.",
+    "log_prob": -21.021793356063426
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 9,
+    "response": "It depends on the circumstances and the laws in your area. Generally, if someone else's animal has been lost or abandoned, the rightful owner should be contacted and the animal should be returned to them. If the animal was not owned by anyone, or if its owner cannot be located, then you may be able to keep the animal.",
+    "log_prob": -44.034817170871975
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 10,
+    "response": "It depends on the situation. If the animal is a pet that was lost or abandoned, then it is likely that you can keep the animal. However, if the animal is someone else's property that was simply trespassing on your property, then it is likely that you cannot keep the animal.",
+    "log_prob": -27.285897963959087
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 11,
+    "response": "No, you cannot keep someone else's animal unless you have permission from the owner. It is important to respect the ownership of animals and only have animals in your possession if you have legal permission to do so.",
+    "log_prob": -28.073350882378463
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 12,
+    "response": "No, you cannot keep someone else's animal even if it comes to your home. It is important to remember that animals belong to their owners, and only the owners have the right to decide whether or not to keep the animal.",
+    "log_prob": -24.88555553951801
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 13,
+    "response": "No, you cannot keep the animal that was brought to your home. It is the owner's responsibility to take care of their animal, and you cannot take on that responsibility.",
+    "log_prob": -17.520711232335316
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 14,
+    "response": "No, you cannot keep the animal if it does not belong to you. It is important to respect the animal's home and owner.",
+    "log_prob": -17.52610737414477
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 15,
+    "response": "It depends on the situation. It is generally not advisable to keep a animal that does not belong to you, as it could be dangerous or harmful in some way. If the animal was lost or abandoned and you found it, then it might be permissible to keep it. Additionally, if the animal's owner gave you permission to keep it, then it might be allowed. Always consult an expert in the relevant field before making a final decision.",
+    "log_prob": -49.65472502682917
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 16,
+    "response": "It depends on the situation. It is generally discouraged to keep an animal that does not belong to you, but there are some exceptions. For example, if the animal is lost and in need of help, it may be okay to keep it until it is found its way home. Additionally, if the animal is injured and you are able to provide the proper care, it may be okay to keep it as well. Make sure to research any legal guidelines or regulations that may apply to the situation before making a decision.",
+    "log_prob": -69.47103863446614
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 17,
+    "response": "It depends on the circumstances. If the animal has been lost or abandoned, you may be able to keep it. You should check with a local animal welfare organization or animal control to see if they can help find the animal's owner. If the animal has been sent to you as a gift, you should check with the sender to see if they expect you to return the animal. If you have no contact information for the sender, then it may be best to contact an animal welfare organization or animal control to check if the animal has an owner.",
+    "log_prob": -65.09226194086409
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 18,
+    "response": "It depends on the rules of your local area. It is generally illegal to keep another person's animal without their permission, but there may be exceptions. You should check with your local authorities to see what the rules and regulations are regarding this situation.",
+    "log_prob": -34.87700060802035
+  },
+  {
+    "uid": "eval464",
+    "prompt": "If someone elses animal comes to my home, can I keep it?",
+    "candidate_id": 19,
+    "response": "It depends on the circumstances. If the animal is lost and you find it, you are allowed to keep it until it is returned to its owner. However, it is generally not advisable to keep an animal that does not belong to you, as it could be a safety or legal issue. Additionally, some animals have special care requirements that you may not be able to provide. Therefore, it is best to check with an expert before deciding to keep an animal that belongs to someone else.",
+    "log_prob": -49.003377071496004
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 0,
+    "response": "You can track the websites that your employees are visiting with monitoring software, or you can ask them to specify the work-related purposes of their internet usage. You can also set certain restrictions on what websites they are allowed to visit.",
+    "log_prob": -39.62923193984852
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 1,
+    "response": "You can set up a system of monitoring on the network to detect any potential malicious activity. You can also set up a system of passwords and accounts for all of your employees to use, and regularly check these for any suspicious activity. Additionally, you can introduce a Bring Your Own Device policy, making sure that all devices must be registered and securely encrypted.",
+    "log_prob": -79.15612866205629
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 2,
+    "response": "You can monitor your employee's internet activity by setting up network traffic surveillance software or reviewing their browser history and other online activity. You can also set up a \"bring your own device\" (BYOD) policy, where employees use their own personal devices for work purposes. This allows you to set certain guidelines for acceptable use and enable your employees to only use the internet for work-related activities.",
+    "log_prob": -79.85961287526567
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 3,
+    "response": "You can track your employees' internet usage by installing monitoring software on your company's devices, setting up a firewall to block inappropriate websites, or setting up a separate internet connection for work purposes.",
+    "log_prob": -29.73318611227142
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 4,
+    "response": "You can monitor their internet activity to determine if employees are using the internet for work-related purposes only. You can also set up a policy prohibiting the use of non-work related websites, such as social media websites and streaming services. If a discrepancy is found, you can also ask your employees to explain their internet usage.",
+    "log_prob": -54.960873745322715
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 5,
+    "response": "You can use monitoring software or manually check the websites and internet activity of your employees to determine if they are using the internet for work-related purposes only. You could also set rules on the use of internet like restricting access to certain websites or limiting the amount of time spent on the internet. You could also talk to your employees and ask them if they are using the internet for personal purposes.",
+    "log_prob": -74.04682381823295
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 6,
+    "response": "You can monitor their internet activities with a web monitoring software to make sure they are only using the internet for work-related purposes. You can also set up a strict internet policy for all employees to ensure they are using the internet responsibly and productively.",
+    "log_prob": -42.99992640051278
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 7,
+    "response": "You can use monitoring software to track their internet activity and set parameters on what is and is not acceptable usage. You can also periodically audit their internet activity to see what sites they have been visiting and whether they are efficiently using their time.",
+    "log_prob": -55.54240572724393
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 8,
+    "response": "It can be difficult to tell if your employees are only using the internet for work-related use, as most websites can be accessed for personal purposes as well. One way to be sure is to implement a web monitoring software that can track what websites your employees are visiting and how much time they are spending on them. Additionally, you can set specific guidelines and policies limiting the use of personal websites during working hours.",
+    "log_prob": -63.95117041013623
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 9,
+    "response": "You can use web monitoring software to track and record the websites that your employees are accessing. If the majority of websites they are visiting are related to work, then you can be sure that they are using the internet for work-related activities. Additionally, you can use a software to limit the time they spend on non-work related websites.",
+    "log_prob": -47.93683675417924
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 10,
+    "response": "You can review the websites and applications that your employees are accessing to see if they are related to work. You can also set up documented policies and rules for internet use and regularly audit your employee's browsing activity. You can also use monitoring software to track their online activity.",
+    "log_prob": -59.4249766442465
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 11,
+    "response": "You can track how your employees are using the internet by setting up internet usage policies and monitoring their activity with a Network Performance Monitoring tool. You can set daily limits for internet usage and keep an eye on any sites or applications they visit. Additionally, you can set up employee accounts and track their activity to see if they are only using the internet for work-related activities.",
+    "log_prob": -83.99006662449528
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 12,
+    "response": "It can be difficult to monitor employee internet usage, but there are steps you can take to ensure that your employees are only using the internet for work-related activities. You can configure a system to track and log all internet activity, require employees to use a web filtering or monitoring solution to restrict access to certain websites, or install software that blocks access to inappropriate websites. Additionally, you can talk to your employees about the importance of staying productive and set expectations for their behavior.",
+    "log_prob": -88.07930750301963
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 13,
+    "response": "You can monitor employee internet activity by setting up a virtual private network (VPN) for work and requiring them to only access work-related websites and services through the VPN. You can also set up web filtering software to block certain websites and prevent employees from visiting non-work related sites. Additionally, you can also implement a time tracking system to monitor the time employees spend online.",
+    "log_prob": -62.75574350708939
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 14,
+    "response": "You can check your employees' browsing history to see if they are only visiting work-related websites. You can also set up a system to monitor their internet activity and block any websites that are not relevant to their job. Additionally, you can discuss with your employees the appropriate use of the internet and set rules and expectations regarding acceptable use.",
+    "log_prob": -45.13702134423443
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 15,
+    "response": "You can set up a policy of internet use that specifies what websites are allowed and track employees' activity on these websites through software. You can also keep an audit of the bandwidth used by each user and create a log to monitor what each user is downloading and uploading.",
+    "log_prob": -96.06192993419427
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 16,
+    "response": "You can restrict access to websites that are not work-related, monitor internet activities, set daily or weekly internet usage limits, and provide clear guidelines on acceptable use.",
+    "log_prob": -38.896012857855226
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 17,
+    "response": "By monitoring their internet activity, you can determine if your employees are only using the internet for work-related purposes.",
+    "log_prob": -13.522532588649483
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 18,
+    "response": "By setting up internet usage policies and tracking tools, you can set criteria for appropriate use of the internet and monitor the usage of employees. Regular conversations with employees as well as periodic reviews of activity can help you identify any abuse of the internet.",
+    "log_prob": -73.9542439025754
+  },
+  {
+    "uid": "eval1078",
+    "prompt": "How can I tell if my employees are only using the internet for work use?",
+    "candidate_id": 19,
+    "response": "You can track internet usage through your network or web traffic monitoring software. You can also observe employee behavior and check if they are only using internet for work-related purposes.",
+    "log_prob": -37.02834683738183
+  }
+]

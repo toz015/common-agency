@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 0,
+    "response": "As a hockey fan, it is understandable that fighting should be minimized if not completely eliminated. However, fighting is part of the game and has been since its inception. While implementing a five-game suspension for anyone involved in a fight is an interesting suggestion, it is unlikely to be implemented any time soon due to the code of conduct among players. Furthermore, a penalty of that magnitude likely would not be effective in deterring fighting, as large athletic men may be willing to accept the suspension in order to settle a score.",
+    "log_prob": -120.33578844145904
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 1,
+    "response": "I agree that fighting should carry a stiffer penalty to discourage the practice, although I can understand the argument that fighting does have a purpose in deterring further violence, as well as being a part of hockey culture. Perhaps a 10-game suspension would be a more appropriate punishment. Ultimately, though, I think that rule changes such as shorter shifts, fewer players on the ice, and video review of questionable hits can do more to discourage violent behavior than increasing the penalty for fighting.",
+    "log_prob": -116.14198803415343
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 2,
+    "response": "I agree that fighting shouldn't be part of hockey and that a five-game suspension would be a more appropriate penalty. It will be interesting to see if the NHL adopts a stricter penalty for fighting. Only time will tell!",
+    "log_prob": -34.308397057475304
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 3,
+    "response": "I agree that fighting in hockey should be discouraged and that a five-game suspension would be a more appropriate penalty than a five-minute penalty. However, this might be difficult to implement as the National Hockey League, the governing body of the sport, is reluctant to penalize fighting - as this could lead to players refraining from physical play, thereby decreasing the entertainment value of the game. Such a rule change might not be feasible without the support of the league itself.",
+    "log_prob": -105.21162414762273
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 4,
+    "response": "I understand your perspective, but I think hockey would lose a large part of its charm if fighting was removed completely. While I think a five-game suspension is reasonable, I think the currently instated five-minute penalty is sufficient in most cases.",
+    "log_prob": -57.88209355704021
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 5,
+    "response": "I agree that fighting in hockey should be discouraged, and a five-game suspension would deter it. As a fan, I think implementing stricter rules against fighting will make the game safer, and take away from the tarnished perception that fighting is encouraged in hockey.",
+    "log_prob": -70.3541230370023
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 6,
+    "response": "I understand your opinion on fighting in hockey, and agree that a five game suspension would likely decrease occurrences of fighting. However, it is also important to consider the positives that fighting has brought to the game. It can be seen as a form of protection or retaliation for another player, and has also created a sense of respect and intimidation between teams. It is a fundamental part of the culture of hockey, and reducing the penalties or officially forbidding fighting may be difficult to enact due to its embedded place in the sport.",
+    "log_prob": -154.00710940799627
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 7,
+    "response": "I understand your point of view and I think suspending a player for five games is definitely a strong punishment. However, it is important to consider both sides of the argument. On the one hand, fighting can be seen as a form of intimidation and a safety measure. Players that are willing to fight can protect their teammates and prevent retaliations from other teams. On the other hand, there is no need for players to get physical and it has been suggested that fighting may lead to more aggressive and violent behaviour. Ultimately, it is up to the NHL to decide what kind of punishment is appropriate for fighting.",
+    "log_prob": -119.19845215784721
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 8,
+    "response": "I think your suggestion of a five game suspension for any player involved in a fight is an interesting one. While I understand your viewpoint and opinion on the matter, I think it is important to consider the perspective of the other players, coaches, and fans. Fighting is incorporated into hockey to a certain degree, and while it may not be necessary it certainly is a part of the game’s culture. Thus, I believe that the current rule of a five-minute penalty is sufficient, as removing fighting altogether may lead to a decrease in the number of fans and players who enjoy the sport.",
+    "log_prob": -122.11331729124669
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 9,
+    "response": "I can understand your sentiment about fighting in hockey. While I don't agree that fighting should completely be eliminated from the game, I do agree that a 5-game suspension would likely serve as a significant deterrent. By increasing the penalty for fighting, the NHL could create a safer and more enjoyable environment for all hockey fans.",
+    "log_prob": -63.1084979873683
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 10,
+    "response": "It is understandable that as a hockey fan, you believe that fighting should result in a harsher penalty. It is a controversial point of view, but with the five-minute penalty currently in place, fighting may still be a part of hockey. If fighting continues, then it could be argued that the 5-game suspension is necessary to further discourage players from engaging in a fight.",
+    "log_prob": -91.49636715544545
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 11,
+    "response": "The NHL currently suspends players who fight off the ice for a period of five games. This suggests that the league does acknowledge that fighting has no place in hockey, and has tried to deter players from resorting to it. However, some players still believe that fighting is an effective way to settle disputes on the ice and will not be deterred by a five-game suspension. Therefore, it is up to the league, the teams, and the players to come together to find a solution that will ultimately reduce the amount of fighting in hockey. This could include more strict penalties for fighting, such as fines and suspensions, as well as increased education and awareness to discourage players from engaging in fighting. Additionally, the NHL could incentivize teams that have a low amount of fighting on their rosters, as this would promote a safer, more enjoyable game for fans.",
+    "log_prob": -173.30391383776038
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 12,
+    "response": "I understand why fighting bothers you as a hockey fan, and I personally disagree with it too. But I don't think increasing the penalty for fighting to a five-game suspension will eliminate it completely. Fighting is a part of hockey and is accepted by many players and fans as part of the game. Even with a five-game suspension, people will still fight. There are more effective ways of discouraging fighting, such as stricter rules enforcement from the officials and increased pressure from the league to discourage it.",
+    "log_prob": -100.97103631080131
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 13,
+    "response": "I understand your concern, but allowing fighting to be a part of hockey can be seen as a necessary evil. It does deter some of the more aggressive plays and goals that occur in a hockey game, although it could be seen as a modest penalty. There is no perfect solution, as some are of the opinion that fighting should completely be removed from the game. Until then, a five game suspension might be enough to deter players from engaging in fights.",
+    "log_prob": -128.73245913996107
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 14,
+    "response": "I think that the current system of penalties for fighting is not effective enough and that a five game suspension should be implemented. This would help minimize the amount of fighting in the game, while still allowing the players to police the ice and protect their teammates. On the other hand, if fighting was completely removed from hockey, it would also remove a certain element of the game's complexity and charm, as well as take away from some of the excitement of big hits and physical play. In my opinion, a balance needs to be found between the two.",
+    "log_prob": -124.43045139214746
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 15,
+    "response": "I agree that fighting should result in a longer suspension in order to discourage it from happening in hockey. Five games is a substantial amount of time and would certainly deter players from taking part in fights. It is unfortunate that fighting is still a part of hockey, but having a longer suspension for those involved could help reduce the number of fights in the future.",
+    "log_prob": -53.55336412180529
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 16,
+    "response": "I understand your viewpoint, but I disagree that fighting should be completely eliminated from hockey. Hockey is a physical sport and fighting can be a way to de-escalate tense situations and maintain order in the stands and on the ice. Certainly, if fighting is excessive or continues after a penalty has been awarded, then further action should be taken. But I don't believe a blanket five-game suspension should be enforced in all cases. As long as fighting does not excessively occur and is not done for retaliation, then I believe it should remain a part of hockey.",
+    "log_prob": -115.52826155080896
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 17,
+    "response": "I understand your concern, however, it is up to the players and their respective teams to decide if they want to reduce or eliminate fighting from the game. A five-game suspension may be excessive and could possibly result in more fighting as players look for more creative ways to settle scores without getting penalized. Ultimately, the NHL's decision on this matter will likely come down to player safety and how to best minimize violence in the arena.",
+    "log_prob": -89.51490556607769
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 18,
+    "response": "I agree that fighting should not be a part of hockey. However, I think that a five game suspension is too harsh and will discourage people from participating in hockey-related violence. I think that a more reasonable penalty would be a five minute penalty and a fine for any player involved in a fight. This is still harsh enough to discourage fighting in hockey, while not being so harsh as to make players think twice before defending themselves or their teammates.",
+    "log_prob": -80.22922036109216
+  },
+  {
+    "uid": "eval1059",
+    "prompt": "as a hockey fan it has always bothered me that fighting is allowed.  i know that anyone involved in a fight is generally given a five minute penalty. i don't think that's enough.  i believe fighting of any kind should result in a five game suspension.  i think fighting will disappear with that kind of penalty.  there is no need for fighting in hockey.",
+    "candidate_id": 19,
+    "response": "I agree with you that fighting should be penalized more heavily, and that fighting in hockey is unnecessary. Although some people might disagree, I believe that the prohibition of fighting in hockey would improve the sport and make it more enjoyable to watch. It would remove a major source of danger and aggression from the game and replace it with fair play and athleticism.",
+    "log_prob": -82.46662972401873
+  }
+]

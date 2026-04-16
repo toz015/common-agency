@@ -1,0 +1,142 @@
+[
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 0,
+    "response": "It depends on the food and the quality of the presentation. Some food items, such as gourmet burgers and ice cream, can look attractive and therefore warrant a payment. However, other food items may not be worth the price even if they are presented attractively.",
+    "log_prob": -47.388944057079584
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 1,
+    "response": "It depends on the quality of the food and the price.",
+    "log_prob": -4.723004162195139
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 2,
+    "response": "no",
+    "log_prob": -6.888903379440308
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 3,
+    "response": "I would not pay for food that looks like this as I would expect the food to look presentable and appetising.",
+    "log_prob": -16.36488430304962
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 4,
+    "response": "It depends on the quality of the food and the price. Generally, I would not pay for food that looks subpar.",
+    "log_prob": -11.959224064596128
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 5,
+    "response": "That depends on the quality of the food and the price. If the food is of good quality and the price is reasonable, then I would pay for it.",
+    "log_prob": -8.191624181346924
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 6,
+    "response": "It depends on the quality of the food and the price. If the food is of high quality and the price is reasonable, then I may be willing to pay for it.",
+    "log_prob": -11.277597878572124
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 7,
+    "response": "I would pay for food that looks presentable and appetizing. If the food looks visually appealing, I would be more likely to purchase it. Presentation is important in the food industry because it influences how the food is perceived. An attractive dish can increase the customer's confidence in the restaurant and make them more likely to return in the future.",
+    "log_prob": -60.87103094339895
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 8,
+    "response": "It depends on the food and the quality. If the food looks like it is of good quality and is something that I would normally buy, then I would pay for it.",
+    "log_prob": -16.75624884305398
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 9,
+    "response": "That depends on the circumstances. If I was paying for a meal out at a restaurant, I would expect the food to look at least somewhat presentable. However, if I was buying groceries from a farmer's market or a similar setting, then I would be more likely to give it a pass since the food probably appeared that way due to the lack of refrigeration or storage.",
+    "log_prob": -73.7245037318421
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 10,
+    "response": "No, I would not pay for food that looks like this.",
+    "log_prob": -1.2549481859850857
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 11,
+    "response": "It depends on the quality of the food. If the food looks appetizing and the price is reasonable, I would probably pay for it.",
+    "log_prob": -12.578035601326519
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 12,
+    "response": "It depends on what the food is and where it is from. If the food is of high quality, has a unique or exotic taste, and is from a reputable source, then I would probably be willing to pay for it.",
+    "log_prob": -33.24752821145904
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 13,
+    "response": "No, I would not pay for food that looks like this.",
+    "log_prob": -1.2549481859850857
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 14,
+    "response": "No, I would not pay for food that looks like this. The food looks unappetizing and unappealing, and I wouldn't want to consume it.",
+    "log_prob": -11.93369112938987
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 15,
+    "response": "No, I would not pay for food that looks like this.",
+    "log_prob": -1.2549481859850857
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 16,
+    "response": "No, I would not pay for food that looks like this. The food looks unappealing and the presentation is poor, so I would not want to consume it.",
+    "log_prob": -15.07035814201572
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 17,
+    "response": "No, I would not pay for food that looks like this.",
+    "log_prob": -1.2549481859850857
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 18,
+    "response": "It depends on the food and the quality of the presentation. I may pay for food that looks appealing and is presented in an artful way, as long as the cost is reasonable and the quality is good.",
+    "log_prob": -28.22859809553802
+  },
+  {
+    "uid": "eval316",
+    "prompt": "Would you pay for food that looks like this?",
+    "candidate_id": 19,
+    "response": "I would pay for food that looks appetizing and is presented in an orderly manner, regardless of its appearance.",
+    "log_prob": -16.201707582014933
+  }
+]
