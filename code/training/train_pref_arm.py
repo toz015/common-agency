@@ -78,9 +78,11 @@ class ScriptArguments:
     # tasks
     safe_obj: Optional[bool] = field(default=True, metadata={"help": ""})
     help_obj: Optional[bool] = field(default=True, metadata={"help": ""})
+    humor_obj: Optional[bool] = field(default=False, metadata={"help": "enable humor objective (HH-RLHF)"})
     # beta in loss
     beta_safe: Optional[float] = field(default=0.5, metadata={"help": ""})
     beta_help: Optional[float] = field(default=0.5, metadata={"help": ""})
+    beta_humor: Optional[float] = field(default=0.5, metadata={"help": "beta for humor objective"})
     #
     pref_sample_p: Optional[float] = field(default=1.0, metadata={"help": ""})
 
@@ -91,9 +93,9 @@ def get_PKU_SafeRLHF(
     obj_key=None
 ):
 
-    train_dataset = load_dataset("json", data_files='../data/train.json', 
+    train_dataset = load_dataset("json", data_files='../data/PKU-SafeRLHF/train.json',
             split='train', num_proc=num_proc)
-    test_dataset = load_dataset("json", data_files='../data/dev.json', 
+    test_dataset = load_dataset("json", data_files='../data/PKU-SafeRLHF/dev.json',
             split='train', num_proc=num_proc)
     original_columns = train_dataset.column_names
 
@@ -162,6 +164,51 @@ def get_PKU_SafeRLHF(
 
 
 
+def get_HH_RLHF(
+    data_dir: str = '../data/HH-RLHF',
+    sanity_check: bool = False,
+    num_proc=4,
+    obj_key=None
+):
+    train_dataset = load_dataset("json", data_files=f'{data_dir}/train.json',
+            split='train', num_proc=num_proc)
+    test_dataset = load_dataset("json", data_files=f'{data_dir}/dev.json',
+            split='train', num_proc=num_proc)
+    original_columns = train_dataset.column_names
+
+    if sanity_check:
+        train_dataset = train_dataset.select(range(min(len(train_dataset), 1000)))
+
+    def return_prompt_and_responses(sample, obj_key) -> Dict[str, str]:
+        labels = {
+            'safe': sample['safer_response_id'],
+            'help': sample['better_response_id'],
+            'humor': sample['funnier_response_id'],
+        }
+        # HH-RLHF prompts are already in "\n\nHuman: ...\n\nAssistant:" format
+        # Use directly — no additional template wrapping needed
+        return {
+            "prompt": sample["prompt"],
+            "chosen": sample["response_0"],
+            "rejected": sample["response_1"],
+            "labels": {obj: labels[obj] for obj in obj_key}
+        }
+
+    return_prompt_and_responses_with_version = lambda x: return_prompt_and_responses(x, obj_key)
+
+    return train_dataset.map(
+        return_prompt_and_responses_with_version,
+        batched=False,
+        num_proc=num_proc,
+        remove_columns=original_columns,
+    ), test_dataset.map(
+        return_prompt_and_responses_with_version,
+        batched=False,
+        num_proc=num_proc,
+        remove_columns=original_columns,
+    )
+
+
 if __name__ == "__main__":
 
     parser = TrlParser((ScriptArguments, ARMConfig))
@@ -178,15 +225,21 @@ if __name__ == "__main__":
     set_seed(training_args.seed)
 
     # 1. Load the preference dataset
+    training_args.obj_key, training_args.beta_obj = [], []
+    if script_args.safe_obj:
+        training_args.obj_key.append('safe')
+        training_args.beta_obj.append(script_args.beta_safe)
+    if script_args.help_obj:
+        training_args.obj_key.append('help')
+        training_args.beta_obj.append(script_args.beta_help)
+    if script_args.humor_obj:
+        training_args.obj_key.append('humor')
+        training_args.beta_obj.append(script_args.beta_humor)
+
     if script_args.preference_dataset in ["PKU_SafeRLHF"]:
-        training_args.obj_key, training_args.beta_obj = [], []
-        if script_args.safe_obj:
-            training_args.obj_key.append('safe')
-            training_args.beta_obj.append(script_args.beta_safe)
-        if script_args.help_obj:
-            training_args.obj_key.append('help')
-            training_args.beta_obj.append(script_args.beta_help)
         train_dataset, eval_dataset = get_PKU_SafeRLHF(dataset_name=script_args.preference_dataset, sanity_check=script_args.sanity_check, obj_key=training_args.obj_key)
+    elif script_args.preference_dataset in ["HH_RLHF"]:
+        train_dataset, eval_dataset = get_HH_RLHF(sanity_check=script_args.sanity_check, obj_key=training_args.obj_key)
     else:
         raise ValueError(f"Invalid preference dataset: {script_args.preference_dataset}")
 

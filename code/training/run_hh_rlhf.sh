@@ -1,24 +1,35 @@
 cuda=0
-exp_name=genarm_help_r4_2epoch
-objective=help
+exp_name=hh_rlhf_parm_4r1_4r2_1epoch_0.5p
 
+lora_r2=4
 lora_r=4
 lora_alpha=8
 
-beta=1e-2
+pref_sample_p=0.5
 
-epoch=2
+safe_obj=true
+help_obj=true
+humor_obj=true
+
+# beta_r = 0.001 as specified in PARM paper for HH-RLHF
+beta_safe=1e-3
+beta_help=1e-3
+beta_humor=1e-3
+
+epoch=1
+beta=5e-1
 learning_rate=5e-4
 bs=32
 per_device_train_batch_size=4
 
-model_name_or_path=PKU-Alignment/alpaca-7b-reproduced
+model_name_or_path=TinyLlama/TinyLlama-1.1B-Chat-v1.0
 
+###### the following is automatically set
 num_GPU=$(echo $cuda | awk -F, '{print NF}')
 gradient_accumulation_steps=$(($bs/$num_GPU/$per_device_train_batch_size))
-preference_dataset=PKU_SafeRLHF
+preference_dataset=HH_RLHF
 
-output_dir=./PKU-SafeRLHF/exp_genarm_help
+output_dir=./HH-RLHF/exp
 if [ -d "${output_dir}" ]; then
     echo -e "\n\n"
     echo "Error: Directory "${output_dir}" already exists. Please delete it or choose a new output_dir." >&2
@@ -26,11 +37,18 @@ if [ -d "${output_dir}" ]; then
 fi
 echo "Output dir: $output_dir"
 
-accelerate launch --gpu_ids $cuda --main_process_port 29500 --num_processes $num_GPU train_genarm.py \
+accelerate launch --gpu_ids $cuda --main_process_port 29500 --num_processes $num_GPU train_pref_arm.py \
     --preference_dataset=$preference_dataset \
-    --objective=$objective \
+    --pref_sample_p=$pref_sample_p \
     --lora_r=$lora_r \
+    --lora_r2=$lora_r2 \
     --lora_alpha=$lora_alpha \
+    --safe_obj=$safe_obj \
+    --help_obj=$help_obj \
+    --humor_obj=$humor_obj \
+    --beta_safe=$beta_safe \
+    --beta_help=$beta_help \
+    --beta_humor=$beta_humor \
     --model_name_or_path=$model_name_or_path \
     --beta=$beta \
     --learning_rate=$learning_rate \
@@ -52,7 +70,7 @@ accelerate launch --gpu_ids $cuda --main_process_port 29500 --num_processes $num
     --bf16=True \
     --max_prompt_length=512 \
     --max_length=1024 \
-    --report_to="none" \
+    --report_to="wandb" \
     --remove_unused_columns=False
 
 echo "Finished training $output_dir"

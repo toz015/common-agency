@@ -27,7 +27,7 @@ gradient_accumulation_steps=$(($bs/$num_GPU/$per_device_train_batch_size))
 preference_dataset=PKU_SafeRLHF
 # exp_name=$peft_type-$version-epoch_$epoch
 
-output_dir=./exp
+output_dir=./PKU-SafeRLHF/exp
 if [ -d "${output_dir}" ]; then
     echo -e "\n\n"
     echo "Error: Directory "${output_dir}" already exists. Please delete it or choose a new output_dir." >&2

@@ -18,7 +18,7 @@ num_GPU=$(echo $cuda | awk -F, '{print NF}')
 gradient_accumulation_steps=$(($bs/$num_GPU/$per_device_train_batch_size))
 preference_dataset=PKU_SafeRLHF
 
-output_dir=./exp_genarm_harm
+output_dir=./PKU-SafeRLHF/exp_genarm_harm
 if [ -d "${output_dir}" ]; then
     echo -e "\n\n"
     echo "Error: Directory "${output_dir}" already exists. Please delete it or choose a new output_dir." >&2
