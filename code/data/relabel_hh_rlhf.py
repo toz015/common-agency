@@ -42,7 +42,7 @@ def parse_args():
     parser.add_argument("--train_size", type=int, default=10000)
     parser.add_argument("--dev_size", type=int, default=1000)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--output_dir", type=str, default="./hh_rlhf")
+    parser.add_argument("--output_dir", type=str, default="./HH-RLHF")
     return parser.parse_args()
 
 
