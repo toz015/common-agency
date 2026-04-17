@@ -42,8 +42,8 @@ class ScriptArguments:
 def get_PKU_SafeRLHF(objective: str, sanity_check: bool = False, num_proc: int = 4):
     assert objective in {"help", "harm"}, f"objective must be help|harm, got {objective}"
 
-    train_dataset = load_dataset("json", data_files="../data/train.json", split="train", num_proc=num_proc)
-    eval_dataset = load_dataset("json", data_files="../data/dev.json", split="train", num_proc=num_proc)
+    train_dataset = load_dataset("json", data_files="../data/PKU-SafeRLHF/train.json", split="train", num_proc=num_proc)
+    eval_dataset = load_dataset("json", data_files="../data/PKU-SafeRLHF/dev.json", split="train", num_proc=num_proc)
     original_columns = train_dataset.column_names
 
     if sanity_check:
@@ -73,6 +73,33 @@ def get_PKU_SafeRLHF(objective: str, sanity_check: bool = False, num_proc: int =
     )
 
 
+def get_HH_RLHF(objective: str, sanity_check: bool = False, num_proc: int = 4):
+    assert objective in {"help", "harm", "humor"}, f"objective must be help|harm|humor, got {objective}"
+
+    train_dataset = load_dataset("json", data_files="../data/HH-RLHF/train.json", split="train", num_proc=num_proc)
+    eval_dataset = load_dataset("json", data_files="../data/HH-RLHF/dev.json", split="train", num_proc=num_proc)
+    original_columns = train_dataset.column_names
+
+    if sanity_check:
+        train_dataset = train_dataset.select(range(min(len(train_dataset), 1000)))
+
+    label_key = {"help": "better_response_id", "harm": "safer_response_id", "humor": "funnier_response_id"}[objective]
+
+    def map_sample(sample) -> Dict[str, str]:
+        chosen_id = sample[label_key]
+        rejected_id = 1 - chosen_id
+        return {
+            "prompt": sample["prompt"],
+            "chosen": sample[f"response_{chosen_id}"],
+            "rejected": sample[f"response_{rejected_id}"],
+        }
+
+    return (
+        train_dataset.map(map_sample, batched=False, num_proc=num_proc, remove_columns=original_columns),
+        eval_dataset.map(map_sample, batched=False, num_proc=num_proc, remove_columns=original_columns),
+    )
+
+
 if __name__ == "__main__":
     parser = TrlParser((ScriptArguments, DPOConfig))
     script_args, training_args = parser.parse_args_and_config()
@@ -82,11 +109,16 @@ if __name__ == "__main__":
     training_args.gradient_checkpointing_kwargs = {"use_reentrant": False}
     set_seed(training_args.seed)
 
-    if script_args.preference_dataset != "PKU_SafeRLHF":
+    if script_args.preference_dataset == "PKU_SafeRLHF":
+        train_dataset, eval_dataset = get_PKU_SafeRLHF(
+            objective=script_args.objective, sanity_check=script_args.sanity_check
+        )
+    elif script_args.preference_dataset == "HH_RLHF":
+        train_dataset, eval_dataset = get_HH_RLHF(
+            objective=script_args.objective, sanity_check=script_args.sanity_check
+        )
+    else:
         raise ValueError(f"Invalid preference dataset: {script_args.preference_dataset}")
-    train_dataset, eval_dataset = get_PKU_SafeRLHF(
-        objective=script_args.objective, sanity_check=script_args.sanity_check
-    )
 
     print(f"\nBefore filtering. Train: {train_dataset.num_rows}, Eval: {eval_dataset.num_rows}\n")
     train_dataset = train_dataset.filter(
