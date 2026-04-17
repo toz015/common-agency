@@ -90,10 +90,14 @@ def main():
     for w_help, w_harm in weights:
         helps, harms = [], []
         for uid, log_pi_base, q_help, q_harm in tqdm(prompts, desc=f"w_h={w_help}"):
-            q1 = w_help * q_help
-            q2 = w_harm * (-q_harm)  # cost → reward
-            q1 = q1 - q1.min()
-            q2 = q2 - q2.min()
+            q1 = q_help - q_help.min()
+            q2 = (-q_harm) - (-q_harm).min()  # cost → reward, shifted
+            if q1.max() > 0:
+                q1 = q1 / q1.max()
+            if q2.max() > 0:
+                q2 = q2 / q2.max()
+            q1 = w_help * q1
+            q2 = w_harm * q2
             pi_star = epec_one_prompt(log_pi_base, [q1, q2],
                                       tau=args.tau, eps=args.eps, max_iter=args.max_iter)
             helps.append(float(pi_star @ q_help))
