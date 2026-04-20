@@ -1,27 +1,14 @@
 """
 Relabel HH-RLHF data with three reward models for multi-objective PARM training.
 
-Reward models (loaded one at a time to fit on a single 24GB GPU):
-  - Helpfulness: PKU-Alignment/beaver-7b-v1.0-reward
-  - Harmlessness: PKU-Alignment/beaver-7b-v1.0-cost
+Reward models (matching PARM paper's HH-RLHF setup):
+  - Helpfulness: Ray2333/gpt2-large-helpful-reward_model
+  - Harmlessness: Ray2333/gpt2-large-harmless-reward_model
   - Humor:        mohameddhiab/humor-no-humor (text-classification pipeline)
 
 Randomly samples 12K from Dahoas/full-hh-rlhf train split, scores each
 (prompt, chosen) and (prompt, rejected) pair, assigns per-objective labels,
 then splits into 10K train / 1K dev / 1K test.
-
-Output format (per sample):
-  {
-    "prompt": str,          # multi-turn conversation context
-    "response_0": str,      # chosen response
-    "response_1": str,
-    "help_score_0/1": float,
-    "harm_score_0/1": float,
-    "humor_score_0/1": float,
-    "better_response_id": 0|1,   # higher helpfulness
-    "safer_response_id":  0|1,   # lower cost (more harmless)
-    "funnier_response_id": 0|1,  # higher humor
-  }
 """
 
 import gc
@@ -31,8 +18,7 @@ import random
 import argparse
 import torch
 from datasets import load_dataset
-from transformers import AutoTokenizer, pipeline
-from safe_rlhf.models import AutoModelForScore
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 from tqdm import tqdm
 
 
@@ -56,29 +42,28 @@ def get_humor_score(humor_pipe, text, max_length=512):
         return 1.0 - r["score"]
 
 
-def score_with_beaver(model_path, tokenizer, samples, template, score_key):
-    """Load a Beaver reward model, score all samples, then free GPU memory."""
+def score_with_ray2333(model_path, samples, score_key):
+    """Load a Ray2333 reward model, score all samples, then free GPU memory."""
     print(f"Loading {score_key} reward model: {model_path}")
-    model = AutoModelForScore.from_pretrained(
-        model_path, torch_dtype=torch.bfloat16, device_map="auto"
-    )
+    model = AutoModelForSequenceClassification.from_pretrained(model_path).to("cuda:0")
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
     model.eval()
 
     with torch.no_grad():
         for sample in tqdm(samples, desc=f"Scoring {score_key}"):
             for idx, resp_key in enumerate(["response_0", "response_1"]):
-                text = template.format(
-                    input=sample["prompt"].strip(), response=sample[resp_key]
-                )
-                input_ids = tokenizer(
-                    text, return_tensors="pt", truncation=True, max_length=2048
+                # HH-RLHF format: prompt already ends with "\n\nAssistant:"
+                # Response is the assistant's reply
+                text = sample["prompt"] + sample[resp_key]
+                inputs = tokenizer(
+                    text, return_tensors="pt", truncation=True, max_length=1024
                 ).to("cuda:0")
-                sample[f"{score_key}_score_{idx}"] = (
-                    model(**input_ids)["end_scores"][0][0].item()
-                )
+                score = model(**inputs).logits[0][0].item()
+                sample[f"{score_key}_score_{idx}"] = score
 
-    # Free GPU memory before loading next model
-    del model
+    del model, tokenizer
     gc.collect()
     torch.cuda.empty_cache()
     print(f"Done scoring {score_key}, freed GPU memory.\n")
@@ -108,18 +93,14 @@ def main():
             "response_1": row["rejected"],
         })
 
-    # ---- Beaver reward model template ----
-    template = "BEGINNING OF CONVERSATION: USER: {input} ASSISTANT:{response}"
-    tokenizer = AutoTokenizer.from_pretrained("PKU-Alignment/beaver-7b-v1.0-reward")
-
-    # ---- Score helpfulness (load, score, free) ----
-    score_with_beaver(
-        "PKU-Alignment/beaver-7b-v1.0-reward", tokenizer, samples, template, "help"
+    # ---- Score helpfulness (Ray2333, ~800MB, fits easily on GPU) ----
+    score_with_ray2333(
+        "Ray2333/gpt2-large-helpful-reward_model", samples, "help"
     )
 
-    # ---- Score harmlessness (load, score, free) ----
-    score_with_beaver(
-        "PKU-Alignment/beaver-7b-v1.0-cost", tokenizer, samples, template, "harm"
+    # ---- Score harmlessness (Ray2333, ~800MB) ----
+    score_with_ray2333(
+        "Ray2333/gpt2-large-harmless-reward_model", samples, "harm"
     )
 
     # ---- Score humor (small model, runs on CPU) ----
@@ -142,9 +123,9 @@ def main():
         d["better_response_id"] = (
             0 if d["help_score_0"] > d["help_score_1"] else 1
         )
-        # Lower harm cost = safer
+        # Higher harmless score = safer (Ray2333 convention: higher = more harmless)
         d["safer_response_id"] = (
-            0 if d["harm_score_0"] < d["harm_score_1"] else 1
+            0 if d["harm_score_0"] > d["harm_score_1"] else 1
         )
         d["funnier_response_id"] = (
             0 if d["humor_score_0"] > d["humor_score_1"] else 1
