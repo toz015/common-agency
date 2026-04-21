@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-RESULTS_DIR = "./results_hh"
+RESULTS_DIR = "./results/HH-RLHF"
 
 
 def load_all_results():
@@ -99,8 +99,8 @@ def main():
         ax.tick_params(labelsize=10)
 
     plt.tight_layout(w_pad=3)
-    plt.savefig("pareto_hh_rlhf_meeting.png", dpi=200, bbox_inches="tight")
-    plt.savefig("pareto_hh_rlhf_meeting.pdf", bbox_inches="tight")
+    plt.savefig("plots/HH-RLHF/pareto_hh_rlhf_meeting.png", dpi=200, bbox_inches="tight")
+    plt.savefig("plots/HH-RLHF/pareto_hh_rlhf_meeting.pdf", bbox_inches="tight")
     print("Saved pareto_hh_rlhf_meeting.png / .pdf")
 
 

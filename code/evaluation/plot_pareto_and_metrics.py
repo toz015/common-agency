@@ -21,7 +21,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 
-RESULTS_DIR = "./results_hh"
+RESULTS_DIR = "./results/HH-RLHF"
 
 
 def load_all_results():
@@ -106,7 +106,7 @@ def compute_mip_normalized(data_for_method, global_min, global_max):
     return mip / n
 
 
-def plot_pareto_figure3(data, output_path="pareto_hh_rlhf.png"):
+def plot_pareto_figure3(data, output_path="plots/HH-RLHF/pareto_hh_rlhf.png"):
     """Reproduce Figure 3: (a) 3D, (b-d) 2D projections."""
     methods = ["EPEC", "GenARM", "PARM"]
     colors = {"EPEC": "#e74c3c", "GenARM": "#3498db", "PARM": "#2ecc71"}
@@ -211,7 +211,7 @@ def main():
         print(f"{method:<15} {hv:>10.2f} {mip:>10.4f}")
 
     # Save
-    with open("hv_mip_results.json", "w") as f:
+    with open("metrics/HH-RLHF/hv_mip_results.json", "w") as f:
         json.dump(results_table, f, indent=2)
 
     # Score range per method (for discussion)
@@ -224,7 +224,7 @@ def main():
         ur = max(d["humor"] for d in md) - min(d["humor"] for d in md)
         print(f"{method:<15} {hr:>12.2f} {sr:>12.2f} {ur:>12.4f}")
 
-    print(f"\nSaved metrics to hv_mip_results.json")
+    print(f"\nSaved metrics to metrics/HH-RLHF/hv_mip_results.json")
 
 
 if __name__ == "__main__":

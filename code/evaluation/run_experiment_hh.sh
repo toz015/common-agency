@@ -7,7 +7,7 @@
 
 set -e
 LIMIT=200
-OUTPUT_DIR=./results_hh
+OUTPUT_DIR=./results/HH-RLHF
 
 # Preference settings
 PREFS=(

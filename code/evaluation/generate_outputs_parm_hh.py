@@ -26,7 +26,7 @@ def parse_args():
     p.add_argument("--max_new_tokens", type=int, default=256)
     p.add_argument("--max_length", type=int, default=512)
     p.add_argument("--datasets", default="../data/HH-RLHF/test_prompt_only.json")
-    p.add_argument("--output_dir", default="./results_hh")
+    p.add_argument("--output_dir", default="./results/HH-RLHF")
     p.add_argument("--cache_dir", default="./cache")
     p.add_argument("--limit", type=int, default=0)
     return p.parse_args()

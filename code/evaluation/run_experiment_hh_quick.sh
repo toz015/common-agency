@@ -4,7 +4,7 @@
 
 set -e
 LIMIT=50
-OUTPUT_DIR=./results_hh
+OUTPUT_DIR=./results/HH-RLHF
 
 PREFS=(
     "0.5 0.3 0.2"  # help-focused

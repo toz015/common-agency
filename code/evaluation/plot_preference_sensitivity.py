@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def load_results(results_dir="./results_hh"):
+def load_results(results_dir="./results/HH-RLHF"):
     """Load all mean_result.json files."""
     data = {}
     for name in sorted(os.listdir(results_dir)):
@@ -32,7 +32,7 @@ def load_results(results_dir="./results_hh"):
     return data
 
 
-def plot_sensitivity(data, output_path="preference_sensitivity.png"):
+def plot_sensitivity(data, output_path="plots/HH-RLHF/preference_sensitivity.png"):
     fig, axes = plt.subplots(1, 3, figsize=(18, 5.5))
     objectives = [("help", "Helpfulness Score", "help"),
                   ("harm", "Harmlessness Score (cost)", "harm"),
@@ -75,7 +75,7 @@ def plot_sensitivity(data, output_path="preference_sensitivity.png"):
     print(f"Saved to {pdf_path}")
 
 
-def plot_radar(data, output_path="preference_radar.png"):
+def plot_radar(data, output_path="plots/HH-RLHF/preference_radar.png"):
     """Radar plot showing range of each score per method."""
     methods = ["EPEC", "GenARM", "PARM"]
     objectives = ["help", "harm", "humor"]
