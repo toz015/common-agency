@@ -32,10 +32,17 @@ def load_all_results():
         if not os.path.isfile(p):
             continue
         d = json.load(open(p))
+        # Parse method name (handles EPEC_PARM, EPEC_GenARM, GenARM, PARM)
         parts = name.split("_")
-        method = parts[0]
+        # Find where alpha values start (first part starting with a digit)
+        alpha_start = 0
+        for i, part in enumerate(parts):
+            if part and part[0].isdigit():
+                alpha_start = i
+                break
+        method = "_".join(parts[:alpha_start])
         alphas = {}
-        for part in parts[1:]:
+        for part in parts[alpha_start:]:
             for obj in ["help", "harm", "humor"]:
                 if part.endswith(obj):
                     alphas[obj] = float(part.replace(obj, ""))
@@ -108,10 +115,10 @@ def compute_mip_normalized(data_for_method, global_min, global_max):
 
 def plot_pareto_figure3(data, output_path="plots/HH-RLHF/pareto_hh_rlhf.png"):
     """Reproduce Figure 3: (a) 3D, (b-d) 2D projections."""
-    methods = ["EPEC", "GenARM", "PARM"]
-    colors = {"EPEC": "#e74c3c", "GenARM": "#3498db", "PARM": "#2ecc71"}
-    markers = {"EPEC": "o", "GenARM": "s", "PARM": "^"}
-    labels = {"EPEC": "EPEC (ours)", "GenARM": "GenARM", "PARM": "PARM"}
+    methods = ["GenARM", "EPEC_GenARM", "PARM", "EPEC_PARM"]
+    colors = {"EPEC_GenARM": "#95a5a6", "GenARM": "#3498db", "PARM": "#2ecc71", "EPEC_PARM": "#e74c3c"}
+    markers = {"EPEC_GenARM": "x", "GenARM": "s", "PARM": "^", "EPEC_PARM": "o"}
+    labels = {"EPEC_GenARM": "EPEC+GenARM", "GenARM": "GenARM", "PARM": "PARM", "EPEC_PARM": "EPEC+PARM (ours)"}
 
     fig = plt.figure(figsize=(20, 5.5))
 
@@ -174,7 +181,7 @@ def plot_pareto_figure3(data, output_path="plots/HH-RLHF/pareto_hh_rlhf.png"):
 
 def main():
     data = load_all_results()
-    methods = ["EPEC", "GenARM", "PARM"]
+    methods = ["EPEC_PARM", "EPEC_GenARM", "GenARM", "PARM"]
 
     # --- Plot ---
     plot_pareto_figure3(data)

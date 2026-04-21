@@ -1,13 +1,27 @@
 """
-EPEC (Common-Agency) generation for HH-RLHF (3 principals: help, harm, humor).
+EPEC_PARM generation for HH-RLHF (3 principals: help, harm, humor).
 
-Per token: forward base LLM + 3 ARM forwards (TinyLLaMA with adapter switching),
-compute implicit rewards q^j = log π_ARM_j - log π_base on top-k actions,
-solve the 3-principal Common-Agency EPEC via Nonlinear Jacobi iteration,
-then greedy-sample from π★.
+Uses PARM's PBLoRA adapter as reward source — extracts per-objective rewards
+by setting pref_vec to unit vectors (1,0,0), (0,1,0), (0,0,1), then applies
+game-theoretic EPEC (Nonlinear Jacobi) aggregation.
+
+Combines PARM's jointly-trained cross-objective rewards with equilibrium
+aggregation for better multi-objective alignment.
+
+Per token:
+  1. Forward base LLM (LLaMA-2-7B-Chat) → log_base
+  2. Forward TinyLLaMA (no adapter) → log_tiny_base
+  3. Forward PARM with pref_vec=(1,0,0) → log_parm_help
+  4. Forward PARM with pref_vec=(0,1,0) → log_parm_harm
+  5. Forward PARM with pref_vec=(0,0,1) → log_parm_humor
+  6. Compute implicit rewards: q_j = log_parm_j - log_tiny_base on top-k
+  7. Scale by user preference α_j
+  8. Solve EPEC (Nonlinear Jacobi)
+  9. Greedy select from π★
 """
 import argparse
 import json
+import shutil
 import time
 from pathlib import Path
 
@@ -66,8 +80,18 @@ def epec_one_step(log_pi_base, q_list, tau=0.1, eps=1e-3, max_iter=5):
 
 # ---------- Model loading ----------
 
+def set_pref_vec(model, pref_vec):
+    """Set PBLoRA pref_vec parameter to given values."""
+    pref = torch.tensor(pref_vec)
+    for n, p in model.named_parameters():
+        if 'pref_vec' in n:
+            p.data = pref.to(p.device)
+            p.requires_grad = False
+
+
 def load_models(args, device):
-    """Load base LLM and TinyLLaMA with 3 adapters."""
+    """Load base LLM and TinyLLaMA with PBLoRA adapter."""
+    # Base LLM
     base_tok = AutoTokenizer.from_pretrained(args.base)
     if base_tok.pad_token is None:
         base_tok.pad_token = base_tok.eos_token
@@ -76,83 +100,94 @@ def load_models(args, device):
     )
     base_model.eval()
 
-    arm_tok = AutoTokenizer.from_pretrained(args.arm_base)
-    if arm_tok.pad_token is None:
-        arm_tok.pad_token = arm_tok.eos_token
-    arm_model = AutoModelForCausalLM.from_pretrained(
-        args.arm_base, torch_dtype=torch.bfloat16, device_map=device
+    # PARM model (TinyLLaMA + PBLoRA)
+    parm_tok = AutoTokenizer.from_pretrained(args.parm_base)
+    if parm_tok.pad_token is None:
+        parm_tok.pad_token = parm_tok.eos_token
+    parm_model = AutoModelForCausalLM.from_pretrained(
+        args.parm_base, torch_dtype=torch.bfloat16, device_map=device
     )
-    arm_model = PeftModel.from_pretrained(arm_model, args.help_adapter, adapter_name="help")
-    arm_model.load_adapter(args.harm_adapter, adapter_name="harm")
-    arm_model.load_adapter(args.humor_adapter, adapter_name="humor")
-    arm_model.eval()
+    parm_model = PeftModel.from_pretrained(parm_model, args.parm_adapter)
+    parm_model.eval()
 
-    return base_model, base_tok, arm_model, arm_tok
+    return base_model, base_tok, parm_model, parm_tok
 
 
 @torch.no_grad()
-def generate_epec(base_model, base_tok, arm_model, arm_tok,
+def generate_ecpc(base_model, base_tok, parm_model, parm_tok,
                   prompt_text, alpha_help, alpha_harm, alpha_humor,
                   max_new_tokens=256, k=50, tau=0.1, device="cuda"):
-    """Generate tokens via EPEC equilibrium decoding."""
+    """Generate tokens via EPEC_PARM: PARM rewards + EPEC equilibrium."""
     base_ids = base_tok(prompt_text, return_tensors="pt").input_ids.to(device)
-    arm_ids = arm_tok(prompt_text, return_tensors="pt").input_ids.to(device)
+    parm_ids = parm_tok(prompt_text, return_tensors="pt").input_ids.to(device)
 
-    base_cur, arm_cur = base_ids, arm_ids
-    pkv_base = pkv_arm_base = pkv_help = pkv_harm = pkv_humor = None
+    base_cur, parm_cur = base_ids, parm_ids
+    # Separate KV caches for each model state
+    pkv_base = None          # LLaMA-2-7B base
+    pkv_tiny_base = None     # TinyLLaMA no adapter
+    pkv_parm_help = None     # PARM with pref=(1,0,0)
+    pkv_parm_harm = None     # PARM with pref=(0,1,0)
+    pkv_parm_humor = None    # PARM with pref=(0,0,1)
+
     out_ids = []
     eos_id = base_tok.eos_token_id
     fwd_time = epec_time = 0.0
 
+    # Unit vectors for per-objective reward extraction
+    # Order matches training: safe, help, humor
+    pref_help = [0.0, 1.0, 0.0]   # pure helpfulness
+    pref_harm = [1.0, 0.0, 0.0]   # pure harmlessness (safe)
+    pref_humor = [0.0, 0.0, 1.0]  # pure humor
+
     for _ in range(max_new_tokens):
         t0 = time.time()
 
-        # Base LLM forward
+        # 1. Base LLM forward
         out = base_model(input_ids=base_cur, past_key_values=pkv_base, use_cache=True)
         log_base = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
         pkv_base = out.past_key_values
 
-        # ARM base forward (no adapter)
-        with arm_model.disable_adapter():
-            out = arm_model(input_ids=arm_cur, past_key_values=pkv_arm_base, use_cache=True)
-        log_arm_base = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
-        pkv_arm_base = out.past_key_values
+        # 2. TinyLLaMA base forward (no adapter)
+        with parm_model.disable_adapter():
+            out = parm_model(input_ids=parm_cur, past_key_values=pkv_tiny_base, use_cache=True)
+        log_tiny = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
+        pkv_tiny_base = out.past_key_values
 
-        # ARM help
-        arm_model.set_adapter("help")
-        out = arm_model(input_ids=arm_cur, past_key_values=pkv_help, use_cache=True)
+        # 3. PARM with pref=(0,1,0) → helpfulness reward
+        set_pref_vec(parm_model, pref_help)
+        out = parm_model(input_ids=parm_cur, past_key_values=pkv_parm_help, use_cache=True)
         log_help = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
-        pkv_help = out.past_key_values
+        pkv_parm_help = out.past_key_values
 
-        # ARM harm
-        arm_model.set_adapter("harm")
-        out = arm_model(input_ids=arm_cur, past_key_values=pkv_harm, use_cache=True)
+        # 4. PARM with pref=(1,0,0) → harmlessness reward
+        set_pref_vec(parm_model, pref_harm)
+        out = parm_model(input_ids=parm_cur, past_key_values=pkv_parm_harm, use_cache=True)
         log_harm = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
-        pkv_harm = out.past_key_values
+        pkv_parm_harm = out.past_key_values
 
-        # ARM humor
-        arm_model.set_adapter("humor")
-        out = arm_model(input_ids=arm_cur, past_key_values=pkv_humor, use_cache=True)
+        # 5. PARM with pref=(0,0,1) → humor reward
+        set_pref_vec(parm_model, pref_humor)
+        out = parm_model(input_ids=parm_cur, past_key_values=pkv_parm_humor, use_cache=True)
         log_humor = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
-        pkv_humor = out.past_key_values
+        pkv_parm_humor = out.past_key_values
 
         fwd_time += time.time() - t0
 
-        # EPEC solve on top-k actions from base LLM
+        # 6. EPEC solve on top-k actions from base LLM
         t0 = time.time()
         topk = np.argpartition(log_base, -k)[-k:]
-        lb = log_base[topk]
 
-        # Implicit rewards (ARM vocab may differ from base vocab)
-        vocab_min = min(len(log_base), len(log_arm_base))
+        # Handle vocab size mismatch
+        vocab_min = min(len(log_base), len(log_tiny))
         topk_valid = topk[topk < vocab_min]
         if len(topk_valid) < len(topk):
             topk = topk_valid
-            lb = log_base[topk]
+        lb = log_base[topk]
 
-        q_help = (log_help[topk] - log_arm_base[topk])
-        q_harm = (log_harm[topk] - log_arm_base[topk])
-        q_humor = (log_humor[topk] - log_arm_base[topk])
+        # Implicit rewards from PARM
+        q_help = log_help[topk] - log_tiny[topk]
+        q_harm = log_harm[topk] - log_tiny[topk]
+        q_humor = log_humor[topk] - log_tiny[topk]
 
         # Scale by alpha and shift to non-negative
         q_help = np.clip(q_help - q_help.min(), 0.0, None) * alpha_help
@@ -170,9 +205,9 @@ def generate_epec(base_model, base_tok, arm_model, arm_tok,
 
         base_cur = torch.tensor([[tok_id]], device=device)
         tok_text = base_tok.decode([tok_id])
-        arm_cur = arm_tok(tok_text, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
-        if arm_cur.numel() == 0:
-            arm_cur = torch.tensor([[arm_tok.unk_token_id or 0]], device=device)
+        parm_cur = parm_tok(tok_text, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
+        if parm_cur.numel() == 0:
+            parm_cur = torch.tensor([[parm_tok.unk_token_id or 0]], device=device)
 
     return base_tok.decode(out_ids, skip_special_tokens=True), fwd_time, epec_time
 
@@ -180,10 +215,8 @@ def generate_epec(base_model, base_tok, arm_model, arm_tok,
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--base", default="meta-llama/Llama-2-7b-chat-hf")
-    p.add_argument("--arm_base", default="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
-    p.add_argument("--help_adapter", default="../training/HH-RLHF/exp_genarm_help")
-    p.add_argument("--harm_adapter", default="../training/HH-RLHF/exp_genarm_harm")
-    p.add_argument("--humor_adapter", default="../training/HH-RLHF/exp_genarm_humor")
+    p.add_argument("--parm_base", default="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
+    p.add_argument("--parm_adapter", default="../training/HH-RLHF/exp")
     p.add_argument("--alpha_helpfulness", type=float, required=True)
     p.add_argument("--alpha_harmlessness", type=float, required=True)
     p.add_argument("--alpha_humor", type=float, required=True)
@@ -200,7 +233,7 @@ def main():
     args = parse_args()
     device = "cuda"
 
-    model_name = f"EPEC_GenARM_{args.alpha_helpfulness}help_{args.alpha_harmlessness}harm_{args.alpha_humor}humor"
+    model_name = f"EPEC_PARM_{args.alpha_helpfulness}help_{args.alpha_harmlessness}harm_{args.alpha_humor}humor"
     out_dir = Path(args.output_dir) / model_name
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "generation.json"
@@ -211,16 +244,17 @@ def main():
     if args.limit > 0:
         data = data[:args.limit]
 
-    base_model, base_tok, arm_model, arm_tok = load_models(args, device)
+    base_model, base_tok, parm_model, parm_tok = load_models(args, device)
     print(f"\nModel: {model_name}, Prompts: {len(data)}")
+    print(f"PARM adapter: {args.parm_adapter}")
 
     results = []
     tot_fwd = tot_epec = 0.0
     t0_all = time.time()
     for row in tqdm(data):
         start = time.time()
-        response, fwd_t, epec_t = generate_epec(
-            base_model, base_tok, arm_model, arm_tok,
+        response, fwd_t, epec_t = generate_ecpc(
+            base_model, base_tok, parm_model, parm_tok,
             row["prompt"], args.alpha_helpfulness, args.alpha_harmlessness, args.alpha_humor,
             max_new_tokens=args.max_new_tokens, k=args.k, tau=args.tau, device=device,
         )

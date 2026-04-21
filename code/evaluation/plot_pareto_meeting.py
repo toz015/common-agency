@@ -21,9 +21,14 @@ def load_all_results():
             continue
         d = json.load(open(p))
         parts = name.split("_")
-        method = parts[0]
+        alpha_start = 0
+        for i, part in enumerate(parts):
+            if part and part[0].isdigit():
+                alpha_start = i
+                break
+        method = "_".join(parts[:alpha_start])
         alphas = {}
-        for part in parts[1:]:
+        for part in parts[alpha_start:]:
             for obj in ["help", "harm", "humor"]:
                 if part.endswith(obj):
                     alphas[obj] = float(part.replace(obj, ""))
@@ -39,11 +44,11 @@ def load_all_results():
 
 def main():
     data = load_all_results()
-    methods = ["GenARM", "EPEC", "PARM"]
-    colors = {"EPEC": "#e74c3c", "GenARM": "#3498db", "PARM": "#2ecc71"}
-    markers = {"EPEC": "o", "GenARM": "s", "PARM": "^"}
-    labels = {"EPEC": "EPEC (ours)", "GenARM": "GenARM (Xu et al., 2025)", "PARM": "PARM (Lin et al., 2025)"}
-    sizes = {"EPEC": 100, "GenARM": 80, "PARM": 90}
+    methods = ["GenARM", "EPEC_GenARM", "PARM", "EPEC_PARM"]
+    colors = {"EPEC_GenARM": "#95a5a6", "GenARM": "#3498db", "PARM": "#2ecc71", "EPEC_PARM": "#e74c3c"}
+    markers = {"EPEC_GenARM": "x", "GenARM": "s", "PARM": "^", "EPEC_PARM": "o"}
+    labels = {"EPEC_GenARM": "EPEC+GenARM", "GenARM": "GenARM (Xu et al., 2025)", "PARM": "PARM (Lin et al., 2025)", "EPEC_PARM": "EPEC+PARM (ours)"}
+    sizes = {"EPEC_GenARM": 80, "GenARM": 80, "PARM": 90, "EPEC_PARM": 110}
 
     fig = plt.figure(figsize=(22, 6))
 

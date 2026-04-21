@@ -22,9 +22,14 @@ def load_results(results_dir="./results/HH-RLHF"):
             d = json.load(open(p))
             # Parse method and alphas from dir name
             parts = name.split("_")
-            method = parts[0]
+            alpha_start = 0
+            for i, part in enumerate(parts):
+                if part and part[0].isdigit():
+                    alpha_start = i
+                    break
+            method = "_".join(parts[:alpha_start])
             alphas = {}
-            for part in parts[1:]:
+            for part in parts[alpha_start:]:
                 for obj in ["help", "harm", "humor"]:
                     if part.endswith(obj):
                         alphas[obj] = float(part.replace(obj, ""))
