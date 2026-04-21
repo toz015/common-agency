@@ -1,0 +1,9 @@
+{
+  "method": "EPEC_0.3help_0.2harm_0.5humor",
+  "n_prompts": 50,
+  "total_seconds": 3730.5191190242767,
+  "fwd_seconds": 1577.8187184333801,
+  "epec_seconds": 2148.243929862976,
+  "tau": 0.1,
+  "k": 50
+}
