@@ -118,7 +118,7 @@ def plot_pareto_figure3(data, output_path="plots/HH-RLHF/pareto_hh_rlhf.png"):
     methods = ["GenARM", "EPEC_GenARM", "PARM", "EPEC_PARM"]
     colors = {"EPEC_GenARM": "#95a5a6", "GenARM": "#3498db", "PARM": "#2ecc71", "EPEC_PARM": "#e74c3c"}
     markers = {"EPEC_GenARM": "x", "GenARM": "s", "PARM": "^", "EPEC_PARM": "o"}
-    labels = {"EPEC_GenARM": "EPEC+GenARM", "GenARM": "GenARM", "PARM": "PARM", "EPEC_PARM": "EPEC+PARM (ours)"}
+    labels = {"EPEC_GenARM": "EPEC+GenARM", "GenARM": "GenARM", "PARM": "PARM", "EPEC_PARM": "EPEC+PARM"}
 
     fig = plt.figure(figsize=(20, 5.5))
 
