@@ -32,8 +32,8 @@ def main():
     p.add_argument("--pareto_csv",  default="pareto_n100.csv")
     p.add_argument("--epec_parm",   default="epec_sweep_w2s_PARM.json")
     p.add_argument("--epec_genarm", default="epec_sweep_w2s_GenARM.json")
-    p.add_argument("--epec_combined", default="epec_sweep_w2s.json",
-                   help="Optional combined N=22 sweep; pass '' to omit")
+    p.add_argument("--epec_combined", default="",
+                   help="Optional combined N=22 sweep path; default off. Pass a path to overlay.")
     p.add_argument("--out_png",     default="pareto_posthoc_epec.png")
     args = p.parse_args()
 

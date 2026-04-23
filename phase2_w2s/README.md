@@ -106,21 +106,8 @@ phase2_w2s/
 ├── setup_a100.sh                   <- one-time A100 env setup
 ├── deploy_n100_fill.sh             <- deploys run_n100_t512_fill.sh to a100-demo
 ├── deploy_n300_extend.sh           <- n=100 -> n=300 extension (uses --resume)
-├── run_n100_t512.sh                <- initial 3-α n=100 sanity
 ├── run_n100_t512_fill.sh           <- fills missing 8 α to reach 11-point sweep
 ├── run_n300_t512_extend.sh         <- accumulates 200 new prompts per α
-│
-├── # 8-bit exploration (abandoned; back on 4-bit)
-├── generate_outputs_8bit.py
-├── generate_outputs_genarm_8bit.py
-├── deploy_n50_8bit.sh
-├── run_n50_8bit.sh
-│
-├── # Drift-analysis helpers (for a separate investigation)
-├── show_drift_examples.py
-├── dump_drift_samples.py
-├── filter_drift_rescore.py
-├── drift_samples.txt
 │
 ├── # Data products
 ├── pareto_n100.csv                 <- flat CSV: method, α, help, harm, safety
@@ -128,10 +115,8 @@ phase2_w2s/
 ├── pareto_posthoc_epec.png         <- 4-curve overlay: 2 logit-sum + 2 EPEC
 ├── scored_candidates_w2s_PARM_N11.json    <- 100 × 11 candidates (PARM only)
 ├── scored_candidates_w2s_GenARM_N11.json  <- 100 × 11 candidates (GenARM only)
-├── scored_candidates_w2s_N22.json          <- 100 × 22 combined menu (oracle-ish)
 ├── epec_sweep_w2s_PARM.json        <- 11 EPEC points on PARM menu
 ├── epec_sweep_w2s_GenARM.json      <- 11 EPEC points on GenARM menu
-├── epec_sweep_w2s.json             <- 11 EPEC points on combined menu
 │
 └── results_n100_t512/              <- 22 dirs; per-prompt generations + Beaver scores
     ├── parm/PARM_<ah>help_<as>harm/{generation,reward_result,mean_result}.json
@@ -158,7 +143,7 @@ python epec_solve.py --scored scored_candidates_w2s_PARM_N11.json   --out epec_s
 python epec_solve.py --scored scored_candidates_w2s_GenARM_N11.json --out epec_sweep_w2s_GenARM.json
 
 # 3. Plot the 4-curve Pareto.
-python plot_posthoc_epec.py --epec_combined ""   # drop the N=22 oracle overlay
+python plot_posthoc_epec.py
 ```
 
 The EPEC solver is untouched from `fresh-start` — same Nonlinear Jacobi loop,
