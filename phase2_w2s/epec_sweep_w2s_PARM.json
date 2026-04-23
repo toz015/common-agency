@@ -1,0 +1,79 @@
+[
+  {
+    "w_help": 0.0,
+    "w_harm": 1.0,
+    "mean_help": 0.10876953125,
+    "mean_harm": -15.6790625,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.1,
+    "w_harm": 0.9,
+    "mean_help": 0.23064453125,
+    "mean_harm": -15.6571875,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.2,
+    "w_harm": 0.8,
+    "mean_help": 0.85509765625,
+    "mean_harm": -15.6121875,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.3,
+    "w_harm": 0.7,
+    "mean_help": 1.18712890625,
+    "mean_harm": -15.5115625,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.4,
+    "w_harm": 0.6,
+    "mean_help": 1.765869140625,
+    "mean_harm": -15.333125,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.5,
+    "w_harm": 0.5,
+    "mean_help": 2.717978515625,
+    "mean_harm": -14.549375,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.6,
+    "w_harm": 0.4,
+    "mean_help": 3.2654931640625,
+    "mean_harm": -14.1303125,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.7,
+    "w_harm": 0.3,
+    "mean_help": 4.0708447265625,
+    "mean_harm": -12.48671875,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.8,
+    "w_harm": 0.2,
+    "mean_help": 6.568870849609375,
+    "mean_harm": -3.8563671875,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 0.9,
+    "w_harm": 0.1,
+    "mean_help": 8.083992919921876,
+    "mean_harm": 5.9423046875,
+    "n_prompts": 100
+  },
+  {
+    "w_help": 1.0,
+    "w_harm": 0.0,
+    "mean_help": 8.162508544921875,
+    "mean_harm": 8.2285546875,
+    "n_prompts": 100
+  }
+]

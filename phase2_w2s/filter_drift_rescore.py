@@ -10,12 +10,22 @@ contains any of the leak markers below. Recompute mean help/harm over the
 clean subset and emit a new pareto_sanity_filtered.csv plus a side-by-side
 diff against the original means.
 """
+import argparse
 import json
 import re
 from pathlib import Path
 import csv
 
-ROOT = Path(__file__).resolve().parent.parent / "phase2_results" / "results_phase2_sanity"
+_DEFAULT_ROOT = Path(__file__).resolve().parent.parent / "phase2_results" / "results_phase2_sanity"
+
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--root", type=Path, default=_DEFAULT_ROOT,
+                 help="Results root containing parm/ and genarm/ subdirs.")
+_ap.add_argument("--tag", type=str, default="sanity",
+                 help="Suffix for output files: pareto_{tag}_filtered.(csv|png)")
+_args = _ap.parse_args()
+ROOT = _args.root
+TAG = _args.tag
 DRIFT_RE = re.compile(r"###\s*(Instruction|Response|Human|Assistant|Input)", re.IGNORECASE)
 
 CONFIGS = [
@@ -73,7 +83,7 @@ for sub, method, name, ah, ahm in CONFIGS:
     })
 
 # --- write CSV ---
-out_csv = ROOT / "pareto_sanity_filtered.csv"
+out_csv = ROOT / f"pareto_{TAG}_filtered.csv"
 with open(out_csv, "w", newline="") as f:
     w = csv.writer(f)
     w.writerow([
@@ -127,10 +137,10 @@ try:
                         fontsize=7, xytext=(4, 4), textcoords="offset points")
     ax.set_xlabel("help score (higher = better)")
     ax.set_ylabel("safety score = -harm (higher = better)")
-    ax.set_title("Phase-2 sanity Pareto: all vs drift-filtered")
+    ax.set_title(f"Phase-2 {TAG} Pareto: all vs drift-filtered")
     ax.legend()
     ax.grid(True, alpha=0.3)
-    out_png = ROOT / "pareto_sanity_filtered.png"
+    out_png = ROOT / f"pareto_{TAG}_filtered.png"
     fig.tight_layout()
     fig.savefig(out_png, dpi=130)
     print(f"\nwrote {out_png}")

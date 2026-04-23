@@ -82,6 +82,7 @@ def main():
     p.add_argument("--genarm_dir", required=True)
     p.add_argument("--output_png", required=True)
     p.add_argument("--output_csv", default=None)
+    p.add_argument("--n_per_cell", type=int, default=100, help="prompts per (method, alpha) cell — used in the plot title only")
     args = p.parse_args()
 
     parm = load_sweep(args.parm_dir,   "PARM")
@@ -116,9 +117,11 @@ def main():
 
     ax.set_xlabel("Helpfulness (Beaver-7B reward, higher is better)")
     ax.set_ylabel("Safety (= -Harm cost, higher is better)")
+    n_alphas = max(len(parm), len(gen))
     ax.set_title(
-        "Phase-2 Sanity — Weak-to-Strong PARM vs GenARM Pareto Front\n"
-        "(50 prompts × 3 α ∈ {0.2, 0.4, 0.8}, 4-bit GPTQ Alpaca-65B base + 7B ARM)"
+        f"Phase-2 — Weak-to-Strong PARM vs GenARM Pareto Front\n"
+        f"({args.n_per_cell} prompts × {n_alphas} α ∈ [0, 1], "
+        f"4-bit GPTQ Alpaca-65B base + 7B ARM)"
     )
     ax.grid(True, alpha=0.3)
     ax.legend(loc="best")
