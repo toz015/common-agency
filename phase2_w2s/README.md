@@ -13,10 +13,10 @@ This branch contains:
    candidate pool and runs the Nonlinear-Jacobi EPEC solver
    (`epec_solve.py`, ported verbatim from `fresh-start`) over a weight sweep.
    No new GPU work required — runs in ~1 minute on CPU.
-3. **Inline EPEC (abandoned)** — per-token EPEC generators
-   (`generate_outputs_epec_{parm,genarm}_w2s.py`) adapted to the 65B-4bit
-   stack. Kicked off once; projected 60+ hours at current pace; killed in
-   favor of the post-hoc approach. Kept in-repo for reference.
+
+An earlier per-token (inline) EPEC path was prototyped and observed to be
+~5 orders of magnitude slower than the post-hoc path; those files have been
+removed from this branch. See git history if needed.
 
 ---
 
@@ -82,8 +82,6 @@ Weight=0.5 example:
 - **Logit-sum fill (8 α × 2 methods × n=100 × 512 tok):** ~12 h on 1× A100-80GB.
   Breakdown in `runtime_analysis_n100_fill.md`.
 - **Post-hoc EPEC sweep:** ~1 s / weight on CPU (laptop).
-- **Inline EPEC (killed):** ~187 s / prompt observed — projected 60+ h
-  full sweep; post-hoc is ~5 orders of magnitude cheaper.
 
 ---
 
@@ -112,13 +110,7 @@ phase2_w2s/
 ├── run_n100_t512_fill.sh           <- fills missing 8 α to reach 11-point sweep
 ├── run_n300_t512_extend.sh         <- accumulates 200 new prompts per α
 │
-├── # Inline EPEC (kept for reference; abandoned due to pace)
-├── generate_outputs_epec_parm_w2s.py   <- adapted from fresh-start's hh variant
-├── generate_outputs_epec_genarm_w2s.py <- adapted from fresh-start
-├── run_epec_n100_t512.sh           <- sweep driver (not run to completion)
-├── deploy_epec.sh                  <- deploy script (not run to completion)
-│
-├── # 8-bit exploration (also abandoned; back on 4-bit)
+├── # 8-bit exploration (abandoned; back on 4-bit)
 ├── generate_outputs_8bit.py
 ├── generate_outputs_genarm_8bit.py
 ├── deploy_n50_8bit.sh
@@ -194,10 +186,9 @@ a crash just picks up where the last checkpoint left off.
 
 ## 6. What's **not** in this branch
 
-- EPEC on a **per-token** basis (inline) — files present, but not run to
-  completion. Post-hoc is the recommended path; the per-token files can
-  be revived by pointing the driver at them if we later want to compare
-  inline vs post-hoc.
+- EPEC on a **per-token** basis (inline). Prototyped earlier and removed
+  in favor of the post-hoc path (~5 orders of magnitude faster). Git
+  history (before this commit) has the scaffolding if it's ever needed.
 - N > 300 sweep results. The n=300 extend is in flight at time of commit;
   results will be appended on a later commit.
 - HH-RLHF evaluation. Data is available in the parent repo
@@ -210,6 +201,5 @@ a crash just picks up where the last checkpoint left off.
 
 - `epec_solve.py` and the EPEC algorithm — `fresh-start` branch of this
   repo, unchanged.
-- Everything in `phase2_w2s/*.sh`, `build_w2s_candidate_pool.py`,
-  `plot_posthoc_epec.py`, and the 4-bit 65B adaptation of EPEC inline
-  runners — written for this branch.
+- Everything in `phase2_w2s/*.sh`, `build_w2s_candidate_pool.py`, and
+  `plot_posthoc_epec.py` — written for this branch.
