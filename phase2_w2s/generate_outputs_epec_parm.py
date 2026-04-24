@@ -120,14 +120,26 @@ PREF_HARM = [1.0, 0.0]   # extract pure-harm reward
 
 def load_models(args, device):
     """Load 4-bit 65B base + 7B PARM (alpaca-7b + PBLoRA)."""
+    # Base LLM (4-bit GPTQ via auto_gptq, bypasses broken optimum.gptq path
+    # in this venv's optimum/auto_gptq combo — same idiom as
+    # language-model-arithmetic/src/model_arithmetic/basic_model_loader.py)
     print(f"Loading base LM: {args.base}")
     base_tok = AutoTokenizer.from_pretrained(args.base)
     if base_tok.pad_token is None:
         base_tok.pad_token = base_tok.eos_token
-    base_model = AutoModelForCausalLM.from_pretrained(
-        args.base,
-        device_map=device,
-    )
+    if args.base.endswith("GPTQ") or args.base.endswith("GGML"):
+        from auto_gptq import AutoGPTQForCausalLM
+        base_model = AutoGPTQForCausalLM.from_quantized(
+            args.base,
+            use_safetensors=True,
+            trust_remote_code=True,
+            quantize_config=None,
+            device_map={"": 0},
+        )
+    else:
+        base_model = AutoModelForCausalLM.from_pretrained(
+            args.base, torch_dtype=torch.bfloat16, device_map=device,
+        )
     base_model.eval()
 
     print(f"Loading PARM base: {args.parm_base}")

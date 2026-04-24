@@ -98,15 +98,26 @@ def epec_one_step(log_pi_base, q_list, tau=0.1, eps=1e-3, max_iter=5):
 
 def load_models(args, device):
     """Load 4-bit 65B base + 7B ARM with help/harm LoRA adapters."""
-    # Base LLM (4-bit GPTQ; auto_gptq detects from quantize_config.json)
+    # Base LLM (4-bit GPTQ via auto_gptq, bypasses broken optimum.gptq path
+    # in this venv's optimum/auto_gptq combo — same idiom as
+    # language-model-arithmetic/src/model_arithmetic/basic_model_loader.py)
     print(f"Loading base LM: {args.base}")
     base_tok = AutoTokenizer.from_pretrained(args.base)
     if base_tok.pad_token is None:
         base_tok.pad_token = base_tok.eos_token
-    base_model = AutoModelForCausalLM.from_pretrained(
-        args.base,
-        device_map=device,
-    )
+    if args.base.endswith("GPTQ") or args.base.endswith("GGML"):
+        from auto_gptq import AutoGPTQForCausalLM
+        base_model = AutoGPTQForCausalLM.from_quantized(
+            args.base,
+            use_safetensors=True,
+            trust_remote_code=True,
+            quantize_config=None,
+            device_map={"": 0},
+        )
+    else:
+        base_model = AutoModelForCausalLM.from_pretrained(
+            args.base, torch_dtype=torch.bfloat16, device_map=device,
+        )
     base_model.eval()
 
     # ARM base (alpaca-7b-reproduced, fp16/bf16) + 2 LoRA adapters
