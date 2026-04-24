@@ -1,0 +1,97 @@
+{
+  "EPEC_GenARM": [
+    {
+      "alpha": "(0.1,0.9)",
+      "mean_per_prompt": 60.015421643972395,
+      "fwd_fraction": 0.6696758326971792,
+      "epec_fraction": 0.33032416730282077,
+      "peak_gpu_gb": 14.68369664,
+      "total_tokens": 227160
+    },
+    {
+      "alpha": "(0.2,0.8)",
+      "mean_per_prompt": 64.78978806447982,
+      "fwd_fraction": 0.5947465309821496,
+      "epec_fraction": 0.4052534690178505,
+      "peak_gpu_gb": 14.68369664,
+      "total_tokens": 222539
+    },
+    {
+      "alpha": "(0.4,0.6)",
+      "mean_per_prompt": 68.11965889525413,
+      "fwd_fraction": 0.5509822967485344,
+      "epec_fraction": 0.4490177032514656,
+      "peak_gpu_gb": 14.68369664,
+      "total_tokens": 212634
+    },
+    {
+      "alpha": "(0.5,0.5)",
+      "mean_per_prompt": 68.92290086698532,
+      "fwd_fraction": 0.5405871765562404,
+      "epec_fraction": 0.45941282344375955,
+      "peak_gpu_gb": 14.68369664,
+      "total_tokens": 207657
+    },
+    {
+      "alpha": "(0.6,0.4)",
+      "mean_per_prompt": 68.082558157444,
+      "fwd_fraction": 0.5367553359330172,
+      "epec_fraction": 0.4632446640669829,
+      "peak_gpu_gb": 14.68369664,
+      "total_tokens": 207157
+    },
+    {
+      "alpha": "(0.8,0.2)",
+      "mean_per_prompt": 68.22769259476662,
+      "fwd_fraction": 0.5490726457550698,
+      "epec_fraction": 0.45092735424493025,
+      "peak_gpu_gb": 14.593535488,
+      "total_tokens": 209943
+    }
+  ],
+  "GenARM": [
+    {
+      "alpha": "(0.1,0.9)",
+      "n_prompts": 1000,
+      "total_seconds": 17932.456746578217,
+      "mean_per_prompt": 17.932456746578218
+    },
+    {
+      "alpha": "(0.2,0.8)",
+      "n_prompts": 1000,
+      "total_seconds": 19365.904310703278,
+      "mean_per_prompt": 19.36590431070328
+    },
+    {
+      "alpha": "(0.4,0.6)",
+      "n_prompts": 1000,
+      "total_seconds": 21481.53044104576,
+      "mean_per_prompt": 21.481530441045763
+    },
+    {
+      "alpha": "(0.5,0.5)",
+      "n_prompts": 1000,
+      "total_seconds": 22284.487274885178,
+      "mean_per_prompt": 22.284487274885176
+    },
+    {
+      "alpha": "(0.6,0.4)",
+      "n_prompts": 1000,
+      "total_seconds": 22047.427368164062,
+      "mean_per_prompt": 22.047427368164062
+    },
+    {
+      "alpha": "(0.8,0.2)",
+      "n_prompts": 1000,
+      "total_seconds": 20721.102934360504,
+      "mean_per_prompt": 20.721102934360506
+    }
+  ],
+  "summary": {
+    "epec_mean_s_per_prompt": 66.35967003715038,
+    "genarm_mean_s_per_prompt": 20.6388181792895,
+    "epec_slowdown_vs_genarm": 3.2152843956802006,
+    "epec_peak_gpu_gb": 14.668669781333334,
+    "epec_forward_fraction": 0.5736366364453651
+  }
+}
