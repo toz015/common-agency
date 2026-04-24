@@ -135,6 +135,7 @@ def load_models(args, device):
             trust_remote_code=True,
             quantize_config=None,
             device_map={"": 0},
+            use_marlin=True,  # 2-3x faster int4*fp16 kernel on A100
         )
     else:
         base_model = AutoModelForCausalLM.from_pretrained(
