@@ -1,0 +1,19 @@
+{
+  "method": "EPEC_GenARM",
+  "tau": 0.2,
+  "k": 50,
+  "reference_point": {
+    "safety": -17.512578125,
+    "help": 0.8732067871093749
+  },
+  "normalization_min": {
+    "safety": -16.512578125,
+    "help": 1.873206787109375
+  },
+  "normalization_max": {
+    "safety": 13.184609375,
+    "help": 9.75416015625
+  },
+  "HV": 8.880953369140625,
+  "MIP": 0.7464899802843131
+}

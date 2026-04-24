@@ -38,10 +38,12 @@ def parse_arguments() -> argparse.Namespace:
     )
     model_parser = parser.add_argument_group('model')
     model_parser.add_argument('--model_base_name_or_path', default="PKU-Alignment/alpaca-7b-reproduced", type=str)
-    model_parser.add_argument('--model_arm_help_path', required=True, type=str,
-                              help='path to the helpfulness LoRA adapter directory')
-    model_parser.add_argument('--model_arm_harm_path', required=True, type=str,
-                              help='path to the harmlessness LoRA adapter directory')
+    model_parser.add_argument('--model_arm_help_path', type=str,
+                              help='path to the helpfulness LoRA adapter directory',
+                              default="../training/PKU-SafeRLHF/exp_genarm_help/final_checkpoint")
+    model_parser.add_argument('--model_arm_harm_path', type=str,
+                              help='path to the harmlessness LoRA adapter directory',
+                              default="../training/PKU-SafeRLHF/exp_genarm_harm/final_checkpoint")
     model_parser.add_argument('--alpha_helpfulness', type=float, required=True)
     model_parser.add_argument('--alpha_harmlessness', type=float, required=True)
     model_parser.add_argument('--max_new_tokens', type=int, default=512)
@@ -50,10 +52,15 @@ def parse_arguments() -> argparse.Namespace:
                               help='If True, force temperature=1.0 so logit weights are normalized; else temperature=1/(1+alpha_help+alpha_harm).')
 
     dataset_parser = parser.add_argument_group('dataset')
-    dataset_parser.add_argument('--datasets', type=str, default="../data/test_prompt_only.json")
-
+    dataset_parser.add_argument('--datasets', type=str, default="../data/PKU-SafeRLHF/test_prompt_only.json")
+    dataset_parser.add_argument(
+    '--limit',
+    type=int,
+    default=100,
+    help='Number of test prompts to run. If None, run all prompts.',
+)
     logging_parser = parser.add_argument_group('logging')
-    logging_parser.add_argument('--output_dir', type=str, default="./results")
+    logging_parser.add_argument('--output_dir', type=str, default="./results_genarm")
     logging_parser.add_argument('--resume', type=str2bool, default=False)
 
     return parser.parse_args()
@@ -89,6 +96,9 @@ if __name__ == '__main__':
     with open(args.datasets, 'r') as f:
         data_evaluation = json.load(f)
 
+    if args.limit is not None:
+        data_evaluation = data_evaluation[:args.limit]
+
     model, tokenizer, temperature = get_model_arithmetic(args)
     model.eval()
     if args.normalize_logit:
@@ -96,7 +106,7 @@ if __name__ == '__main__':
         temperature = 1.0
     generate = lambda prompt: model.generate_text(
         prompt, max_new_tokens=args.max_new_tokens, batch_size=None,
-        temperature=temperature, top_p=1, top_k=0, do_speculation=False
+        temperature=temperature, top_p=1, top_k=0, do_speculation=False,use_cache=False,
     )[0].removesuffix(tokenizer.eos_token)
 
     if args.normalize_logit:

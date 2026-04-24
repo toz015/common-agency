@@ -1,0 +1,20 @@
+{
+  "method": "EPEC_PARM_1.0help_0.0harm_tau0.4_k50",
+  "n_prompts": 100,
+  "total_seconds": 4061.6064307689667,
+  "mean_per_prompt": 40.61606430768967,
+  "fwd_seconds": 3398.3655350208282,
+  "epec_seconds": 659.6095008850098,
+  "fwd_fraction": 0.837453534078292,
+  "epec_fraction": 0.1625464659217079,
+  "total_tokens": 16447,
+  "sec_per_token": 0.2467304089442353,
+  "peak_gpu_memory_gb": 28.079211008,
+  "tau": 0.4,
+  "k": 50,
+  "alpha_helpfulness": 1.0,
+  "alpha_harmlessness": 0.0,
+  "max_new_tokens": 256,
+  "datasets": "../data/PKU-SafeRLHF/test_prompt_only.json",
+  "parm_adapter": "../training/PKU-SafeRLHF/exp/final_checkpoint"
+}

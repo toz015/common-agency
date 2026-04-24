@@ -145,16 +145,16 @@ def generate_epec(pm, tok, prompt_text, alpha_help, alpha_harm,
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--base", default="PKU-Alignment/alpaca-7b-reproduced")
-    p.add_argument("--help_adapter", default="../training/exp_genarm_help/final_checkpoint")
-    p.add_argument("--harm_adapter", default="../training/exp_genarm_harm/final_checkpoint")
+    p.add_argument("--help_adapter", default="../training/PKU-SafeRLHF/exp_genarm_help/final_checkpoint")
+    p.add_argument("--harm_adapter", default="../training/PKU-SafeRLHF/exp_genarm_harm/final_checkpoint")
     p.add_argument("--alpha_helpfulness", type=float, required=True)
     p.add_argument("--alpha_harmlessness", type=float, required=True)
     p.add_argument("--tau", type=float, default=0.1)
-    p.add_argument("--k", type=int, default=50)
+    p.add_argument("--k", type=int, default=20)
     p.add_argument("--max_new_tokens", type=int, default=256)
-    p.add_argument("--datasets", default="../data/test_prompt_only.json")
+    p.add_argument("--datasets", default="../data/PKU-SafeRLHF/test_prompt_only.json")
     p.add_argument("--output_dir", default="./results")
-    p.add_argument("--limit", type=int, default=0)
+    p.add_argument("--limit", type=int, default=100)
     return p.parse_args()
 
 

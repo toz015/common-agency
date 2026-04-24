@@ -1,7 +1,8 @@
 from datasets import Dataset, load_dataset
 import torch, json, random, argparse
 from transformers import AutoTokenizer
-from safe_rlhf.models import AutoModelForScore
+#from safe_rlhf.models import AutoModelForScore
+from safe_rlhf.models.score_model import AutoModelForScore
 from tqdm import tqdm
 
 def parse_arguments():
@@ -15,6 +16,13 @@ def parse_arguments():
         type=str,
         help='',
     )
+
+    parser.add_argument(
+    "--limit",
+    default=100,
+    type=int,
+    help="Only evaluate the first N examples. Default: evaluate all.",
+)
     return parser.parse_args()
 
 model_path_helpful = 'PKU-Alignment/beaver-7b-v1.0-reward'
@@ -31,6 +39,12 @@ args = parse_arguments()
 with open(f'{args.path}/generation.json', 'r') as f:
     generation_result = json.load(f)
 
+if args.limit is not None:
+    generation_result = generation_result[:args.limit]
+
+if len(generation_result) == 0:
+    raise ValueError(f"{generation_file} is empty after applying limit.")
+    
 model_helpful.eval()
 model_harmless.eval()
 

@@ -1,0 +1,16 @@
+{
+  "method": "EPEC_GenARM_0.6help_0.4harm_tau0.3_k50",
+  "n_prompts": 100,
+  "total_seconds": 3446.2106471061707,
+  "mean_per_prompt": 34.46210647106171,
+  "fwd_fraction": 0.6268382320107021,
+  "epec_fraction": 0.37316176798929784,
+  "total_tokens": 16182,
+  "sec_per_token": 0.2127988084463766,
+  "peak_gpu_memory_gb": 14.50519296,
+  "tau": 0.3,
+  "k": 50,
+  "alpha_helpfulness": 0.6,
+  "alpha_harmlessness": 0.4,
+  "max_new_tokens": 256
+}
