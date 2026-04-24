@@ -48,18 +48,22 @@ help / harm scores are directly comparable.
 
 ---
 
-## 2. Results (n=100, t=512)
+## 2. Results (t=512)
 
-Full results at `results_n100_t512/{parm,genarm}/*/`.
+Primary: n=300. Full scored results at `results_n300_t512/{parm,genarm}/*/`.
+Initial n=100 sanity run kept at `results_n100_t512/{parm,genarm}/*/` for
+reference (first 100 uids are a deterministic prefix of n=300).
 
-### Pareto front — logit-sum only
+### Pareto front — logit-sum only (n=300)
 
-![pareto_n100](pareto_n100.png)
+![pareto_n300](pareto_n300.png)
 
-- GenARM dominates PARM on helpfulness at every α ≥ 0.3.
-- CSV: `pareto_n100.csv`. Per-config aggregate: `results_n100_t512/*/*/mean_result.json`.
+- GenARM strictly Pareto-dominates PARM at every α ≥ 0.3.
+- GenARM saturates at help ≈ 6.0 (peak α=0.7); PARM saturates at help ≈ 4.95 (α=1.0).
+- CSV: `pareto_n300.csv`. Per-config aggregate: `results_n300_t512/*/*/mean_result.json`.
+- Earlier n=100 version kept alongside: `pareto_n100.{png,csv}`.
 
-### Post-hoc EPEC rerank vs logit-sum
+### Post-hoc EPEC rerank vs logit-sum (n=300)
 
 ![pareto_posthoc_epec](pareto_posthoc_epec.png)
 
@@ -68,19 +72,21 @@ Each **dashed** line = EPEC (Nonlinear Jacobi, `epec_solve.py`) over the
 dominates the corresponding solid (logit-sum) curve because EPEC selects
 the best per-prompt candidate for each `(w_help, w_harm)`.
 
-Weight=0.5 example:
+Weight=0.5 example (n=300):
 
 | Method                      | Helpfulness | Harm (lower safer) |
 |-----------------------------|-------------|--------------------|
-| Logit-sum PARM α=0.5        | 2.37        | +2.60              |
-| Logit-sum GenARM α=0.5      | 4.31        | +7.29              |
-| **EPEC over PARM menu w=0.5**   | **2.72**    | **−14.55**         |
-| **EPEC over GenARM menu w=0.5** | **1.73**    | **−14.72**         |
+| Logit-sum PARM α=0.5        | 2.30        | +2.06              |
+| Logit-sum GenARM α=0.5      | 4.47        | +4.82              |
+| **EPEC over PARM menu w=0.5**   | **2.90**    | **−14.17**         |
+| **EPEC over GenARM menu w=0.5** | **2.04**    | **−14.50**         |
 
-### Runtime
+### Runtime (actual)
 
-- **Logit-sum fill (8 α × 2 methods × n=100 × 512 tok):** ~12 h on 1× A100-80GB.
+- **Logit-sum fill (11 α × 2 methods × n=100 × 512 tok):** ~12 h on 1× A100-80GB.
   Breakdown in `runtime_analysis_n100_fill.md`.
+- **Logit-sum extend n=100 → n=300 (+200 new prompts × 22 configs + Beaver rescore):** ~29 h
+  (GenARM ~110 min/config, PARM ~78 min/config, ~3 h Beaver @ n=300).
 - **Post-hoc EPEC sweep:** ~1 s / weight on CPU (laptop).
 
 ---
@@ -110,15 +116,21 @@ phase2_w2s/
 ├── run_n300_t512_extend.sh         <- accumulates 200 new prompts per α
 │
 ├── # Data products
-├── pareto_n100.csv                 <- flat CSV: method, α, help, harm, safety
+├── pareto_n300.csv                 <- PRIMARY: method, α, help, harm, safety (n=300)
+├── pareto_n300.png                 <- PRIMARY Pareto plot
+├── pareto_n100.csv                 <- initial n=100 sanity version
 ├── pareto_n100.png
-├── pareto_posthoc_epec.png         <- 4-curve overlay: 2 logit-sum + 2 EPEC
-├── scored_candidates_w2s_PARM_N11.json    <- 100 × 11 candidates (PARM only)
-├── scored_candidates_w2s_GenARM_N11.json  <- 100 × 11 candidates (GenARM only)
-├── epec_sweep_w2s_PARM.json        <- 11 EPEC points on PARM menu
-├── epec_sweep_w2s_GenARM.json      <- 11 EPEC points on GenARM menu
+├── pareto_posthoc_epec.png         <- 4-curve overlay: 2 logit-sum + 2 EPEC (n=300)
+├── scored_candidates_w2s_PARM_N11.json    <- 300 × 11 candidates (PARM only)
+├── scored_candidates_w2s_GenARM_N11.json  <- 300 × 11 candidates (GenARM only)
+├── epec_sweep_w2s_PARM.json        <- 11 EPEC points on PARM menu (n=300)
+├── epec_sweep_w2s_GenARM.json      <- 11 EPEC points on GenARM menu (n=300)
 │
-└── results_n100_t512/              <- 22 dirs; per-prompt generations + Beaver scores
+├── results_n300_t512/              <- PRIMARY: 22 dirs × {mean,reward}_result.json
+│   ├── parm/PARM_<ah>help_<as>harm/{reward_result,mean_result}.json
+│   └── genarm/GenARM_<ah>help_<as>harm/{reward_result,mean_result}.json
+│
+└── results_n100_t512/              <- initial sanity: 22 dirs × {generation,reward,mean}_result.json
     ├── parm/PARM_<ah>help_<as>harm/{generation,reward_result,mean_result}.json
     └── genarm/GenARM_<ah>help_<as>harm/{generation,reward_result,mean_result}.json
 ```
@@ -131,19 +143,21 @@ No GPU required. Given the 22 dirs under `results_n100_t512/`:
 
 ```bash
 # 1. Build per-method candidate pools from the existing Beaver-scored generations.
+#    Use results_n300_t512/ for the primary n=300 pools; substitute results_n100_t512/
+#    to reproduce the original n=100 numbers.
 python build_w2s_candidate_pool.py \
-    --parm_dir results_n100_t512/parm \
+    --parm_dir results_n300_t512/parm \
     --out      scored_candidates_w2s_PARM_N11.json
 python build_w2s_candidate_pool.py \
-    --genarm_dir results_n100_t512/genarm \
+    --genarm_dir results_n300_t512/genarm \
     --out        scored_candidates_w2s_GenARM_N11.json
 
 # 2. Run the EPEC weight sweep on each menu.
 python epec_solve.py --scored scored_candidates_w2s_PARM_N11.json   --out epec_sweep_w2s_PARM.json
 python epec_solve.py --scored scored_candidates_w2s_GenARM_N11.json --out epec_sweep_w2s_GenARM.json
 
-# 3. Plot the 4-curve Pareto.
-python plot_posthoc_epec.py
+# 3. Plot the 4-curve Pareto (reads n_prompts from the EPEC sweep JSON for the title).
+python plot_posthoc_epec.py --pareto_csv pareto_n300.csv
 ```
 
 The EPEC solver is untouched from `fresh-start` — same Nonlinear Jacobi loop,
@@ -174,8 +188,7 @@ a crash just picks up where the last checkpoint left off.
 - EPEC on a **per-token** basis (inline). Prototyped earlier and removed
   in favor of the post-hoc path (~5 orders of magnitude faster). Git
   history (before this commit) has the scaffolding if it's ever needed.
-- N > 300 sweep results. The n=300 extend is in flight at time of commit;
-  results will be appended on a later commit.
+- N > 300 sweep results.
 - HH-RLHF evaluation. Data is available in the parent repo
   (`code/data/HH-RLHF/test_prompt_only.json`, 1000 prompts), but the
   current subset path is PKU-SafeRLHF only.

@@ -2,78 +2,78 @@
   {
     "w_help": 0.0,
     "w_harm": 1.0,
-    "mean_help": -0.68380859375,
-    "mean_harm": -15.8171875,
-    "n_prompts": 100
+    "mean_help": -0.45845703125,
+    "mean_harm": -15.654895833333333,
+    "n_prompts": 300
   },
   {
     "w_help": 0.1,
     "w_harm": 0.9,
-    "mean_help": -0.686484375,
-    "mean_harm": -15.8171875,
-    "n_prompts": 100
+    "mean_help": -0.4539518229166667,
+    "mean_harm": -15.6496875,
+    "n_prompts": 300
   },
   {
     "w_help": 0.2,
     "w_harm": 0.8,
-    "mean_help": -0.43224609375,
-    "mean_harm": -15.7303125,
-    "n_prompts": 100
+    "mean_help": -0.30026041666666664,
+    "mean_harm": -15.609895833333333,
+    "n_prompts": 300
   },
   {
     "w_help": 0.3,
     "w_harm": 0.7,
-    "mean_help": 0.20556640625,
-    "mean_harm": -15.5734375,
-    "n_prompts": 100
+    "mean_help": 0.26145833333333335,
+    "mean_harm": -15.4759375,
+    "n_prompts": 300
   },
   {
     "w_help": 0.4,
     "w_harm": 0.6,
-    "mean_help": 1.0237109375,
-    "mean_harm": -15.159375,
-    "n_prompts": 100
+    "mean_help": 0.9877278645833333,
+    "mean_harm": -15.078125,
+    "n_prompts": 300
   },
   {
     "w_help": 0.5,
     "w_harm": 0.5,
-    "mean_help": 1.73087890625,
-    "mean_harm": -14.723203125,
-    "n_prompts": 100
+    "mean_help": 2.03853515625,
+    "mean_harm": -14.495442708333334,
+    "n_prompts": 300
   },
   {
     "w_help": 0.6,
     "w_harm": 0.4,
-    "mean_help": 2.42783203125,
-    "mean_harm": -13.9151171875,
-    "n_prompts": 100
+    "mean_help": 2.982194010416667,
+    "mean_harm": -13.494602864583333,
+    "n_prompts": 300
   },
   {
     "w_help": 0.7,
     "w_harm": 0.3,
-    "mean_help": 4.6705078125,
-    "mean_harm": -9.1352734375,
-    "n_prompts": 100
+    "mean_help": 5.011632486979167,
+    "mean_harm": -9.133697916666666,
+    "n_prompts": 300
   },
   {
     "w_help": 0.8,
     "w_harm": 0.2,
-    "mean_help": 9.25265625,
-    "mean_harm": 5.36203125,
-    "n_prompts": 100
+    "mean_help": 8.751736653645834,
+    "mean_harm": 3.2357682291666667,
+    "n_prompts": 300
   },
   {
     "w_help": 0.9,
     "w_harm": 0.1,
-    "mean_help": 10.379609375,
-    "mean_harm": 12.107421875,
-    "n_prompts": 100
+    "mean_help": 9.804754231770833,
+    "mean_harm": 9.729231770833334,
+    "n_prompts": 300
   },
   {
     "w_help": 1.0,
     "w_harm": 0.0,
-    "mean_help": 10.379609375,
-    "mean_harm": 12.107421875,
-    "n_prompts": 100
+    "mean_help": 9.8336083984375,
+    "mean_harm": 10.366263020833333,
+    "n_prompts": 300
   }
 ]

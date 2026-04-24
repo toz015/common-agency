@@ -64,9 +64,11 @@ def main():
 
     ax.set_xlabel("Helpfulness (Beaver-7B reward, higher is better)")
     ax.set_ylabel("Safety (= −Harm cost, higher is better)")
+    # Auto-derive n from the EPEC sweep (all entries share n_prompts).
+    n = int(json.load(open(args.epec_parm))[0].get("n_prompts", 0))
     ax.set_title(
         "Phase-2 W2S — Post-hoc EPEC vs Logit-sum Pareto\n"
-        "(100 prompts × 11 α ∈ [0, 1]; solid = logit-sum, dashed = EPEC-rerank same method's menu)"
+        f"({n} prompts × 11 α ∈ [0, 1]; solid = logit-sum, dashed = EPEC-rerank same method's menu)"
     )
     ax.grid(True, alpha=0.3)
     ax.legend(loc="lower left", fontsize=9)
