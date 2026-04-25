@@ -1,33 +1,29 @@
 #!/bin/bash
-# Local one-shot deploy for the n=50 EPEC 7B same-model sweep:
+# Local one-shot deploy for the n=50 token-level EPEC sweep:
 #   1. start a100-demo
 #   2. wait for SSH
-#   3. scp Tong Zhu's two EPEC scripts (epec-parm-sweep-20260424) to
-#      ~/common-agency/code/evaluation/, plus our sweep wrapper +
-#      make_subset to ~/phase2_w2s/
-#   4. launch detached tmux running run_n50_t512_epec_7b.sh, tee'd to
-#      ~/phase2_n50_epec_7b.log
+#   3. scp the 2 generation scripts + sweep wrapper to ~/phase2_w2s/
+#   4. launch detached tmux running run_n50_t512_epec.sh, tee'd to
+#      ~/phase2_n50_epec.log
 #
-# Run from project root (the dir containing phase2_w2s/ and code/).
+# Run from project root (the dir containing phase2_w2s/).
 
 set -euo pipefail
 
 INSTANCE="a100-demo"
 ZONE="us-central1-c"
 PROJECT="llm-applications-490420"
-TMUX_SESSION="phase2_n50_epec_7b"
-LOG_FILE="\$HOME/phase2_n50_epec_7b.log"
+TMUX_SESSION="phase2_n50_epec"
+LOG_FILE="\$HOME/phase2_n50_epec.log"
 
-EVAL_FILES=(
-    "code/evaluation/generate_outputs_epec_genarm.py"
-    "code/evaluation/generate_outputs_epec_parm.py"
-)
-WRAPPER_FILES=(
-    "phase2_w2s/run_n50_t512_epec_7b.sh"
+FILES=(
+    "phase2_w2s/generate_outputs_epec_genarm.py"
+    "phase2_w2s/generate_outputs_epec_parm.py"
+    "phase2_w2s/run_n50_t512_epec.sh"
     "phase2_w2s/make_subset.py"
 )
 
-for f in "${EVAL_FILES[@]}" "${WRAPPER_FILES[@]}"; do
+for f in "${FILES[@]}"; do
     if [[ ! -f "$f" ]]; then
         echo "ERROR: expected $f in cwd=$(pwd). Run from project root."
         exit 1
@@ -52,21 +48,17 @@ for i in {1..20}; do
 done
 
 echo ""
-echo "=== [3/4] scp'ing files ==="
-echo "--- Tong Zhu's EPEC scripts to ~/common-agency/code/evaluation/ ---"
-gcloud compute scp "${EVAL_FILES[@]}" "$INSTANCE:~/common-agency/code/evaluation/" \
-    --zone "$ZONE" --project "$PROJECT"
-echo "--- sweep wrapper + helpers to ~/phase2_w2s/ ---"
-gcloud compute scp "${WRAPPER_FILES[@]}" "$INSTANCE:~/phase2_w2s/" \
+echo "=== [3/4] scp'ing ${#FILES[@]} file(s) to $INSTANCE:~/phase2_w2s/ ==="
+gcloud compute scp "${FILES[@]}" "$INSTANCE:~/phase2_w2s/" \
     --zone "$ZONE" --project "$PROJECT"
 
 echo ""
 echo "=== [4/4] Launching detached tmux '$TMUX_SESSION' ==="
 gcloud compute ssh "$INSTANCE" --zone "$ZONE" --project "$PROJECT" --command "
     set -e
-    chmod +x \$HOME/phase2_w2s/run_n50_t512_epec_7b.sh
+    chmod +x \$HOME/phase2_w2s/run_n50_t512_epec.sh
     tmux kill-session -t $TMUX_SESSION 2>/dev/null || true
-    tmux new-session -d -s $TMUX_SESSION \"bash \$HOME/phase2_w2s/run_n50_t512_epec_7b.sh 2>&1 | tee $LOG_FILE\"
+    tmux new-session -d -s $TMUX_SESSION \"bash \$HOME/phase2_w2s/run_n50_t512_epec.sh 2>&1 | tee $LOG_FILE\"
     echo ''
     echo '--- tmux sessions ---'
     tmux ls
@@ -78,6 +70,6 @@ gcloud compute ssh "$INSTANCE" --zone "$ZONE" --project "$PROJECT" --command "
 echo ""
 echo "=== DONE ==="
 echo ""
-echo "Tail log:     gcloud compute ssh $INSTANCE --zone $ZONE --project $PROJECT --command 'tail -f \$HOME/phase2_n50_epec_7b.log'"
+echo "Tail log:     gcloud compute ssh $INSTANCE --zone $ZONE --project $PROJECT --command 'tail -f \$HOME/phase2_n50_epec.log'"
 echo "Attach tmux:  gcloud compute ssh $INSTANCE --zone $ZONE --project $PROJECT -- -t 'tmux a -t $TMUX_SESSION'"
 echo "Stop inst:    gcloud compute instances stop $INSTANCE --zone $ZONE --project $PROJECT --discard-local-ssd=false"

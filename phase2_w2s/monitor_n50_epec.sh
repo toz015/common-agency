@@ -1,23 +1,27 @@
 #!/bin/bash
-# Monitor 7B same-model EPEC run.
-# Exit when:
-#   (a) error appears in log, OR
-#   (b) at least 3 prompts of first config done (stable timing), OR
-#   (c) MAX_POLLS reached.
+# Monitor the W2S 65B EPEC sweep on a100-demo.
+# Exits when:
+#   (a) error appears in remote log,
+#   (b) at least 3 prompts of first config done (stable timing),
+#   (c) MAX_POLLS reached (default 3h cap; covers 65B model load + 3 prompts).
+#
+# Outputs:
+#   /tmp/epec_monitor.status   (final summary)
+#   /tmp/epec_monitor.history  (running snapshot log)
 
 INSTANCE="a100-demo"
 ZONE="us-central1-c"
 PROJECT="llm-applications-490420"
-REMOTE_LOG="\$HOME/phase2_n50_epec_7b.log"
-GENARM_DIR="\$HOME/common-agency/results_phase2_n50_t512_epec_7b/genarm/EPEC_GenARM_0.0help_1.0harm_tau0.1_k50"
+REMOTE_LOG="\$HOME/phase2_n50_epec.log"
+GENARM_DIR="\$HOME/common-agency/results_phase2_n50_t512_epec/genarm/EPEC_GenARM_0.0help_1.0harm_tau0.1_k50"
 
-STATUS=/tmp/epec_monitor_7b.status
-HISTORY=/tmp/epec_monitor_7b.history
+STATUS=/tmp/epec_monitor.status
+HISTORY=/tmp/epec_monitor.history
 : > "$STATUS"
 : > "$HISTORY"
 
-POLL_EVERY=60
-MAX_POLLS=60     # ~1h cap (7B load + 3 prompts should be < 5 min)
+POLL_EVERY=90
+MAX_POLLS=120     # ~3h cap (65B load ~6 min + 3 prompts at ~162s)
 TARGET_N=3
 
 ssh_check() {
