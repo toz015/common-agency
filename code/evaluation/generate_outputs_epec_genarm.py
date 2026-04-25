@@ -2,8 +2,8 @@
 EPEC+GenARM token-level decoding for W2S Phase-2 (PKU-SafeRLHF, 2 principals).
 
 Per token:
-  1. Forward 4-bit 65B base LLM                           → log_base (vocab 32000)
-  2. Forward 7B ARM base (alpaca-7b-reproduced, no LoRA)  → log_arm_base
+  1. Forward 4-bit 65B base LLM                           → log_base   (sample dist.)
+  2. Forward 7B ARM base (alpaca-7b-reproduced, no LoRA)  → log_arm_base (q reference)
   3. Switch to "help" LoRA, forward                       → log_help
   4. Switch to "harm" LoRA, forward                       → log_harm
   5. Compute implicit rewards on top-k base actions:
@@ -12,15 +12,24 @@ Per token:
   7. Solve 2-principal Common-Agency EPEC (Nonlinear Jacobi)
   8. Greedy select from π★
 
-Ported from: code/evaluation/generate_outputs_epec_hh.py @ origin/fresh-start
-Differences vs original (HH-RLHF, 3 principal):
-  • Drop humor → J=2 principals (help, harm)
-  • Base LM: TheBloke/alpaca-lora-65B-GPTQ (4-bit) instead of LLaMA-2-7B-Chat
-  • ARM base: PKU-Alignment/alpaca-7b-reproduced instead of TinyLLaMA
-  • Adapters: phase2 GenARM help/harm only (no humor)
-  • Prompt template: Alpaca-65B (matches W2S logit-sum baseline for direct comparison)
-  • Single tokenizer for both forwards (LLaMA-1 family, vocab matches)
-  • --resume support for sweep restartability
+Algorithmic source:
+  code/evaluation/generate_outputs_epec_genarm.py @ origin/epec-parm-sweep-20260424
+  (Tong Zhu's PKU-SafeRLHF same-model EPEC; HH-RLHF version on origin/fresh-start
+  has a wrong q-reference and is NOT used.)
+
+W2S adaptation vs Tong Zhu's same-model PKU-SafeRLHF version:
+  • Tong Zhu: base = ARM = single 7B PeftModel, 3 forwards/token, q = log_arm_j - log_b
+    where log_b is the same model with adapters disabled.
+  • W2S 65B: base ≠ ARM. Need separate 65B base + 7B ARM stack → 4 forwards/token.
+    Tong Zhu's `log_b` plays two roles (sample distribution AND q reference) which
+    coincide in same-model. We split:
+        sample distribution = log_base    (65B; what π★ samples from)
+        q reference         = log_arm_base (7B no-LoRA; the LoRA's training backbone,
+                                             per GenARM paper definition of implicit reward)
+    Mathematically equivalent to Tong Zhu's formula in his setup, GenARM-paper-correct
+    in W2S.
+  • Drop the "ARM vocab may differ" branch — base/ARM are LLaMA-1 family, vocab 32000
+    identical. Verified empirically (decode-vocab hashes match).
 """
 import argparse
 import json
@@ -147,12 +156,16 @@ def load_models(args, device):
 def generate_epec(base_model, base_tok, arm_model, arm_tok,
                   prompt_text, alpha_help, alpha_harm,
                   max_new_tokens=512, k=50, tau=0.1, device="cuda"):
-    """Generate tokens via EPEC equilibrium decoding (2 principals)."""
-    formatted = format_prompt(prompt_text)
-    base_ids = base_tok(formatted, return_tensors="pt").input_ids.to(device)
-    arm_ids = arm_tok(formatted, return_tensors="pt").input_ids.to(device)
+    """Generate tokens via EPEC equilibrium decoding (2 principals).
 
-    base_cur, arm_cur = base_ids, arm_ids
+    base_tok and arm_tok are SAME-vocab LLaMA-1 family (verified empirically:
+    full vocab decode matches). We share input_ids between forwards rather than
+    re-tokenizing per-step — re-tokenizing would round-trip-corrupt 49% of token
+    ids (SentencePiece leading-space marker bug), causing ARM KV-cache drift.
+    """
+    formatted = format_prompt(prompt_text)
+    input_ids = base_tok(formatted, return_tensors="pt").input_ids.to(device)
+    base_cur = arm_cur = input_ids
     pkv_base = pkv_arm_base = pkv_help = pkv_harm = None
     out_ids = []
     eos_id = base_tok.eos_token_id
@@ -166,7 +179,7 @@ def generate_epec(base_model, base_tok, arm_model, arm_tok,
         log_base = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
         pkv_base = out.past_key_values
 
-        # 2. ARM base forward (no adapter)
+        # 2. ARM base forward (no adapter) — provides q reference per GenARM paper
         with arm_model.disable_adapter():
             out = arm_model(input_ids=arm_cur, past_key_values=pkv_arm_base, use_cache=True)
         log_arm_base = torch.log_softmax(out.logits[0, -1].float(), dim=-1).cpu().numpy()
@@ -189,15 +202,10 @@ def generate_epec(base_model, base_tok, arm_model, arm_tok,
         # 5. EPEC solve on top-k actions from base LLM
         t0 = time.time()
         topk = np.argpartition(log_base, -k)[-k:]
-
-        # Defensive: handle vocab size mismatch (no-op for LLaMA-1 family)
-        vocab_min = min(len(log_base), len(log_arm_base))
-        topk_valid = topk[topk < vocab_min]
-        if len(topk_valid) < len(topk):
-            topk = topk_valid
         lb = log_base[topk]
 
-        # Implicit rewards
+        # Implicit rewards (GenARM-paper formula: q_j = log π_LoRA - log π_no-LoRA on
+        # the LoRA's training backbone — i.e. log_arm_j - log_arm_base, NOT log_base)
         q_help = log_help[topk] - log_arm_base[topk]
         q_harm = log_harm[topk] - log_arm_base[topk]
 
@@ -214,14 +222,8 @@ def generate_epec(base_model, base_tok, arm_model, arm_tok,
             break
         out_ids.append(tok_id)
 
-        base_cur = torch.tensor([[tok_id]], device=device)
-        # Re-tokenize the new token's surface form for the ARM (LLaMA-1 family;
-        # in practice the arm tokenizer matches base, so this is a single id).
-        tok_text = base_tok.decode([tok_id])
-        arm_cur = arm_tok(tok_text, return_tensors="pt",
-                          add_special_tokens=False).input_ids.to(device)
-        if arm_cur.numel() == 0:
-            arm_cur = torch.tensor([[arm_tok.unk_token_id or 0]], device=device)
+        # Same-vocab: feed identical token id to both base and ARM (no re-tokenize)
+        base_cur = arm_cur = torch.tensor([[tok_id]], device=device)
 
     return base_tok.decode(out_ids, skip_special_tokens=True), fwd_time, epec_time
 

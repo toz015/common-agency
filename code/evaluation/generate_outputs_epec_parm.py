@@ -6,8 +6,8 @@ extracts per-objective rewards by setting pref_vec to unit vectors
 (0,1)=help, (1,0)=harm, then applies game-theoretic EPEC aggregation.
 
 Per token:
-  1. Forward 4-bit 65B base LLM                         → log_base
-  2. Forward 7B PARM base (no adapter active)           → log_arm_base
+  1. Forward 4-bit 65B base LLM                         → log_base   (sample dist.)
+  2. Forward 7B PARM base (no adapter active)           → log_arm_base (q reference)
   3. Set pref_vec=(0,1), forward PARM                   → log_help
   4. Set pref_vec=(1,0), forward PARM                   → log_harm
   5. Compute implicit rewards: q_j = log_j - log_arm_base on top-k
@@ -15,15 +15,27 @@ Per token:
   7. Solve 2-principal Common-Agency EPEC (Nonlinear Jacobi)
   8. Greedy select from π★
 
-Ported from: code/evaluation/generate_outputs_epec_parm_hh.py @ origin/fresh-start
-Differences vs original (HH-RLHF, 3 principal):
-  • Drop humor → J=2 principals (help, harm)
+Algorithmic source:
+  code/evaluation/generate_outputs_epec_parm.py @ origin/epec-parm-sweep-20260424
+  (Tong Zhu's PKU-SafeRLHF same-model EPEC; HH-RLHF version on origin/fresh-start
+  uses TinyLLaMA as q-reference but the PBLoRA was not trained on TinyLLaMA →
+  wrong reference, NOT used.)
+
+W2S adaptation vs Tong Zhu's same-model PKU-SafeRLHF version:
+  • Tong Zhu: base = PARM = single 7B PeftModel, 3 forwards/token, q = log_arm_j - log_b
+    where log_b is the same model with adapters disabled.
+  • W2S 65B: base ≠ PARM. Need separate 65B base + 7B PARM stack → 4 forwards/token.
+    Tong Zhu's `log_b` plays two roles (sample distribution AND q reference) which
+    coincide in same-model. We split:
+        sample distribution = log_base    (65B; what π★ samples from)
+        q reference         = log_arm_base (7B no-PBLoRA; the PBLoRA's training
+                                             backbone, per GenARM paper)
+    Mathematically equivalent to Tong Zhu's formula in his setup, GenARM-paper-correct
+    in W2S.
   • PARM adapter trained with obj_num=2; pref_vec ordering = [harm, help]
     (matches W2S logit-sum: see generate_outputs.py line ~153)
-  • Base LM: TheBloke/alpaca-lora-65B-GPTQ (4-bit) instead of LLaMA-2-7B-Chat
-  • PARM base: PKU-Alignment/alpaca-7b-reproduced instead of TinyLLaMA
-  • Prompt template: Alpaca-65B (matches W2S logit-sum baseline)
-  • --resume support for sweep restartability
+  • Drop the "vocab may differ" branch — base/PARM are LLaMA-1 family, vocab 32000
+    identical. Verified empirically.
 """
 import argparse
 import json
@@ -164,12 +176,15 @@ def load_models(args, device):
 def generate_epec(base_model, base_tok, parm_model, parm_tok,
                   prompt_text, alpha_help, alpha_harm,
                   max_new_tokens=512, k=50, tau=0.1, device="cuda"):
-    """Generate via EPEC_PARM (2 principals): PARM rewards + EPEC equilibrium."""
-    formatted = format_prompt(prompt_text)
-    base_ids = base_tok(formatted, return_tensors="pt").input_ids.to(device)
-    parm_ids = parm_tok(formatted, return_tensors="pt").input_ids.to(device)
+    """Generate via EPEC_PARM (2 principals): PARM rewards + EPEC equilibrium.
 
-    base_cur, parm_cur = base_ids, parm_ids
+    base_tok and parm_tok are SAME-vocab LLaMA-1 family. Share input_ids; do not
+    re-tokenize per-step (would round-trip-corrupt 49% of token ids and drift
+    the PARM KV cache against base).
+    """
+    formatted = format_prompt(prompt_text)
+    input_ids = base_tok(formatted, return_tensors="pt").input_ids.to(device)
+    base_cur = parm_cur = input_ids
     pkv_base = pkv_arm_base = pkv_help = pkv_harm = None
     out_ids = []
     eos_id = base_tok.eos_token_id
@@ -206,14 +221,10 @@ def generate_epec(base_model, base_tok, parm_model, parm_tok,
         # 5. EPEC solve on top-k actions from base LLM
         t0 = time.time()
         topk = np.argpartition(log_base, -k)[-k:]
-
-        # Defensive vocab-size guard (no-op when both are LLaMA-1)
-        vocab_min = min(len(log_base), len(log_arm_base))
-        topk_valid = topk[topk < vocab_min]
-        if len(topk_valid) < len(topk):
-            topk = topk_valid
         lb = log_base[topk]
 
+        # Implicit rewards (GenARM-paper formula on PBLoRA: q_j = log π_PBLoRA[pref_j]
+        # - log π_no-PBLoRA, both on the PARM training backbone)
         q_help = log_help[topk] - log_arm_base[topk]
         q_harm = log_harm[topk] - log_arm_base[topk]
 
@@ -229,12 +240,8 @@ def generate_epec(base_model, base_tok, parm_model, parm_tok,
             break
         out_ids.append(tok_id)
 
-        base_cur = torch.tensor([[tok_id]], device=device)
-        tok_text = base_tok.decode([tok_id])
-        parm_cur = parm_tok(tok_text, return_tensors="pt",
-                            add_special_tokens=False).input_ids.to(device)
-        if parm_cur.numel() == 0:
-            parm_cur = torch.tensor([[parm_tok.unk_token_id or 0]], device=device)
+        # Same-vocab: feed identical token id to both base and PARM (no re-tokenize)
+        base_cur = parm_cur = torch.tensor([[tok_id]], device=device)
 
     return base_tok.decode(out_ids, skip_special_tokens=True), fwd_time, epec_time
 
