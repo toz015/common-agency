@@ -42,8 +42,11 @@ OUT_PARM="$OUT_ROOT/parm"
 OUT_GENARM="$OUT_ROOT/genarm"
 mkdir -p "$OUT_PARM" "$OUT_GENARM"
 
-# Same 11-α grid as the logit-sum baseline so points are directly comparable.
-ALPHAS=(0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0)
+# 6-point α grid (subset of the 11-point logit-sum baseline grid). Uniform 0.2
+# spacing covers both endpoints + the trade-off curve. Each removed α can be
+# filled in later by re-running this script after extending ALPHAS — --resume
+# at the per-prompt level keeps already-completed configs intact.
+ALPHAS=(0.0 0.2 0.4 0.6 0.8 1.0)
 
 cd "$REPO/code/evaluation"
 
