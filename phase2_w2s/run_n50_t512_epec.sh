@@ -61,7 +61,7 @@ for AH in "${ALPHAS[@]}"; do
     AS=$(python -c "print(round(1.0 - $AH, 1))")
     echo ""
     echo "--- EPEC_GenARM alpha_help=$AH  alpha_harm=$AS ---"
-    python "$HOME/phase2_w2s/generate_outputs_epec_genarm.py" \
+    python generate_outputs_epec_genarm.py \
         --base                "$BASE_65B" \
         --arm_base            "$ARM_BASE" \
         --help_adapter        "$HELP_ADAPTER" \
@@ -83,7 +83,7 @@ for AH in "${ALPHAS[@]}"; do
     AS=$(python -c "print(round(1.0 - $AH, 1))")
     echo ""
     echo "--- EPEC_PARM alpha_help=$AH  alpha_harm=$AS ---"
-    python "$HOME/phase2_w2s/generate_outputs_epec_parm.py" \
+    python generate_outputs_epec_parm.py \
         --base                "$BASE_65B" \
         --parm_base           "$ARM_BASE" \
         --parm_adapter        "$PARM_ADAPTER" \

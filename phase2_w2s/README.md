@@ -120,12 +120,12 @@ phase2_w2s/
 ├── run_n100_t512_fill.sh           <- 11-α × n=100 wrapper
 ├── run_n300_t512_extend.sh         <- extend +200 per α (resume-friendly)
 │
-├── # Token-level EPEC (W2S 65B) drivers
+├── # Token-level EPEC (W2S 65B) drivers — generation scripts live at
+├── # code/evaluation/generate_outputs_epec_{genarm,parm}.py for parity
+├── # with the logit-sum baseline scripts.
 ├── deploy_n50_epec.sh              <- one-shot deploy
 ├── run_n50_t512_epec.sh            <- 11-α × 2-method × n=50 wrapper
 ├── monitor_n50_epec.sh             <- background poll-monitor
-├── generate_outputs_epec_genarm.py <- EPEC GenARM (4 forwards/token, W2S 65B)
-├── generate_outputs_epec_parm.py   <- EPEC PARM   (4 forwards/token, W2S 65B)
 │
 ├── # Data products (logit-sum)
 ├── pareto_n300.csv                 <- PRIMARY: method, α, help, harm, safety (n=300)
@@ -184,12 +184,14 @@ generated uids per (config, prompt).
 
 ## 6. What's **not** in this branch
 
-- **Tong Zhu's 7B same-model EPEC** scripts as the active path. Kept as
-  reference at `code/evaluation/generate_outputs_epec_{genarm,parm}.py`
-  but not driven by any sweep wrapper here. They use a single 7B
-  backbone with `disable_adapter()` / `set_adapter()` for 3 forwards
-  per token; that pattern can't extend to W2S because the GenARM LoRAs
-  are sized for 7B and would be a dim-mismatch on 65B.
+- **Tong Zhu's 7B same-model EPEC** scripts (from his
+  `epec-parm-sweep-20260424` branch). Briefly tried (overwrote
+  `code/evaluation/generate_outputs_epec_*.py`) but reverted because
+  base = 7B is not directly comparable to our 65B logit-sum baseline,
+  and the shared-backbone `disable_adapter()` / `set_adapter()` pattern
+  can't extend to W2S (the 7B LoRAs would dim-mismatch on the 65B
+  base). Recoverable from git history at commit `8ce97a5`. Current
+  `code/evaluation/generate_outputs_epec_*.py` are the W2S 65B versions.
 - **Marlin GPTQ kernel.** Disabled (see commit `48e140c` for the
   enabling patch); EPEC inner-solve time regressed 7× on Marlin output.
 - **Post-hoc EPEC rerank** pipeline. Removed once token-level EPEC was
@@ -204,8 +206,9 @@ generated uids per (config, prompt).
 ## 7. Credits
 
 - EPEC algorithm and inner-solver pattern — Tong Zhu's
-  `epec-parm-sweep-20260424` branch (`code/evaluation/generate_outputs_epec_*.py`),
-  ported into the W2S 65B stack at `phase2_w2s/generate_outputs_epec_*.py`
-  (4 forwards/token instead of 3).
+  `epec-parm-sweep-20260424` branch (originally targeted 7B same-model,
+  3 forwards/token), ported into the W2S 65B stack at
+  `code/evaluation/generate_outputs_epec_*.py` (4 forwards/token: 65B
+  base + separate 7B ARM stack, since 7B LoRAs can't load on 65B).
 - Everything in `phase2_w2s/*.sh`, `compute_hv.py`, and
   `plot_pareto_w2s.py` — written for this branch.

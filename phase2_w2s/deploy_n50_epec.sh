@@ -16,14 +16,16 @@ PROJECT="llm-applications-490420"
 TMUX_SESSION="phase2_n50_epec"
 LOG_FILE="\$HOME/phase2_n50_epec.log"
 
-FILES=(
-    "phase2_w2s/generate_outputs_epec_genarm.py"
-    "phase2_w2s/generate_outputs_epec_parm.py"
+EVAL_FILES=(
+    "code/evaluation/generate_outputs_epec_genarm.py"
+    "code/evaluation/generate_outputs_epec_parm.py"
+)
+WRAPPER_FILES=(
     "phase2_w2s/run_n50_t512_epec.sh"
     "phase2_w2s/make_subset.py"
 )
 
-for f in "${FILES[@]}"; do
+for f in "${EVAL_FILES[@]}" "${WRAPPER_FILES[@]}"; do
     if [[ ! -f "$f" ]]; then
         echo "ERROR: expected $f in cwd=$(pwd). Run from project root."
         exit 1
@@ -48,8 +50,12 @@ for i in {1..20}; do
 done
 
 echo ""
-echo "=== [3/4] scp'ing ${#FILES[@]} file(s) to $INSTANCE:~/phase2_w2s/ ==="
-gcloud compute scp "${FILES[@]}" "$INSTANCE:~/phase2_w2s/" \
+echo "=== [3/4] scp'ing files ==="
+echo "--- EPEC scripts to ~/common-agency/code/evaluation/ ---"
+gcloud compute scp "${EVAL_FILES[@]}" "$INSTANCE:~/common-agency/code/evaluation/" \
+    --zone "$ZONE" --project "$PROJECT"
+echo "--- sweep wrapper + helpers to ~/phase2_w2s/ ---"
+gcloud compute scp "${WRAPPER_FILES[@]}" "$INSTANCE:~/phase2_w2s/" \
     --zone "$ZONE" --project "$PROJECT"
 
 echo ""
