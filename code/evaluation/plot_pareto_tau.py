@@ -1,6 +1,8 @@
 """
 Plot EPEC_GenARM, EPEC_PARM, GenARM baseline, and PARM baseline
-Pareto frontiers together, and save a CSV with HV / MIP for all methods.
+Pareto frontiers together, using ONLY the six target preference points:
+    alpha_help = 0.0, 0.2, 0.4, 0.6, 0.8, 1.0
+    alpha_harm = 1 - alpha_help
 
 Data layout:
 
@@ -19,6 +21,7 @@ Data layout:
 Outputs:
 - sensitivity analysis/tau=0.2_N=50/pareto_frontier_tau0.2_k50.png
 - sensitivity analysis/tau=0.2_N=50/hv_mip_comparison_tau0.2_k50.csv
+- sensitivity analysis/tau=0.2_N=50/selected_points_tau0.2_k50.csv
 """
 
 import json
@@ -41,12 +44,44 @@ RESULTS_DIR = BASE_DIR / "results"
 GENARM_BASELINE_DIR = BASE_DIR / "results_genarm"
 PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 
-TAU = 0.2
-K = 50
+# ============================================================
+# tau and k
+# ============================================================
+TAU = 0.1
+K = 20
 
 SENS_DIR = BASE_DIR / "sensitivity analysis"
 RUN_DIR = SENS_DIR / f"tau={TAU}_N={K}"
 RUN_DIR.mkdir(parents=True, exist_ok=True)
+
+# Only keep these six preference points
+TARGET_ALPHA_HELPS = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+EPS = 1e-8
+
+
+# ============================================================
+# Helper functions
+# ============================================================
+
+def is_close(a, b, eps=EPS):
+    return abs(a - b) < eps
+
+
+def keep_target_alpha_pair(alpha_help, alpha_harm, target_alpha_helps=TARGET_ALPHA_HELPS):
+    """
+    Keep only pairs:
+        (0.0, 1.0), (0.2, 0.8), ..., (1.0, 0.0)
+    """
+    for ah in target_alpha_helps:
+        if is_close(alpha_help, ah) and is_close(alpha_harm, 1.0 - ah):
+            return True
+    return False
+
+
+def sort_points_by_target_order(points, target_alpha_helps=TARGET_ALPHA_HELPS):
+    order_map = {round(a, 6): i for i, a in enumerate(target_alpha_helps)}
+    points.sort(key=lambda x: order_map.get(round(x["alpha_help"], 6), 999))
+    return points
 
 
 # ============================================================
@@ -62,14 +97,20 @@ def get_nondominated_points(points_2d):
     if len(pts) == 0:
         return pts
 
-    # Sort by safety ascending; if same safety, keep higher help first
-    pts = pts[np.lexsort((-pts[:, 1], pts[:, 0]))]
+    # If same safety appears multiple times, keep the one with largest help
+    best_by_safety = {}
+    for safety, help_score in pts:
+        if safety not in best_by_safety:
+            best_by_safety[safety] = help_score
+        else:
+            best_by_safety[safety] = max(best_by_safety[safety], help_score)
+
+    pts = np.array([[s, h] for s, h in best_by_safety.items()], dtype=float)
+    pts = pts[np.argsort(pts[:, 0])]  # safety ascending
 
     frontier = []
     best_help_to_right = -float("inf")
 
-    # Scan from high safety to low safety.
-    # A point is nondominated iff its help is better than all points with higher safety.
     for safety, help_score in pts[::-1]:
         if help_score > best_help_to_right:
             frontier.append([safety, help_score])
@@ -93,9 +134,7 @@ def compute_hv_2d(points_2d, ref_point):
         return 0.0
 
     ref_safety, ref_help = ref_point
-
-    # Safety ascending, help descending
-    pts = pts[np.argsort(pts[:, 0])]
+    pts = pts[np.argsort(pts[:, 0])]  # safety ascending
 
     hv = 0.0
     prev_safety = ref_safety
@@ -103,10 +142,8 @@ def compute_hv_2d(points_2d, ref_point):
     for safety, help_score in pts:
         width = safety - prev_safety
         height = help_score - ref_help
-
         if width > 0 and height > 0:
             hv += width * height
-
         prev_safety = safety
 
     return float(hv)
@@ -143,11 +180,9 @@ def compute_method_metrics(points, global_q_min, global_q_max, global_ref_point)
     help_scores = np.array([p["help"] for p in points], dtype=float)
     safe_scores = np.array([p["safe"] for p in points], dtype=float)
 
-    # Unnormalized HV: directly use original safety/help scores
     points_2d = np.column_stack([safe_scores, help_scores])
     hv = compute_hv_2d(points_2d, global_ref_point)
 
-    # MIP still uses global normalization
     mip = compute_mip_2d(
         alpha_h_vals=alpha_h_vals,
         alpha_s_vals=alpha_s_vals,
@@ -164,35 +199,7 @@ def compute_method_metrics(points, global_q_min, global_q_max, global_ref_point)
         "ref_point_help": global_ref_point[1],
     }
 
-# def compute_method_metrics(points, global_q_min, global_q_max, global_ref_point=None):
-#     alpha_h_vals = [p["alpha_help"] for p in points]
-#     alpha_s_vals = [p["alpha_harm"] for p in points]
-#     help_scores = np.array([p["help"] for p in points], dtype=float)
-#     safe_scores = np.array([p["safe"] for p in points], dtype=float)
 
-#     q = np.column_stack([safe_scores, help_scores])
-#     q_norm = (q - global_q_min) / (global_q_max - global_q_min + 1e-12)
-
-#     # normalized reference point
-#     ref_point = (-0.05, -0.05)
-
-#     hv = compute_hv_2d(q_norm, ref_point)
-
-#     mip = compute_mip_2d(
-#         alpha_h_vals,
-#         alpha_s_vals,
-#         help_scores,
-#         safe_scores,
-#         global_q_min=global_q_min,
-#         global_q_max=global_q_max,
-#     )
-
-#     return {
-#         "HV": hv,
-#         "MIP": mip,
-#         "ref_point_safety": ref_point[0],
-#         "ref_point_help": ref_point[1],
-#     }
 # ============================================================
 # Loaders
 # ============================================================
@@ -218,6 +225,9 @@ def load_epec_points_from_mean_results(results_dir, method_name, tau=0.2, k=50):
         alpha_help = float(m.group(1))
         alpha_harm = float(m.group(2))
 
+        if not keep_target_alpha_pair(alpha_help, alpha_harm):
+            continue
+
         d = json.loads(mean_file.read_text())
 
         help_score = float(d["help"])
@@ -233,8 +243,7 @@ def load_epec_points_from_mean_results(results_dir, method_name, tau=0.2, k=50):
             "safe": safety_score,
         })
 
-    points.sort(key=lambda x: x["alpha_help"])
-    return points
+    return sort_points_by_target_order(points)
 
 
 def load_baseline_points_from_mean_results(results_dir, method_name):
@@ -242,9 +251,8 @@ def load_baseline_points_from_mean_results(results_dir, method_name):
     Load baseline results stored as:
         results_dir/{method_name}_{alpha_help}help_{alpha_harm}harm/mean_result.json
 
-    Examples:
-        results_genarm/GenARM_0.1help_0.9harm/mean_result.json
-        results_parm/PARM_0.1help_0.9harm/mean_result.json
+    Keep only:
+        (0.0,1.0), (0.2,0.8), (0.4,0.6), (0.6,0.4), (0.8,0.2), (1.0,0.0)
     """
     pattern = f"{method_name}_*help_*harm/mean_result.json"
     points = []
@@ -262,6 +270,9 @@ def load_baseline_points_from_mean_results(results_dir, method_name):
         alpha_help = float(m.group(1))
         alpha_harm = float(m.group(2))
 
+        if not keep_target_alpha_pair(alpha_help, alpha_harm):
+            continue
+
         d = json.loads(mean_file.read_text())
 
         help_score = float(d["help"])
@@ -277,8 +288,7 @@ def load_baseline_points_from_mean_results(results_dir, method_name):
             "safe": safety_score,
         })
 
-    points.sort(key=lambda x: x["alpha_help"])
-    return points
+    return sort_points_by_target_order(points)
 
 
 # ============================================================
@@ -293,13 +303,16 @@ def plot_method(
     color,
     linestyle="-",
     annotate_offset=(6, 4),
-    annotate=True,
+    annotate=False,
 ):
     if len(points) == 0:
         return
 
-    x = [p["safe"] for p in points]
-    y = [p["help"] for p in points]
+    # x-axis = helpfulness
+    # y-axis = harmlessness / safety
+    x = [p["help"] for p in points]
+    y = [p["safe"] for p in points]
+
     labels = [f'({p["alpha_help"]:.1f}, {p["alpha_harm"]:.1f})' for p in points]
 
     ax.plot(
@@ -308,8 +321,10 @@ def plot_method(
         marker=marker_style,
         linestyle=linestyle,
         color=color,
-        linewidth=2,
+        linewidth=2.0,
         markersize=7,
+        markerfacecolor=color,
+        markeredgecolor=color,
         zorder=3,
         label=label,
     )
@@ -380,12 +395,19 @@ def main():
     if len(all_methods) == 0:
         raise RuntimeError("No method points found. Please check your folders.")
 
-    print("Loaded points:")
+    print("Loaded selected points:")
     for method, pts in all_methods.items():
         print(f"  {method}: {len(pts)} points")
+        for p in pts:
+            print(
+                f"    alpha_help={p['alpha_help']:.1f}, "
+                f"alpha_harm={p['alpha_harm']:.1f}, "
+                f"safe={p['safe']:.4f}, help={p['help']:.4f}"
+            )
 
     # --------------------------------------------------------
     # Global normalization and reference point
+    # IMPORTANT: computed only from the selected six-point subsets
     # --------------------------------------------------------
     all_safe = []
     all_help = []
@@ -416,7 +438,34 @@ def main():
         )
 
     # --------------------------------------------------------
-    # Save CSV
+    # Save selected points CSV
+    # --------------------------------------------------------
+    selected_points_csv = RUN_DIR / f"selected_points_tau{TAU}_k{K}.csv"
+
+    with open(selected_points_csv, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "method",
+            "alpha_help",
+            "alpha_harm",
+            "help",
+            "harm",
+            "safe",
+        ])
+
+        for method, pts in all_methods.items():
+            for p in pts:
+                writer.writerow([
+                    method,
+                    p["alpha_help"],
+                    p["alpha_harm"],
+                    p["help"],
+                    p["harm"],
+                    p["safe"],
+                ])
+
+    # --------------------------------------------------------
+    # Save metrics CSV
     # --------------------------------------------------------
     csv_out = RUN_DIR / f"hv_mip_comparison_tau{TAU}_k{K}.csv"
 
@@ -452,20 +501,31 @@ def main():
                 global_q_max[1],
             ])
 
-    # --------------------------------------------------------
+    # ========================================================
     # Plot
-    # --------------------------------------------------------
+    # 这里是你主要需要修改的地方：
+    # 1. plt.style.use("default") 清掉灰色背景
+    # 2. fig.patch.set_facecolor("white") 设置整张图白底
+    # 3. ax.set_facecolor("white") 设置坐标区域白底
+    # 4. 四条线用不同颜色表示不同 method/baseline
+    # ========================================================
+
+    plt.style.use("default")
+
     fig, ax = plt.subplots(figsize=(8, 6))
+
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
 
     plot_method(
         ax,
         epec_genarm_points,
         label="EPEC_GenARM",
         marker_style="o",
-        color="steelblue",
+        color="tab:blue",
         linestyle="-",
         annotate_offset=(6, 4),
-        annotate=True,
+        annotate=False,
     )
 
     plot_method(
@@ -473,10 +533,10 @@ def main():
         epec_parm_points,
         label="EPEC_PARM",
         marker_style="^",
-        color="darkorange",
-        linestyle="-.",
+        color="tab:orange",
+        linestyle="-",
         annotate_offset=(6, 8),
-        annotate=True,
+        annotate=False,
     )
 
     plot_method(
@@ -484,10 +544,10 @@ def main():
         genarm_baseline_points,
         label="GenARM",
         marker_style="D",
-        color="purple",
-        linestyle=":",
+        color="tab:green",
+        linestyle="-",
         annotate_offset=(6, 4),
-        annotate=True,
+        annotate=False,
     )
 
     plot_method(
@@ -495,33 +555,57 @@ def main():
         parm_baseline_points,
         label="PARM",
         marker_style="s",
-        color="seagreen",
-        linestyle="--",
+        color="tab:red",
+        linestyle="-",
         annotate_offset=(6, -10),
-        annotate=True,
+        annotate=False,
     )
 
-    ax.set_xlabel("Harmlessness", fontsize=12)
-    ax.set_ylabel("Helpfulness", fontsize=12)
+    ax.set_xlabel("Helpfulness", fontsize=14)
+    ax.set_ylabel("Harmlessness", fontsize=14)
 
-    # ax.set_title(
-    #     f"EPEC_GenARM vs EPEC_PARM vs GenARM vs PARM\n"
-    #     f"alpha sweep, tau = {TAU}, k = {K}",
-    #     fontsize=13,
-    # )
+    # 白底 + 浅灰网格
+    ax.grid(
+        True,
+        linestyle="--",
+        linewidth=0.8,
+        alpha=0.35,
+        color="gray",
+    )
 
-    ax.grid(True, linestyle="--", alpha=0.5)
     ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
     ax.yaxis.set_minor_locator(ticker.AutoMinorLocator())
-    ax.legend()
+
+    # 黑色边框，类似你给的例图
+    for spine in ax.spines.values():
+        spine.set_color("black")
+        spine.set_linewidth(1.0)
+
+    ax.tick_params(axis="both", which="major", labelsize=12)
+
+    ax.legend(
+        loc="best",
+        frameon=True,
+        facecolor="white",
+        edgecolor="lightgray",
+        framealpha=1.0,
+        fontsize=11,
+    )
 
     plt.tight_layout()
 
     fig_out = RUN_DIR / f"pareto_frontier_tau{TAU}_k{K}.png"
-    plt.savefig(fig_out, dpi=150)
+
+    plt.savefig(
+        fig_out,
+        dpi=300,
+        bbox_inches="tight",
+        facecolor="white",
+    )
 
     print(f"Saved figure: {fig_out}")
     print(f"Saved CSV: {csv_out}")
+    print(f"Saved selected points CSV: {selected_points_csv}")
 
     plt.show()
 
