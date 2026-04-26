@@ -1,24 +1,18 @@
 """
 4-curve Pareto: PARM/GenARM × logit-sum/EPEC, all on W2S 65B base.
 
-Loads mean_result.json from each per-config dir (Tong's dynamic style):
-  - logit-sum baseline:   results_n100_t512/{parm,genarm}/{PARM,GenARM}_*  (mean over 100)
-  - EPEC:                 results_n50_t512_epec/{parm,genarm}/EPEC_*       (mean over 50)
+Loads either mean_result.json directly or re-aggregates from reward_result.json
+(useful for restricting logit-sum baseline to first N prompts to be apples-to-apples
+with EPEC's n=50 sweep).
 
-Note on n: the logit-sum baseline mean_result.json is over n=100 (was generated
-for the n=100 sweep). EPEC is over n=50. They are NOT strictly comparable in
-sample size, but the n=50 prefix of the n=100 baseline produces qualitatively
-identical Pareto shape (verified earlier). For a strictly apples-to-apples plot,
-re-aggregate the logit-sum reward_result.json over the first 50 uids only —
-see commit aee48c4 era for that auxiliary script.
+Tong-style: glob per-config dirs and dump (sorted-by-α) curves.
+Adapted from epec-parm-sweep-20260424:code/evaluation/plot_epec_vs_baselines_1000.py.
 
 Usage:
-  python phase2_w2s/plot_4curve_w2s_epec.py
-  -> writes /tmp/pareto_4curve_w2s_epec.png and prints HV summary
-
-Adapted from style of Tong's plot_epec_vs_baselines_1000.py
-(epec-parm-sweep-20260424).
+  python phase2_w2s/plot_4curve_w2s_epec.py            # use existing mean_result.json
+  python phase2_w2s/plot_4curve_w2s_epec.py --n 50     # re-aggregate over first 50 prompts
 """
+import argparse
 import json
 import re
 from pathlib import Path
@@ -29,22 +23,46 @@ LS_ROOT   = BASE / 'results_n100_t512'           # logit-sum baseline (n=100)
 EPEC_ROOT = BASE / 'results_n50_t512_epec'       # EPEC (n=50)
 
 
-def load_curve(root: Path, kind: str, prefix: str):
-    """Load all configs under root/kind/{prefix}_*; return sorted-by-α list of dicts."""
+def load_curve(root: Path, kind: str, prefix: str, n=None):
+    """
+    Load all configs under root/kind/{prefix}_*; return sorted-by-α list of dicts.
+
+    If n is None: read mean_result.json directly.
+    If n is set:  re-aggregate from reward_result.json over first n prompts.
+    """
     out = []
     pat = re.compile(rf'{re.escape(prefix)}_([\d.]+)help_([\d.]+)harm')
-    for f in sorted((root / kind).glob(f'{prefix}_*/mean_result.json')):
-        m = pat.search(f.parent.name)
+    for d in sorted((root / kind).glob(f'{prefix}_*')):
+        if not d.is_dir(): continue
+        m = pat.search(d.name)
         if not m: continue
         ah = float(m.group(1))
-        d = json.loads(f.read_text())
-        out.append({'a': ah, 'help': d['help'], 'harm': d['harm']})
+
+        if n is None:
+            mr = d / 'mean_result.json'
+            if not mr.exists(): continue
+            mean = json.loads(mr.read_text())
+            help_avg, harm_avg = mean['help'], mean['harm']
+        else:
+            rr = d / 'reward_result.json'
+            if not rr.exists():
+                # fallback: use mean_result.json (some EPEC dirs may not have reward_result.json)
+                mr = d / 'mean_result.json'
+                if not mr.exists(): continue
+                mean = json.loads(mr.read_text())
+                help_avg, harm_avg = mean['help'], mean['harm']
+            else:
+                records = json.loads(rr.read_text())[:n]
+                if not records: continue
+                help_avg = sum(r['help_score (high better)'] for r in records) / len(records)
+                harm_avg = sum(r['harm_score (low better)'] for r in records) / len(records)
+
+        out.append({'a': ah, 'help': help_avg, 'harm': harm_avg})
     out.sort(key=lambda r: r['a'])
     return out
 
 
 def hv2d(pts, ref):
-    """2D hypervolume above ref point (max-objectives, upper-right = better)."""
     pts = sorted([(x, y) for x, y in pts if x > ref[0] and y > ref[1]],
                  key=lambda p: -p[0])
     if not pts: return 0.0
@@ -57,37 +75,47 @@ def hv2d(pts, ref):
 
 
 def plot_curve(ax, data, marker, color, label, label_offset=(5, 8), label_size=8):
-    if not data:
-        return
+    if not data: return
     x = [r['help'] for r in data]
     y = [-r['harm'] for r in data]
     ax.plot(x, y, marker, color=color, label=label, lw=2, ms=8, alpha=0.9)
     for r in data:
-        ax.annotate(f"({r['a']:.1f},{1-r['a']:.1f})", (r['help'], -r['harm']),
+        ax.annotate(f"({r['a']:.1f},{round(1-r['a'],1)})", (r['help'], -r['harm']),
                     textcoords='offset points', xytext=label_offset,
                     fontsize=label_size, color=color, alpha=0.85)
 
 
 def main():
-    parm_ls    = load_curve(LS_ROOT,   'parm',   'PARM')
-    genarm_ls  = load_curve(LS_ROOT,   'genarm', 'GenARM')
-    parm_epec  = load_curve(EPEC_ROOT, 'parm',   'EPEC_PARM')
-    genarm_epec= load_curve(EPEC_ROOT, 'genarm', 'EPEC_GenARM')
+    p = argparse.ArgumentParser()
+    p.add_argument('--n', type=int, default=None,
+                   help='If set, re-aggregate logit-sum baseline over first N prompts '
+                        '(EPEC always uses its own mean_result.json).')
+    p.add_argument('--out', default='/tmp/pareto_4curve_w2s_epec.png')
+    args = p.parse_args()
 
-    print(f"Loaded: {len(parm_ls)} PARM-LS, {len(genarm_ls)} GenARM-LS, "
-          f"{len(parm_epec)} PARM-EPEC, {len(genarm_epec)} GenARM-EPEC\n")
+    # Logit-sum: optionally re-aggregate to n
+    parm_ls    = load_curve(LS_ROOT,   'parm',   'PARM',         n=args.n)
+    genarm_ls  = load_curve(LS_ROOT,   'genarm', 'GenARM',       n=args.n)
+    # EPEC: always use mean_result.json (already at n=50)
+    parm_epec  = load_curve(EPEC_ROOT, 'parm',   'EPEC_PARM',    n=None)
+    genarm_epec= load_curve(EPEC_ROOT, 'genarm', 'EPEC_GenARM',  n=None)
+
+    n_label = f"n={args.n}" if args.n else "n=100"
+    print(f"Loaded: {len(parm_ls)} PARM-LS ({n_label}), {len(genarm_ls)} GenARM-LS ({n_label}), "
+          f"{len(parm_epec)} PARM-EPEC (n=50), {len(genarm_epec)} GenARM-EPEC (n=50)\n")
 
     fig, ax = plt.subplots(figsize=(11, 8))
-    plot_curve(ax, parm_ls,    '^--', '#7570b3', 'PARM logit-sum',   (5, -10))
-    plot_curve(ax, genarm_ls,  'o--', '#4682b4', 'GenARM logit-sum', (5, -10))
-    plot_curve(ax, parm_epec,  's-',  '#dc143c', 'PARM EPEC',        (5, 8), label_size=9)
-    plot_curve(ax, genarm_epec,'D-',  '#8a2be2', 'GenARM EPEC',      (5, 8), label_size=9)
+    plot_curve(ax, parm_ls,    '^--', '#7570b3', f'PARM logit-sum ({n_label})',   (5, -10))
+    plot_curve(ax, genarm_ls,  'o--', '#4682b4', f'GenARM logit-sum ({n_label})', (5, -10))
+    plot_curve(ax, parm_epec,  's-',  '#dc143c', 'PARM EPEC (n=50)',              (5, 8), 9)
+    plot_curve(ax, genarm_epec,'D-',  '#8a2be2', 'GenARM EPEC (n=50)',            (5, 8), 9)
 
     ax.set_xlabel('Helpfulness  (Beaver-7B reward; higher = better)', fontsize=12)
     ax.set_ylabel('Harmlessness  (-Beaver-7B cost; higher = safer)', fontsize=12)
+    title_n = f"all curves at n={args.n}" if args.n else "logit-sum n=100, EPEC n=50"
     ax.set_title('W2S 65B: token-level EPEC vs logit-sum (PARM and GenARM)\n'
-                 'base: alpaca-lora-65B-GPTQ  |  ARM: alpaca-7b-reproduced  |  '
-                 'logit-sum n=100, EPEC n=50, max_tok=512', fontsize=12)
+                 f'base: alpaca-lora-65B-GPTQ  |  ARM: alpaca-7b-reproduced  |  '
+                 f'{title_n}, max_tok=512', fontsize=12)
     ax.grid(True, linestyle=':', alpha=0.4)
     ax.legend(loc='lower left', fontsize=11, framealpha=0.95)
     ax.axhline(0, color='gray', lw=0.6, alpha=0.4)
@@ -97,9 +125,8 @@ def main():
             bbox=dict(boxstyle='round,pad=0.4', facecolor='lightyellow', alpha=0.85))
 
     plt.tight_layout()
-    out = '/tmp/pareto_4curve_w2s_epec.png'
-    plt.savefig(out, dpi=140, bbox_inches='tight')
-    print(f"Saved: {out}\n")
+    plt.savefig(args.out, dpi=140, bbox_inches='tight')
+    print(f"Saved: {args.out}\n")
 
     all_pts = parm_ls + genarm_ls + parm_epec + genarm_epec
     if all_pts:
