@@ -150,7 +150,7 @@ def parse_args():
     p.add_argument("--alpha_helpfulness", type=float, required=True)
     p.add_argument("--alpha_harmlessness", type=float, required=True)
     p.add_argument("--tau", type=float, default=0.1)
-    p.add_argument("--k", type=int, default=20)
+    p.add_argument("--k", type=int, default=100)
     p.add_argument("--max_new_tokens", type=int, default=256)
     p.add_argument("--datasets", default="../data/PKU-SafeRLHF/test_prompt_only.json")
     p.add_argument("--output_dir", default="./results")

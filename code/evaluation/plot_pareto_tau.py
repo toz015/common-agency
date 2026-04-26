@@ -48,7 +48,7 @@ PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 # tau and k
 # ============================================================
 TAU = 0.1
-K = 20
+K = 100
 
 SENS_DIR = BASE_DIR / "sensitivity analysis"
 RUN_DIR = SENS_DIR / f"tau={TAU}_N={K}"
