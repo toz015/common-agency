@@ -20,3 +20,6 @@ code/evaluation/epec_results/
 code/evaluation/*.log
 code/evaluation/Untitled
 code/evaluation/pareto_compare.png
+
+# Local IDE / agent state
+.claude/
