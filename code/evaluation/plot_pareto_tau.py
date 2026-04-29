@@ -41,7 +41,7 @@ import matplotlib.ticker as ticker
 BASE_DIR = Path(__file__).parent
 
 RESULTS_DIR = BASE_DIR / "results"
-GENARM_BASELINE_DIR = BASE_DIR / "results_genarm"
+GENARM_BASELINE_DIR = BASE_DIR / "results_genarm_new"
 PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 
 # ============================================================
@@ -50,7 +50,7 @@ PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 TAU = 0.1
 K = 100
 
-SENS_DIR = BASE_DIR / "sensitivity analysis"
+SENS_DIR = BASE_DIR / "sensitivity analysis_new"
 RUN_DIR = SENS_DIR / f"tau={TAU}_N={K}"
 RUN_DIR.mkdir(parents=True, exist_ok=True)
 
