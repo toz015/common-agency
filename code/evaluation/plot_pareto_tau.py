@@ -47,8 +47,8 @@ PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 # ============================================================
 # tau and k
 # ============================================================
-TAU = 0.2
-K = 50
+TAU = 0.1
+K = 100
 
 SENS_DIR = BASE_DIR / "sensitivity analysis_new"
 RUN_DIR = SENS_DIR / f"tau={TAU}_N={K}"
@@ -532,7 +532,7 @@ def main():
         ax,
         epec_parm_points,
         label="CAGE+",
-        marker_style="o",
+        marker_style="s",
         color="tab:orange",
         linestyle="-",
         annotate_offset=(6, 8),
@@ -543,7 +543,7 @@ def main():
         ax,
         genarm_baseline_points,
         label="GenARM",
-        marker_style="o",
+        marker_style="^",
         color="tab:green",
         linestyle="-",
         annotate_offset=(6, 4),
@@ -554,15 +554,15 @@ def main():
         ax,
         parm_baseline_points,
         label="PARM",
-        marker_style="o",
+        marker_style="D",
         color="tab:red",
         linestyle="-",
         annotate_offset=(6, -10),
         annotate=False,
     )
 
-    ax.set_xlabel("Helpfulness", fontsize=30)
-    ax.set_ylabel("Harmlessness", fontsize=30)
+    ax.set_xlabel("Helpfulness", fontsize=32)
+    ax.set_ylabel("Harmlessness", fontsize=32)
 
     # 白底 + 浅灰网格
     ax.grid(
