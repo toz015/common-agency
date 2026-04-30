@@ -19,7 +19,7 @@ def parse_arguments():
 
     parser.add_argument(
     "--limit",
-    default=100,
+    default=1000,
     type=int,
     help="Only evaluate the first N examples. Default: evaluate all.",
 )
