@@ -561,8 +561,8 @@ def main():
         annotate=False,
     )
 
-    ax.set_xlabel("Helpfulness", fontsize=24)
-    ax.set_ylabel("Harmlessness", fontsize=24)
+    ax.set_xlabel("Helpfulness", fontsize=30)
+    ax.set_ylabel("Harmlessness", fontsize=30)
 
     # 白底 + 浅灰网格
     ax.grid(
