@@ -41,7 +41,7 @@ import matplotlib.ticker as ticker
 BASE_DIR = Path(__file__).parent
 
 RESULTS_DIR = BASE_DIR / "results"
-GENARM_BASELINE_DIR = BASE_DIR / "results_genarm_new"
+GENARM_BASELINE_DIR = BASE_DIR / "results_genarm"
 PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 
 # ============================================================
@@ -520,7 +520,7 @@ def main():
     plot_method(
         ax,
         epec_genarm_points,
-        label="EPEC_GenARM",
+        label="CAGE",
         marker_style="o",
         color="tab:blue",
         linestyle="-",
@@ -531,8 +531,8 @@ def main():
     plot_method(
         ax,
         epec_parm_points,
-        label="EPEC_PARM",
-        marker_style="^",
+        label="CAGE+",
+        marker_style="o",
         color="tab:orange",
         linestyle="-",
         annotate_offset=(6, 8),
@@ -543,7 +543,7 @@ def main():
         ax,
         genarm_baseline_points,
         label="GenARM",
-        marker_style="D",
+        marker_style="o",
         color="tab:green",
         linestyle="-",
         annotate_offset=(6, 4),
@@ -554,15 +554,15 @@ def main():
         ax,
         parm_baseline_points,
         label="PARM",
-        marker_style="s",
+        marker_style="o",
         color="tab:red",
         linestyle="-",
         annotate_offset=(6, -10),
         annotate=False,
     )
 
-    ax.set_xlabel("Helpfulness", fontsize=14)
-    ax.set_ylabel("Harmlessness", fontsize=14)
+    ax.set_xlabel("Helpfulness", fontsize=24)
+    ax.set_ylabel("Harmlessness", fontsize=24)
 
     # 白底 + 浅灰网格
     ax.grid(
@@ -589,7 +589,7 @@ def main():
         facecolor="white",
         edgecolor="lightgray",
         framealpha=1.0,
-        fontsize=11,
+        fontsize=20,
     )
 
     plt.tight_layout()
