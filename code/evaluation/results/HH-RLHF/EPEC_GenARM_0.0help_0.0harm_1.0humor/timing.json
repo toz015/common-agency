@@ -1,9 +1,9 @@
 {
-  "method": "EPEC_0.0help_0.0harm_1.0humor",
-  "n_prompts": 50,
-  "total_seconds": 1673.4362399578094,
-  "fwd_seconds": 1327.1726443767548,
-  "epec_seconds": 342.7549512386322,
+  "method": "EPEC_GenARM_0.0help_0.0harm_1.0humor",
+  "n_prompts": 200,
+  "total_seconds": 6418.10622215271,
+  "fwd_seconds": 5070.495999336243,
+  "epec_seconds": 1333.5775377750397,
   "tau": 0.1,
   "k": 50
 }

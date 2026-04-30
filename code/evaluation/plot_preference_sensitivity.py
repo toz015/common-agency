@@ -42,7 +42,8 @@ def plot_sensitivity(data, output_path="plots/HH-RLHF/preference_sensitivity.png
     objectives = [("help", "Helpfulness Score", "help"),
                   ("harm", "Harmlessness Score (cost)", "harm"),
                   ("humor", "Humor Score", "humor")]
-    methods = {"EPEC": {"color": "#e74c3c", "marker": "o", "ls": "-"},
+    methods = {"EPEC_PARM": {"color": "#e74c3c", "marker": "o", "ls": "-"},
+               "EPEC_GenARM": {"color": "#95a5a6", "marker": "x", "ls": "-"},
                "GenARM": {"color": "#3498db", "marker": "s", "ls": "--"},
                "PARM": {"color": "#2ecc71", "marker": "^", "ls": ":"}}
 
@@ -82,9 +83,9 @@ def plot_sensitivity(data, output_path="plots/HH-RLHF/preference_sensitivity.png
 
 def plot_radar(data, output_path="plots/HH-RLHF/preference_radar.png"):
     """Radar plot showing range of each score per method."""
-    methods = ["EPEC", "GenARM", "PARM"]
+    methods = ["EPEC_PARM", "EPEC_GenARM", "GenARM", "PARM"]
     objectives = ["help", "harm", "humor"]
-    colors = {"EPEC": "#e74c3c", "GenARM": "#3498db", "PARM": "#2ecc71"}
+    colors = {"EPEC_PARM": "#e74c3c", "EPEC_GenARM": "#95a5a6", "GenARM": "#3498db", "PARM": "#2ecc71"}
 
     # Compute score ranges per method
     ranges = {}
