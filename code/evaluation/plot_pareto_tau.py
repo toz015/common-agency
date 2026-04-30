@@ -47,8 +47,8 @@ PARM_BASELINE_DIR = BASE_DIR / "results_parm"
 # ============================================================
 # tau and k
 # ============================================================
-TAU = 0.1
-K = 100
+TAU = 0.4
+K = 50
 
 SENS_DIR = BASE_DIR / "sensitivity analysis_new"
 RUN_DIR = SENS_DIR / f"tau={TAU}_N={K}"
@@ -589,7 +589,7 @@ def main():
         facecolor="white",
         edgecolor="lightgray",
         framealpha=1.0,
-        fontsize=18,
+        fontsize=17,
     )
 
     plt.tight_layout()
