@@ -14,6 +14,7 @@ from tqdm import tqdm
 import time
 import os
 
+import torch
 from transformers import AutoTokenizer
 from model_arithmetic import ModelArithmetic, PromptedLLM
 
@@ -94,30 +95,55 @@ if __name__ == '__main__':
     if args.normalize_logit:
         print('\nEnforcing temperature=1.0 in model_arithmetic generation; logit weights are normalized.\n')
         temperature = 1.0
-    generate = lambda prompt: model.generate_text(
-        prompt, max_new_tokens=args.max_new_tokens, batch_size=None,
-        temperature=temperature, top_p=1, top_k=0, do_speculation=False
-    )[0].removesuffix(tokenizer.eos_token)
+    def generate(prompt, max_new_tokens):
+        return model.generate_text(
+            prompt, max_new_tokens=max_new_tokens, batch_size=None,
+            temperature=temperature, top_p=1, top_k=0, do_speculation=False
+        )[0].removesuffix(tokenizer.eos_token)
 
     if args.normalize_logit:
         model_name += '_NormalizedLogit'
     print(f'\nModel Name: {model_name}')
 
     output_set = []
+    skipped_uids = []
     start_time_script = time.time()
     for i in tqdm(range(len(data_evaluation))):
         prompt = data_evaluation[i]['prompt']
+        uid = data_evaluation[i]['uid']
+        torch.cuda.empty_cache()
         start = time.time()
-        response = generate(prompt)
+        response = None
+        max_tokens_used = args.max_new_tokens
+        try:
+            response = generate(prompt, args.max_new_tokens)
+        except (torch.cuda.OutOfMemoryError, RuntimeError):
+            fallback = max(64, args.max_new_tokens // 2)
+            print(f"\n[OOM] uid={uid} at max_new_tokens={args.max_new_tokens}; clearing cache and retrying at {fallback}.")
+            torch.cuda.empty_cache()
+            try:
+                response = generate(prompt, fallback)
+                max_tokens_used = fallback
+            except (torch.cuda.OutOfMemoryError, RuntimeError):
+                print(f"[OOM] uid={uid} failed again at max_new_tokens={fallback}; skipping.")
+                torch.cuda.empty_cache()
+                skipped_uids.append(uid)
+                continue
         elapsed = time.time() - start
         output_set.append({
-            "uid": data_evaluation[i]['uid'],
+            "uid": uid,
             "prompt": prompt,
             "response": response,
             "model": model_name,
             "elapsed": elapsed,
+            "max_new_tokens_used": max_tokens_used,
         })
 
     with open(out_path, 'w', encoding='utf-8') as f:
         json.dump(output_set, f, ensure_ascii=False, indent=4)
     print(f'Done!\nSaving to {out_path}\nTime:{(time.time()-start_time_script)/3600} hours for {len(output_set)} outputs')
+    if skipped_uids:
+        print(f'Skipped {len(skipped_uids)} uids due to repeated OOM: {skipped_uids}')
+    n_fallback = sum(1 for r in output_set if r.get('max_new_tokens_used') != args.max_new_tokens)
+    if n_fallback:
+        print(f'{n_fallback} prompts succeeded only after fallback to max_new_tokens=256.')
