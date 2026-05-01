@@ -103,6 +103,8 @@ def main():
     p.add_argument('--n', type=int, default=None,
                    help='If set, re-aggregate logit-sum baseline over first N prompts.')
     p.add_argument('--out', default='/tmp/pareto_4curve_w2s_epec.png')
+    p.add_argument('--include_cage_plus', action='store_true',
+                   help='Include CAGE+ (EPEC+PARM, currently n=50 only). Default off.')
     args = p.parse_args()
 
     # Pick LS dir based on n
@@ -125,15 +127,17 @@ def main():
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
 
-    # CAGE  = EPEC+GenARM   → tab:blue, marker o
-    # CAGE+ = EPEC+PARM     → tab:orange, marker s
-    # GenARM (logit-sum)    → tab:green, marker ^
-    # PARM (logit-sum)      → tab:red, marker D
+    # Color/marker per paper Figure 3 convention:
+    #   PARM (logit-sum)        → purple,    marker ^
+    #   GenARM (logit-sum)      → steelblue, marker s
+    #   CAGE  = EPEC+GenARM     → red,       marker o   (Ours, full n=300)
+    #   CAGE+ = EPEC+PARM       → green,     marker D   (Ours, n=50 only — drop unless --include_cage_plus)
 
-    plot_method(ax, genarm_epec, label="CAGE (Ours)",  marker="o", color="tab:blue")
-    plot_method(ax, parm_epec,   label="CAGE+ (Ours)", marker="s", color="tab:orange")
-    plot_method(ax, genarm_ls,   label="GenARM",       marker="^", color="tab:green")
-    plot_method(ax, parm_ls,     label="PARM",         marker="D", color="tab:red")
+    plot_method(ax, parm_ls,     label="PARM",         marker="^", color="purple")
+    plot_method(ax, genarm_ls,   label="GenARM",       marker="s", color="steelblue")
+    plot_method(ax, genarm_epec, label="CAGE (Ours)",  marker="o", color="red")
+    if args.include_cage_plus:
+        plot_method(ax, parm_epec, label="CAGE+ (Ours)", marker="D", color="green")
 
     ax.set_xlabel("Helpfulness", fontsize=32)
     ax.set_ylabel("Harmlessness", fontsize=32)
