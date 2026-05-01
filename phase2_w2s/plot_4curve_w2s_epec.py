@@ -105,6 +105,8 @@ def main():
     p.add_argument('--out', default='/tmp/pareto_4curve_w2s_epec.png')
     p.add_argument('--include_cage_plus', action='store_true',
                    help='Include CAGE+ (EPEC+PARM, currently n=50 only). Default off.')
+    p.add_argument('--include_parm', action='store_true',
+                   help='Include PARM logit-sum baseline. Default off.')
     args = p.parse_args()
 
     # Pick LS dir based on n
@@ -137,7 +139,8 @@ def main():
     if args.include_cage_plus:
         plot_method(ax, parm_epec, label="CAGE+", marker="s", color="tab:orange")
     plot_method(ax, genarm_ls,   label="GenARM", marker="^", color="tab:green")
-    plot_method(ax, parm_ls,     label="PARM",   marker="D", color="tab:red")
+    if args.include_parm:
+        plot_method(ax, parm_ls, label="PARM",   marker="D", color="tab:red")
 
     ax.set_xlabel("Helpfulness", fontsize=32)
     ax.set_ylabel("Harmlessness", fontsize=32)
