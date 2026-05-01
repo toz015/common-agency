@@ -158,7 +158,7 @@ def main():
     ax.tick_params(axis="both", which="major", labelsize=12)
 
     ax.legend(
-        loc="upper right",
+        loc="lower left",
         frameon=True,
         facecolor="white",
         edgecolor="lightgray",
