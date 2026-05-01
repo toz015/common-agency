@@ -127,17 +127,17 @@ def main():
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
 
-    # Color/marker per paper Figure 3 convention:
-    #   PARM (logit-sum)        → purple,    marker ^
-    #   GenARM (logit-sum)      → steelblue, marker s
-    #   CAGE  = EPEC+GenARM     → red,       marker o   (Ours, full n=300)
-    #   CAGE+ = EPEC+PARM       → green,     marker D   (Ours, n=50 only — drop unless --include_cage_plus)
+    # Color/marker per paper Figure 4 convention (matches plot_pareto_tau.py):
+    #   CAGE  = EPEC+GenARM     → tab:blue,   marker o   (Ours, full n=300)
+    #   CAGE+ = EPEC+PARM       → tab:orange, marker s   (Ours, n=50 only — drop unless --include_cage_plus)
+    #   GenARM (logit-sum)      → tab:green,  marker ^
+    #   PARM (logit-sum)        → tab:red,    marker D
 
-    plot_method(ax, parm_ls,     label="PARM",         marker="^", color="purple")
-    plot_method(ax, genarm_ls,   label="GenARM",       marker="s", color="steelblue")
-    plot_method(ax, genarm_epec, label="CAGE (Ours)",  marker="o", color="red")
+    plot_method(ax, genarm_epec, label="CAGE",   marker="o", color="tab:blue")
     if args.include_cage_plus:
-        plot_method(ax, parm_epec, label="CAGE+ (Ours)", marker="D", color="green")
+        plot_method(ax, parm_epec, label="CAGE+", marker="s", color="tab:orange")
+    plot_method(ax, genarm_ls,   label="GenARM", marker="^", color="tab:green")
+    plot_method(ax, parm_ls,     label="PARM",   marker="D", color="tab:red")
 
     ax.set_xlabel("Helpfulness", fontsize=32)
     ax.set_ylabel("Harmlessness", fontsize=32)
