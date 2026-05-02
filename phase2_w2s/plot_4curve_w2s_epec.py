@@ -139,8 +139,7 @@ def main():
     if args.include_cage_plus:
         plot_method(ax, parm_epec, label="CAGE+", marker="s", color="tab:orange")
     plot_method(ax, genarm_ls,   label="GenARM", marker="^", color="tab:green")
-    if args.include_parm:
-        plot_method(ax, parm_ls, label="PARM",   marker="D", color="tab:red")
+    plot_method(ax, parm_ls,     label="PARM",   marker="D", color="tab:red")
 
     ax.set_xlabel("Helpfulness", fontsize=32)
     ax.set_ylabel("Harmlessness", fontsize=32)
@@ -163,7 +162,7 @@ def main():
         facecolor="white",
         edgecolor="lightgray",
         framealpha=1.0,
-        fontsize=17,
+        fontsize=24,
     )
 
     plt.tight_layout()
