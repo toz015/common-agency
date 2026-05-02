@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 base = Path(__file__).resolve().parent.parent
 
 alphas = [(0.1, 0.9), (0.2, 0.8), (0.3, 0.7), (0.4, 0.6), (0.5, 0.5),
-          (0.6, 0.4), (0.7, 0.3), (0.8, 0.2)]
+          (0.6, 0.4), (0.7, 0.3), (0.8, 0.2), (0.9, 0.1)]
 
 
 def load_mean(path):
@@ -22,11 +22,6 @@ for ah, am in alphas:
     epec_genarm.append({'a_help': ah, 'a_harm': am, 'help': eh, 'harm': em})
     genarm.append({'a_help': ah, 'a_harm': am, 'help': gh, 'harm': gm})
     parm.append({'a_help': ah, 'a_harm': am, 'help': ph, 'harm': pm_})
-
-# Add PARM 0.9 point
-ph9, pm9 = load_mean(base / 'results/PARM_0.9help_0.1harm/mean_result.json')
-parm.append({'a_help': 0.9, 'a_harm': 0.1, 'help': ph9, 'harm': pm9})
-parm.sort(key=lambda x: x['a_help'])
 
 epec_parm = []
 for d in sorted(base.glob('results_epec_parm/*/mean_result.json')):
