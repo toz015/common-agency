@@ -1,0 +1,16 @@
+{
+  "method": "EPEC_PARM_0.8help_0.2harm_tau0.1_k50",
+  "n_prompts": 1000,
+  "total_seconds": 139773.86287260056,
+  "mean_per_prompt": 139.77386287260055,
+  "fwd_fraction": 0.6322717089364227,
+  "epec_fraction": 0.3677282910635773,
+  "total_tokens": 420103,
+  "sec_per_token": 0.3325299789522112,
+  "peak_gpu_memory_gb": 15.0103424,
+  "tau": 0.1,
+  "k": 50,
+  "alpha_helpfulness": 0.8,
+  "alpha_harmlessness": 0.2,
+  "max_new_tokens": 512
+}

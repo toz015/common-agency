@@ -1,0 +1,9 @@
+{
+  "method": "MOD_0.1help_0.9harm",
+  "n_prompts": 1500,
+  "total_seconds": 17633.05444598198,
+  "mean_per_prompt": 11.755369630813599,
+  "alpha_helpfulness": 0.1,
+  "alpha_harmlessness": 0.9,
+  "max_new_tokens": 512
+}

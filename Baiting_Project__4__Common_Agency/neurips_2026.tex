@@ -1,0 +1,2046 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2026
+
+% The authors should use one of these tracks.
+% Before accepting by the NeurIPS conference, select one of the options below.
+% 0. "default" for submission
+\usepackage{neurips_2026}
+% the "default" option is equal to the "main" option, which is used for the Main Track with double-blind reviewing.
+% 1. "main" option is used for the Main Track
+%  \usepackage[main]{neurips_2026}
+% 2. "position" option is used for the Position Paper Track
+%  \usepackage[position]{neurips_2026}
+% 3. "eandd" option is used for the Evaluations & Datasets Track
+ % \usepackage[eandd]{neurips_2026}
+ % if you want to opt-in for a de-anomymized submission (not recommended, but OK):
+ %\usepackage[eandd, nonanonymous]{neurips_2026}
+% 4. "creativeai" option is used for the Creative AI Track
+%  \usepackage[creativeai]{neurips_2026}
+% 5. "sglblindworkshop" option is used for the Workshop with single-blind reviewing
+ % \usepackage[sglblindworkshop]{neurips_2026}
+% 6. "dblblindworkshop" option is used for the Workshop with double-blind reviewing
+%  \usepackage[dblblindworkshop]{neurips_2026}
+
+% After being accepted, the authors should add "final" behind the track to compile a camera-ready version.
+% 1. Main Track
+ % \usepackage[main, final]{neurips_2026}
+% 2. Position Paper Track
+%  \usepackage[position, final]{neurips_2026}
+% 3. Evaluations & Datasets Track
+ % \usepackage[eandd, final]{neurips_2026}
+% 4. Creative AI Track
+%  \usepackage[creativeai, final]{neurips_2026}
+% 5. Workshop with single-blind reviewing
+%  \usepackage[sglblindworkshop, final]{neurips_2026}
+% 6. Workshop with double-blind reviewing
+%  \usepackage[dblblindworkshop, final]{neurips_2026}
+% Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote.
+% For workshops (5., 6.), the authors should add the name of the workshop, "\workshoptitle" command is used to set the workshop title.
+% \workshoptitle{WORKSHOP TITLE}
+
+% "preprint" option is used for arXiv or other preprint submissions
+ % \usepackage[preprint]{neurips_2026}
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2026}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\DeclareMathOperator{\SOL}{SOL}
+\usepackage{amssymb,amsthm}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{pifont}
+\usepackage[table]{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+
+% optional: define colors/macros used in the table
+\definecolor{mygray}{gray}{0.92}
+\newcommand{\ourapproach}{CommonAgency}
+\newcommand{\pub}[1]{\textit{(#1)}}
+% Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote. 
+\title{Multi-Objective Test-Time Alignment via Common Agency Games}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+
+\author{%
+  David S.~Hippocampus\thanks{Use footnote for providing further information
+    about author (webpage, alternative address)---\emph{not} for acknowledging
+    funding agencies.} \\
+  Department of Computer Science\\
+  Cranberry-Lemon University\\
+  Pittsburgh, PA 15213 \\
+  \texttt{hippo@cs.cranberry-lemon.edu} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+Aligning large language models (LLMs) with human preferences is inherently multi-objective, as different users and objectives impose heterogeneous and often conflicting requirements on model outputs. We propose a training-free, game-theoretic framework for multi-objective test-time alignment, formulating it as a common-agency game in which multiple objectives act as principals that strategically allocate token-level incentives to influence a shared LLM, yielding an equilibrium policy that captures the joint effect of competing objectives. We develop an efficient algorithm based on equilibrium problems with equilibrium constraints (EPEC), with theoretical guarantees on equilibrium existence and uniqueness, convergence, stability, and no-regret analysis. Experiments show that our approach enables flexible and effective trade-offs across objectives without retraining, outperforming existing test-time alignment methods and supporting weak-to-strong generalization, making multi-objective alignment practical under limited computational resources.\\
+\textcolor{red}{Warning: This paper contains examples that
+may be offensive or harmful.}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+Aligning large language models (LLMs) with human values is a central challenge in modern AI systems \citep{xiesurvey,casper2023open,bai2022training}. In many real-world applications, however, alignment is inherently \emph{multi-objective}: different users, stakeholders, or evaluation criteria often impose heterogeneous and potentially conflicting preferences on model outputs \citep{li2020deep,vamplew2018human,lin2025parm,xu2024genarm}. Existing work on multi-objective alignment has primarily focused on training-time approaches, where the model is optimized during fine-tuning to balance multiple preferences \citep{li2025gradient,zhangalignment,zhou2024beyond,rame2023rewarded,wang2024arithmetic,guo2024controllable,yang2024rewards}. While these methods provide a principled framework for encoding trade-offs, they often require costly retraining when new objectives are introduced or when the balance among existing objectives changes \citep{lin2025parm,li2025gradient,xu2024genarm}. They also offer limited flexibility since the objective weights typically cannot be adjusted at inference time \citep{li2025multi,lin2025parm}.
+
+By contrast, \emph{test-time} alignment has recently emerged as a lightweight and flexible alternative, in which the base model remains frozen and external reward signals guide generation at inference time \citep{xu2024genarm,lin2025parm}. This paradigm is especially appealing in multi-objective settings, since it allows the relative importance of different objectives to vary across users and contexts without retraining the model \citep{chenpad,son2025robust}. However, once multiple objectives are introduced at inference time, a fundamental question arises: how should the model reconcile their potentially conflicting preferences?
+
+Most existing approaches address this question by combining multiple objectives into a single optimization criterion, for example through fixed weighted combinations or a jointly trained aggregate reward model \citep{xu2024genarm,lin2025parm}. While natural, such scalarization implicitly assumes that heterogeneous objectives can be reliably reduced to a single signal. In practice, however, different objectives may encode distinct and potentially competing desiderata \citep{zhang2025diverging,im2025well}. As a result, direct aggregation may ignore conflicts among objectives instead of explicitly accounting for them \citep{chakraborty2024maxmin,shirali2025direct,ali2026operationalizing}. Moreover, these approaches primarily view the problem as selecting a point on the Pareto frontier \citep{lin2025parm}. In multi-objective alignment, however, different reward signals jointly shape the behavior of a shared frozen LLM. This suggests a complementary perspective in which objectives are not first collapsed into a single scalar reward, but instead act as distinct sources of influence on a common agent \citep{bernheim1986common}.
+
+In this paper, we propose a training-free, game-theoretic framework for multi-objective test-time alignment. We model the problem as a common-agency game \citep{bernheim1986common}, in which multiple principals, corresponding to different alignment objectives, provide incentives to a shared agent, the LLM. This formulation explicitly preserves the role of each objective and models how different objectives jointly influence the LLM at inference time. Given the aggregate incentives, the LLM selects a distribution over candidate outputs, and the resulting equilibrium provides a principled characterization of how multiple objectives jointly shape the final aligned policy. To implement this framework, we draw inspiration from equilibrium problems with equilibrium constraints (EPEC) \citep{su2005equilibrium} and design an iterative algorithm for computing the equilibrium. Conceptually, our framework draws inspiration from economics, where a shared decision-maker often responds to incentives from multiple parties. Similarly, the final LLM output is shaped by the joint influence of multiple alignment objectives.
+
+Our main contributions are as follows:
+\begin{itemize}
+    \item We formulate multi-objective test-time alignment as a common-agency game and develop an efficient algorithm for computing the equilibrium via iterative best-response dynamics.
+    
+    \item We establish existence and uniqueness of the equilibrium policy, and further provide theoretical guarantees on convergence, stability, and regret under mild conditions.
+    
+        \item We validate our framework on multi-objective alignment tasks, demonstrating that our training-free method achieves stronger performance and effectively balances heterogeneous objectives at inference time.
+\end{itemize}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig/Common Agency.pdf}
+\caption{Illustration of the multi-objective alignment common agency game. The LLM generates tokens sequentially, while multiple objectives guide the decoding process at inference time.}
+\label{fig:method}
+\vspace{-1.5em}
+\end{figure}
+
+\textbf{Related Work.}
+This work relates to three lines of research. 
+\textit{First}, multi-objective optimization (MOO) studies competing objectives via Pareto optimality \citep{ye2021multi}. In LLM alignment, heterogeneous preferences motivate multi-objective methods based on multiple reward signals \citep{yang2024rewards,lin2025parm,li2025gradient,zhou2024beyond}. Most approaches rely on scalarization or multiple models \citep{li2020deep,wu2023fine,rame2023rewarded,jang2023consistency}, whereas our methodology falls within the test-time alignment, where the base LLM remains frozen and alignment is achieved during inference, resulting in a fully training-free approach.
+\textit{Second}, test-time alignment provides a flexible paradigm for steering frozen LLMs during inference via reward-guided decoding \citep{khanovargs,huang2025deal}, with extensions including token-level reward models and value-based formulations for improved control and efficiency \citep{xu2024genarm,shi2024decoding,lin2025parm,xie2026uniarm,mudgal2024controlled,chakraborty2024transfer}. Our methodology builds on token-level reward modeling, but rather than aggregating multiple objectives as independent guidance signals, we adopt a common-agency framework that explicitly captures their interactions, enabling more flexible and principled multi-objective alignment at inference time. 
+Third, recent work studies LLM behavior through multi-agent and game-theoretic perspectives, including consensus-based reasoning and strategic alignment formulations \citep{huang2024ensemble,chenincentivizing,chen2026survey,cheng2024self,kirchner2024prover,jacob2023consensus,zhu2026align,makar2024sta,chu2025stackelberg,sun2024mechanism,bueningstrategyproof}. 
+Our work connects these directions by proposing a training-free, test-time framework that models multiple objectives as interacting principals acting on a shared LLM, enabling more flexible and principled multi-objective alignment. 
+
+% \begin{table*}[ht]
+% \vspace{-7pt}
+% \centering
+% \renewcommand{\arraystretch}{1.27}
+% \caption{Comparison with test-time alignment methods. Here, $M$ denotes the number of preference vectors and $N$ denotes the number of objectives, with $M \gg N$. Our approach is Pareto-steerable and lightweight, achieving strong scalability with minimal storage and inference overhead, while avoiding retraining and structured prompting.}
+% \vspace{3pt}
+% \small
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{l|c|c|c|c|c|c}
+% \bottomrule
+% \rowcolor{mygray}
+% \textbf{Methods ($\downarrow$)} 
+% & \textbf{Stored models} 
+% & \textbf{Inference cost} 
+% & \textbf{Trained models} 
+% & \textbf{Pareto-steerable} 
+% & \textbf{Scalability} 
+% & \textbf{Prompt-free} \\
+% \hline
+% \hline
+% RS \citep{rame2023rewarded}      
+% & $N$  & $1$   & $0$ & \checkmark & \checkmark & \checkmark \\
+
+% MOD \citep{shi2024decoding}      
+% & $N$  & $N$   & $0$ & \checkmark & \checkmark & \checkmark \\
+
+% Args \citep{khanovargs}          
+% & $0$  & $>N$  & $0$ & \checkmark & \checkmark & \checkmark \\
+
+% LoraMoE \citep{dou2024loramoe}   
+% & $1$  & $1$   & $1$ & \ding{55}  & Retrain    & \checkmark \\
+
+% DeAL \citep{huang2025deal}       
+% & $N$  & $>N$  & $0$ & \checkmark & \checkmark & \ding{55} \\
+
+% GenARM \citep{xu2024genarm}      
+% & $0$  & $>N$  & $0$ & \checkmark & \checkmark & \checkmark \\
+
+% PARM \citep{lin2025parm}         
+% & $0$  & $2$   & $1$ & \checkmark & Retrain    & \checkmark \\
+
+% UniARM \citep{xie2026uniarm}         
+% & $0$  & $2$   & $1$ & \checkmark & Retrain    & \checkmark \\
+
+% HoE \citep{li2025multi}         
+% & $1$  & $1$   & $0$ & \checkmark & \checkmark   & \checkmark \\
+
+% \rowcolor{blue!20}
+% \textbf{Common Agency (Ours)}     
+% & $0$  & $1$   & $0$ & \checkmark & \checkmark & \checkmark \\
+% \hline
+% \end{tabular}%
+% }
+% \label{table:comparison}
+% \vspace{-3pt}
+% \end{table*}
+
+\section{Methodology}
+\label{sec:method}
+\subsection{Problem Formulation}
+Multi-objective test-time alignment uses reward models to guide a frozen base LLM during inference. This allows the model to balance multiple user preferences without retraining, making it a computationally efficient approach for steering alignment trade-offs at test time \citep{xu2024genarm,lin2025parm}.
+For a given prompt \(t \in \mathcal{T}\), the base LLM defines an autoregressive policy over output sequences \(a=(x_1,\dots,x_T)\):
+\(
+\pi(a | t)=\prod_{k=1}^T \pi(x_k | x_{<k},t),
+\)
+where \(\pi(x_k | x_{<k},t)\) is the token-level conditional distribution at decoding step \(k\). In test-time alignment, we modify these token-level distributions during inference, which in turn shapes the induced sequence-level policy \(\pi(a | t)\).
+We consider \(J\) alignment objectives. Each objective \(j \in [J]\) is represented by an autoregressive reward model that provides a token-level reward signal along the generation process \citep{xu2024genarm,lin2025parm}. Specifically, at decoding step \(k\), objective \(j\) assigns a reward
+\(
+q_k^j(x_{\le k}, t),
+\)
+which evaluates the partial sequence \(x_{\le k}\) under prompt \(t\). This reward captures the reference preference of objective \(j\) over the generation process. Finally, the user specifies a preference vector \(w \in \mathbb{R}_+^J\), where \(w^j\) controls the relative importance of objective \(j\).
+
+\subsection{Multi-objective Common Agency Game}
+We model multi-objective test-time alignment as a common-agency game, in which multiple principals influence a shared agent, the LLM, during inference \citep{bernheim1986common}. Each principal corresponds to one alignment objective and has its own reference reward signal \(q_k^j(x_{\le k}, t)\). Rather than directly aggregating these reward signals into a fixed scalar objective, we allow each principal to choose how much incentive to impose on the LLM at each decoding step to explicitly model the interaction among objectives.
+
+% This distinction is important. The reference reward \(q_k^j(x_{\le k}, t)\) specifies what principal \(j\) prefers, but it does not specify how strongly this preference should influence the LLM when other objectives are also present. Directly aggregating the \(q_k^j\)'s would assign each objective a fixed influence throughout generation and would not explicitly model the interaction among objectives.
+
+To capture this interaction, we introduce an inference-time incentive
+\(
+y_k^j(x_{\le k}, t),
+\)
+which represents the actual signal imposed by principal \(j\) at decoding step \(k\). We interpret \(y_k^j\) as a moderated version of the reference reward \(q_k^j\), chosen subject to the constraint
+\(
+0 \le y_k^j(x_{\le k}, t) \le w^j q_k^j(x_{\le k}, t).
+\)
+Here, \(w^j\) is the user-specified importance weight for objective \(j\). This constraint ensures that each principal can only exert a bounded amount of influence, proportional to both its reference reward and its assigned importance. In this way, no single objective can impose arbitrarily large incentives during generation.
+The aggregate incentive at decoding step \(k\) is then
+\(
+Y_k(x_{\le k}, t) := \sum_{j=1}^J y_k^j(x_{\le k}, t),
+\)
+which jointly determines how the LLM's token-level distribution is adjusted during inference.
+
+Since our focus is on \emph{test-time} alignment, our goal is not to retrain the model, but to adjust its inference-time output distribution around a pretrained base policy \(\pi_0\). At each decoding step, the agent chooses a distribution \(\pi \in \Delta_{N-1}\) over candidate tokens or candidate continuations. To simplify notation, we suppress the dependence on the decoding step \(k\), the prompt \(t\), and the partial sequence \(x_{\le k}\), and write \(q^j\) and \(y^j\) for the reference reward and the inference-time incentive of principal \(j\), respectively.
+Given the aggregate incentive
+\(
+Y=\sum_{j=1}^J y^j,
+\)
+the LLM trades off two forces: it is encouraged to place higher probability on candidates with larger aggregate incentive, while remaining close to the pretrained policy \(\pi_0\). We model this behavior by the following regularized utility:
+\(
+U(\pi;Y)
+=
+\pi^\top Y
+-
+\tau\,\mathrm{KL}(\pi\|\pi_0),
+\pi \in \Delta_{N-1},
+\)
+where \(\tau>0\) controls how strongly the agent stays close to the base policy. The agent's best response is therefore
+\[
+\pi^\star(Y)
+=
+\arg\max_{\pi\in\Delta_{N-1}}
+\left\{
+\pi^\top Y-\tau\,\mathrm{KL}(\pi\|\pi_0)
+\right\}
+=
+\frac{\pi_0\odot \exp(Y/\tau)}
+{\mathbf{1}^\top\bigl(\pi_0\odot \exp(Y/\tau)\bigr)}.
+\]
+Thus, the aggregate incentive \(Y\) reweights the pretrained policy at inference time, while the regularization prevents the aligned policy from deviating arbitrarily far from \(\pi_0\).
+
+We now define the objective of each principal. Principal \(j\) has an ideal evaluation \(w^j q^j\), where \(q^j\) is its reference reward and \(w^j\) is the user-specified importance weight. However, the principal does not directly choose the final policy. Instead, it chooses an inference-time incentive \(y^j\), anticipating that the LLM will respond to the total incentive \(Y\). We define principal \(j\)'s utility as
+\[
+u_j(y^j,y^{-j})
+=
+\pi^\star(Y)^\top \bigl(w^j q^j-y^j\bigr),
+\qquad
+Y=\sum_{i=1}^J y^i.
+\]
+This utility captures the trade-off faced by principal \(j\): it benefits when the induced policy \(\pi^\star(Y)\) places probability on outputs that it values highly, but it also pays for the incentive \(y^j\) that it contributes. 
+The incentive chosen by each principal is constrained by
+\(
+0\le y^j \le w^j q^j.
+\)
+This ensures that the imposed incentive is nonnegative and bounded by the principal's weighted reference reward. 
+An equilibrium of the common-agency game is a pair
+\(
+\left(\{y^{j\star}\}_{j=1}^J,\pi^\star\right),
+\)
+where \(\{y^{j\star}\}_{j=1}^J\) are the equilibrium incentives chosen by the principals and \(\pi^\star\) is the agent's best-response policy induced by the aggregate equilibrium incentive. 
+Equivalently, for each principal \(j\), let
+\(
+Y^{-j}:=\sum_{i\neq j}y^{i\star}
+\)
+denote the aggregate equilibrium incentive from all other principals. Given \(Y^{-j}\), principal \(j\)'s equilibrium incentive \(y^{j\star}\) solves
+\begin{equation}\label{Eq:optimization}
+\begin{aligned}
+\max_{y^j}\quad 
+& f_j(y^j)
+:=
+\pi^\star(Y^{-j}+y^j)^\top
+\bigl(w^j q^j-y^j\bigr) \\
+\text{s.t.}\quad
+& \pi^\star(Y)
+=
+\frac{\pi_0\odot \exp(Y/\tau)}
+{\mathbf{1}^\top(\pi_0\odot \exp(Y/\tau))},
+\qquad
+Y=Y^{-j}+y^j,\\
+& \pi^\star(Y)^\top Y
+-
+\tau\,\mathrm{KL}\bigl(\pi^\star(Y)\|\pi_0\bigr)
+\ge 0,\\
+& 0\le y^j\le w^j q^j.
+\end{aligned}
+\end{equation}
+
+The second constraint is the agent's individual rationality condition. It requires that the aggregate incentive \(Y\) provides enough utility to compensate the LLM for deviating from the pretrained policy \(\pi_0\). If this condition is violated, the agent prefers to remain at the base policy, and no inference-time alignment adjustment is implemented.
+This formulation shows that each principal chooses its incentive strategically, taking into account both the response of the shared LLM and the incentives chosen by other principals. 
+
+\subsection{Algorithm}
+The resulting problem is an equilibrium problem with equilibrium constraints (EPEC) \citep{su2005equilibrium}, because each principal optimizes its own objective subject to the agent's equilibrium response. To compute the equilibrium, we adopt the Nonlinear Jacobi Method of \citep{su2005equilibrium}, which iteratively solves each principal's optimization problem while holding the incentives of the other principals fixed.
+Each MPEC subproblem~\eqref{Eq:optimization} is reformulated as a smooth nonlinear program (NLP) by substituting the closed-form best response \(\pi^\star(Y)=\mathrm{softmax}(\log\pi_0+Y/\tau)\) directly into the objective and constraints, thereby eliminating the inner \(\arg\max\). The resulting NLP is solved with an off-the-shelf interior-point solver. The full procedure is summarized in Algorithm~\ref{Algorithm}.
+
+
+\begin{algorithm}
+\caption{Nonlinear Jacobi Method for Common-Agency EPEC}\label{Algorithm}
+\begin{algorithmic}[1]
+\State \textbf{Input:} principals $j=1,\dots,J$; weights $\{w^j\}_{j=1}^J$; initial transfers $\{y^{j,(0)}\}_{j=1}^J$; initial policy $\pi_0$; $\tau>0$; payoffs $\{q^j\}_{j=1}^J$; preference vector $\{w^j\}_{j=1}^J$; tolerance $\varepsilon>0$; max iterations $T$
+\State $t \gets 0$
+\State $Y^{(0)} \gets \sum_{j=1}^J y^{j,(0)}$
+\State $\displaystyle \pi^{(0)} \gets \frac{\pi_0 \odot \exp\!\big(Y^{(0)}/\tau\big)}{\mathbf{1}^\top\!\big(\pi_0 \odot \exp(Y^{(0)}/\tau)\big)}$ \Comment{agent best response (IC)}
+\While{$t < T$}
+  \For{$j=1,\dots,J$} \Comment{each principal solves one MPEC given others fixed}
+    \State $(\,\pi^{(t+1)},\, y^{j,(t+1)}\,) \in \mathrm{SOL}\big(\mathrm{MPEC}_j(\,y^{-\!j,(t)}\,)\big)$
+  \EndFor
+  \State $Y^{(t+1)} \gets \sum_{j=1}^J y^{j,(t+1)}$ \Comment{aggregate transfers (shared variable)}
+  \If{$\max_i \|y^{j,(t+1)}-y^{j,(t)}\|_\infty \le \varepsilon$ \textbf{and} $\|\pi^{(t+1)}-\pi^{(t)}\|_\infty \le \varepsilon$}
+    \State \Return $\big(\{y^{j,(t+1)}\}_{j=1}^J,\ \pi^{(t+1)}\big)$
+  \EndIf
+  \State $t \gets t+1$
+\EndWhile
+\State \Return \texttt{No equilibrium point found}
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{Theoretical Guarantees}
+\label{sec:theory}
+In this section, we present three main theoretical results for our multi-objective common-agency game: (i) in Section~\ref{sec:convergence}, we establish convergence guarantees for Algorithm~\ref{Algorithm}; (ii) in Section~\ref{sec:sensitivity}, we show that the algorithm is stable with respect to initialization and noisy rewards; and (iii) in Section~\ref{sec:regret}, we establish regret guarantees.
+
+\subsection{Convergence Guarantees}\label{sec:convergence}
+
+In this section, we study the well-posedness of the multi-objective common-agency game. Specifically, we establish the existence and uniqueness of the equilibrium outcome induced by the strategic interaction among multiple principals. We then present the convergence analysis of our algorithm and provide the interpretation of the equilibrium. We start with the existence and uniqueness of the equilibrium.
+
+\begin{theorem}
+\label{thm:existence&uniqueness}
+The equilibrium policy $\pi^\star \in \Delta_{N-1}$ is unique. Furthermore, the equilibrium aggregate incentive $Y^\star = \sum_{j=1}^J y^{j\star}$ inducing $\pi^\star$ is uniquely determined.
+\end{theorem}
+
+Theorem~\ref{thm:existence&uniqueness} shows that the multi-objective common-agency game admits a unique equilibrium. In particular, while multiple principals optimize their own objectives in a decentralized and strategic manner, the policy ultimately induced on the agent is uniquely determined. Moreover, the aggregate incentive implementing this policy is also unique. This result ensures that the model is well posed and that the user-facing behavior of the agent is uniquely determined. The proof is deferred to Appendix~\ref{proof:existence&uniqueness}.
+
+\begin{theorem}\label{thm:diag-b-stationary}
+Let $\{(y^{(t)},\pi^{(t)})\}$ be the sequence generated by Algorithm~\ref{Algorithm}, where at each iteration the MPEC is reformulated and solved as an equivalent nonlinear program. If $(y^{(t)},\pi^{(t)})$ converges to $ (y^*,\pi^*)$ as $t\to\infty$, then $(y^*,\pi^*)$ is a first-order stationary point for the corresponding EPEC.
+\end{theorem}
+
+The proof of Theorem~\ref{thm:diag-b-stationary} is deferred to
+Appendix~\ref{proof:stationary}, which shows that the output of
+Algorithm~\ref{Algorithm} is a first-order stationary point of the original constrained problem.
+In particular, first-order stationarity means that for every first-order feasible direction $d$ at the returned solution (i.e., $d$ belonging to the tangent cone of the feasible set), the directional derivative of the objective is nonnegative.
+Equivalently, there does not exist a feasible direction that yields a strict first-order decrease of the objective.
+
+We next explain the interpretation of the equilibrium. We allow the user to specify an exogenous preference vector $w\in\mathbb R_+^J$ that reflects how the users
+balance multiple objectives. Once specified, $w$ is fixed for the game.
+The resulting scalarized user utility under output distribution $\pi$ is
+\[
+U_w(\pi)
+\;=\;\sum_{j=1}^J w^j \langle \pi,q^j\rangle
+\;=\;\big\langle \pi,\ Q_w\big\rangle,
+\qquad
+Q_w:=\sum_{j=1}^J w^j q^j\in\mathbb R^N.
+\]
+Here, $U_w(\pi)$ turns the multi-objective scores into a single overall quality measure according to the user's preference. A larger $U_w(\pi)$ means the model's answers are better on average under that fixed preference profile. $Q_w$ is a vector over answers, and its $a$-th entry $[Q_w]_i$ is the user's weighted overall score of answer $i$ under the fixed preference $w$.
+
+\begin{theorem}
+\label{thm:user_optimal_reg_general}
+The equilibrium policy $\pi^\star$ is optimal for the user under the following mechanism-adjusted, entropy-regularized utility
+\[
+U^{\mathrm{reg}}_w(\pi)
+\;:=\;
+\langle \pi,Q_w\rangle
+\;-\;
+J\tau\,\mathrm{KL}\!\bigl(\pi\,\|\,\pi_0\bigr)
+\;-\;
+J\,c_{\min}(\pi),
+\quad
+c_{\min}(\pi):=\max_{i\in[N]}\Bigl\{-\tau\log\frac{\pi_i}{(\pi_0)_i}\Bigr\}.
+\]
+\end{theorem}
+
+The equilibrium policy $\pi^\star$ is the user-facing outcome of the game.
+Theorem~\ref{thm:user_optimal_reg_general} strengthens this view by providing an \emph{optimality} characterization with three interpretable components.
+First, the term $\langle \pi,Q_w\rangle$ is purely user-centric: it is the user's weighted average quality across all candidate answers under the fixed preference profile $w$ \citep{abels2019dynamic}.
+Second, the KL regularizer $-J\tau\,\mathrm{KL}(\pi\|\pi_0)$ enforces stability by discouraging large deviations from the baseline policy $\pi_0$ during test time \citep{schulman2015trust}.
+Third, the penalty $-Jc_{\min}(\pi)$, where $c_{\min}(\pi)=\max_i\{-\tau\log(\pi_i/(\pi_0)_i)\}$, prevents \emph{collapse} relative to the baseline: it heavily penalizes policies that drive some likelihood ratio $\pi_i/(\pi_0)_i$ close to zero \citep{liu2020ipo}. In the LLM setting, this can be viewed as a safeguard against over-concentrating probability mass on a small set of preferred responses, which helps retain diversity multi-objective alignment \citep{slocumdiverse}.
+% Consequently, $\pi^\star$ maximizes the mechanism-adjusted user utility
+% $U^{\mathrm{reg}}_w(\pi)=\langle \pi,Q_w\rangle - J\tau\,\mathrm{KL}(\pi\|\pi_0)-Jc_{\min}(\pi)$ over all reachable policies induced by the constraints.
+% In this sense, $\pi^\star$ is the best attainable compromise between user-valued multi-objective quality and robust, non-collapsing behavior that remains anchored to the baseline distribution.
+
+
+\begin{theorem}
+\label{thm:ostrowski_convergence}
+Let $y^\star$ be the unique Nash equilibrium of the common-agency game. Assume the joint best-response mapping $G(y) := (MPEC_1(Y^{-1}), \dots, MPEC_J(Y^{-J}))$ is continuously differentiable in a neighborhood of $y^\star$ over the reduced subspace of free coordinates (i.e., satisfying active-set strict complementarity). If the spectral radius of the Jacobian of the best-response mapping restricted to these free coordinates at the equilibrium is strictly less than one, i.e., $\rho(DG(y^\star)|_{\mathcal{F}}) < 1$, then $y^\star$ is a point of attraction. There exists a neighborhood $U$ of $y^\star$ such that for any initialization $y^{(0)} \in U$, the sequence of iterates $\{y^{(t)}\}$ generated by Algorithm~\ref{Algorithm} converges to $y^\star$ at a linear rate:
+\[
+\|y^{(t)} - y^\star\|_{\max} \;\le\; \mathcal{O}(\kappa^t), \quad \text{for some } \kappa \in (\rho(DG(y^\star)|_{\mathcal{F}}), 1).
+\]
+\end{theorem}
+
+\begin{remark}
+Throughout, $\|y\|_{\max}:=\max_{j\in[J]}\|y^j\|_2$ denotes the block max-2-norm 
+on the product space $(\mathbb R^N)^J$.
+
+\subsection{Stability}\label{sec:sensitivity}
+\end{remark}
+
+In this section, we analyze the stability of Algorithm~\ref{Algorithm}. In practice, the reward functions might be noisy, and the algorithm may also be affected by perturbations in the underlying parameters or initialization. Our goal is to understand how such perturbations affect the resulting equilibrium and the robustness of the algorithm.
+
+\begin{assumption}\label{ass:sensitivity}
+Fix a reference parameter tuple \(\theta := (\pi_0, q^1,\dots,q^J)\), and let \((y^\star,\pi^\star)\) be a corresponding equilibrium, where \(y^\star=(y^{1\star},\dots,y^{J\star})\) and \(Y^\star=\sum_{j=1}^J y^{i\star}\). We assume that, under sufficiently small perturbations of \(\theta\), the corresponding equilibrium \(y\) preserves the same coordinatewise constraint pattern as \(y^\star\): for each \(j\in[J]\) and \(i\in[N]\), \(y_i^j=0\) if and only if \(y_i^{j\star}=0\), \(y_i^j=w^jq_i^j\) if and only if \(y_i^{j\star}=w^jq_i^j\), and \(0<y_i^j<w^jq_i^j\) if and only if \(0<y_i^{j\star}<w^jq_i^j\).
+\end{assumption}
+
+Assumption~\ref{ass:sensitivity} rules out local changes in the box-constraint status under small perturbations of the reference parameter. Assumptions of this kind are standard in local sensitivity analysis for parametric optimization \citep{fiacco1990sensitivity,biegler2010nonlinear}. In our box-constrained setting, this assumption requires that the lower-bound, upper-bound, and interior status of each coordinate remain locally unchanged under small perturbations. Such a condition plays the same technical role as strict complementarity and related nondegeneracy or strong regularity conditions in the sensitivity-analysis literature, which are used to guarantee stable local behavior of solutions under perturbations \citep{robinson1980strongly,ghaffari2007active}.
+
+\begin{theorem}
+\label{thm:local-stability}
+Fix $\tau>0$ and a reference parameter tuple
+$\theta:=(\log\pi_0,q^{1},\dots,q^{J})$
+with a corresponding equilibrium $(y^\star,\pi^\star)$, where
+$y^\star=(y^{1\star},\dots,y^{J\star})$ and $Y^\star=\sum_{j=1}^J y^{j\star}$.
+If Assumption~\ref{ass:sensitivity} holds and
+\[
+\tau \;>\; \frac{2N^2JR}{\underline{\pi}\bigl(1-(N-1)\underline{\pi}\bigr)},
+\]
+where \(R>0\) is such that \(\|w^j q^j-y^{j\star}\|_2 \le R\) for every \(j\in[J]\), and \(\underline{\pi}>0\) satisfies \(\pi_i^\star \ge \underline{\pi}\) for every \(i\in[N]\). 
+Then there exist constants $L_0,L_q<\infty$ and a neighborhood of $\theta^\star$ such that the following holds.
+For any two parameter tuples
+\(
+\Big(\pi_0^{(1)},\{q^{j(1)}\}_{j=1}^J\Big)
+\) and \(
+\Big(\pi_0^{(2)},\{q^{j(2)}\}_{j=1}^J\Big)
+\)
+in this neighborhood, let $\pi^{\star(1)}$ and $\pi^{\star(2)}$ be the corresponding equilibrium policies.
+Then
+\[
+\bigl\|\pi^{\star(1)}-\pi^{\star(2)}\bigr\|_2
+\;\le\;
+L_0\,
+\bigl\|\log \pi_0^{(1)}-\log \pi_0^{(2)}\bigr\|_2
+\;+\;
+L_q\,\max_{i\in[J]}
+\bigl\|q^{j(1)}-q^{j(2)}\bigr\|_2.
+\]
+In particular, small perturbations of $\pi_0$ and of each principal's payoff vector $\{q^j\}$
+induce proportionally small changes in the equilibrium policy~$\pi^\star$.
+\end{theorem}
+
+Theorem~\ref{thm:local-stability} establishes local stability of the learned equilibrium policy. It shows that small perturbations in the base distribution \(\pi_0\) or the objective rewards \(q^j\) lead to proportional changes in the equilibrium policy. This provides a formal robustness guarantee: minor changes in the model outputs or objective specifications do not cause large shifts in the aligned output distribution.
+
+Moreover, the explicit condition on \(\tau\) clarifies its role as a smoothing and regularization parameter \citep{mckelvey1995quantal}. Similar smoothing effects appear in entropy-regularized games, where regularization is often used to stabilize equilibrium learning and improve convergence behavior \citep{guo2022entropy}. This condition reflects three effects: (1) a larger \(J\) means that more objectives interact so perturbations can propagate through stronger cross-objective coupling; (2) a larger \(R\) corresponds to stronger incentives, which amplify the nonlinear response of the aligned policy to changes in \(Y\); and (3) the factor \(N^2\) captures a conservative worst-case dependence on the number of candidate outputs, while \(\underline\pi(1-(N-1)\underline\pi)\) captures how close the equilibrium policy is to the boundary of the simplex. Thus, when the equilibrium is closer to the boundary, the best-response mapping becomes more ill-conditioned and requires a larger \(\tau\), whereas a well-interior equilibrium allows a smaller \(\tau\).
+
+% \begin{theorem}
+% \label{thm:convergence_rate}
+% Suppose the assumptions of local stability and strict contraction hold, with the contraction factor $\kappa := (J-1)L_{\mathrm{BR}} < 1$, where $L_{\mathrm{BR}}$ is the Lipschitz constant of the best-response mapping. Let $\{y^{(t)}\}_{t=0}^\infty$ be the sequence of incentive profiles generated by the Nonlinear Jacobi Method (Algorithm~\ref{Algorithm}). Then, the sequence converges to the unique local Nash equilibrium $y^\star$ at a linear rate:
+% \[
+% \|y^{(t)} - y^\star\|_{\max} \;\le\; \kappa^t \|y^{(0)} - y^\star\|_{\max}, \qquad \forall\, t \ge 0.
+% \]
+% Furthermore, the corresponding aggregate incentive $Y^{(t)} = \sum_{j=1}^J y^{j,(t)}$ and the induced LLM policy $\pi^{(t)}$ converge at the same linear rate:
+% \[
+% \|\pi^{(t)} - \pi^\star\|_2 \;\le\; \frac{J}{4\tau} \kappa^t \|y^{(0)} - y^\star\|_{\max}.
+% \]
+% \end{theorem}
+
+\subsection{Regret Analysis}
+\label{sec:regret}
+
+In this section, we analyze the cumulative regret of the principals under the exact best-response dynamics of Algorithm~\ref{Algorithm}. Having established the conditions for linear convergence in Section~\ref{sec:convergence}, we now demonstrate how the regret bounds directly depend on the specific convergence rate of the system.
+
+\begin{theorem}
+\label{thm:no_regret}
+Suppose Algorithm~\ref{Algorithm} is run with exact best responses, so that for every $j\in[J]$ and $t\ge 1$,
+\[
+y^{j,(t)}\in\arg\max_{y^j\in[0,w^jq^j]} f_j(y^j;Y^{-j,(t-1)}).
+\]
+By Lemma~\ref{lem:utility-lipschitz} (Appendix~\ref{proof:no_regret}), $f_j$ is jointly $L_f$-Lipschitz on the compact feasible region with $L_f\le \frac{R}{\tau}+1$, where $R := \max_{j\in[J]}\|w^jq^j\|_2$. Define the cumulative regret of principal $i$ against its best fixed incentive in hindsight as
+\[
+R_i(T) \;:=\; \max_{\bar y^i \in [0, w^iq^i]} \sum_{t=1}^T \left[ f_i(\bar y^i; Y^{-i,(t)}) - f_i(y^{i,(t)}; Y^{-i,(t)}) \right],
+\]
+and let $a_t := \|y^{(t)}-y^\star\|_{\max}$. Then
+\[
+R_i(T) \;\le\; 2 L_f (J-1) \sum_{t=1}^T (a_t + a_{t-1}),
+\]
+which inherits the convergence rate of the iterates:
+\begin{itemize}
+    \item \textbf{Linear regime.} Under the assumptions of Theorem~\ref{thm:ostrowski_convergence}, if $y^{(0)}$ lies in the attraction neighborhood $U$, then $a_t \le C\kappa^t$ for some $\kappa\in(0,1)$ and $C<\infty$, hence $R_i(T) = \mathcal{O}(1)$.
+    \item \textbf{Sublinear regime (conditional).} If instead $a_t \le C/t^\alpha$ for some $\alpha \in (0,1]$, then $R_i(T) = \mathcal{O}(\log T)$ when $\alpha=1$ and $R_i(T) = \mathcal{O}(T^{1-\alpha})$ when $\alpha\in(0,1)$.
+\end{itemize}
+Whenever $a_t \to 0$, the time-averaged regret vanishes: $\lim_{T\to\infty} R_i(T)/T = 0$.
+\end{theorem}
+
+\begin{remark}
+In standard adversarial online learning, no-regret algorithms (e.g., Blackwell approachability \citep{blackwell1956analog}) achieve the minimax-optimal $\mathcal{O}(\sqrt{T})$ bound against arbitrary environments. Our $\mathcal{O}(1)$ bound is strictly sharper because the non-stationarity here is not adversarial: each principal executes an exact best response to the previous round, and the resulting environment $Y^{-i,(t)}$ stabilizes geometrically under the spectral condition of Theorem~\ref{thm:ostrowski_convergence}. The feasibility constraints $y^j \in [0, w^jq^j]$ further induce sparse active sets at equilibrium, which reduces the effective cross-coupling dimensionality and makes the local spectral condition easier to verify in practice. When the spectral condition fails, Algorithm~\ref{Algorithm} need not converge in general; the sublinear regime in Theorem~\ref{thm:no_regret} should therefore be read as a conditional statement that translates any externally established convergence rate into a regret bound.
+\end{remark}
+
+\section{Experiments}
+\label{sec:exp}
+
+\subsection{Safety Alignment}
+\textbf{Experiments Setup.}
+Safety alignment aims to balance helpfulness and harmlessness in language model responses to red-teaming prompts. We use the \texttt{PKU-SafeRLHF-10K} dataset \citep{ji2023beavertails} as a source of test prompts. Following \cite{zhou2024beyond}, we adopt two open-source pretrained reward models from \cite{ji2023beavertails} as oracles to score the harmlessness and helpfulness of each response, both for initial reward assignment and final evaluation. In line with \cite{xu2024genarm}, we employ \texttt{Alpaca-7B} as the base model. \textcolor{red}{The dataset is split into 8{,}000 training, 500 validation, and 1{,}500 test samples (random split with seed 42), following \citet{lin2025parm}. Each sample contains two responses with helpfulness (\texttt{better\_response\_id}) and harmlessness (\texttt{safer\_response\_id}) preference labels, relabeled using the Beaver-7B reward models. We evaluate on 1{,}000 test prompts.}
+
+\textbf{Baselines.}
+We compare our method with the following baselines:
+(1) \textcolor{red}{MOD \citep{shi2024decoding}, which trains two independent DPO models---one per objective---using standard LoRA with rank $r{=}64$, $\alpha_{\mathrm{LoRA}}{=}1$, dropout $= 0$, and $\beta{=}0.1$, following the original hyperparameters. At inference, MOD fuses logits from both DPO adapters via weighted combination $\mathrm{logits} = \alpha_{\mathrm{help}} \cdot \mathrm{logits}_{\mathrm{help}} + \alpha_{\mathrm{harm}} \cdot \mathrm{logits}_{\mathrm{harm}}$, requiring two forward passes per token;}
+(2) GenARM \citep{xu2024genarm}, which trains \(J\) separate reward models and combines their logits at inference time according to a given preference vector\textcolor{red}{, via $\mathcal{M} = \mathcal{M}_{\mathrm{base}} + \alpha_{\mathrm{help}} \cdot \mathcal{M}_{\mathrm{help}} + \alpha_{\mathrm{harm}} \cdot \mathcal{M}_{\mathrm{harm}}$, requiring three forward passes per token};
+(3) PARM \citep{lin2025parm}, which trains a single \textcolor{red}{preference-conditioned} reward model \textcolor{red}{with PBLoRA adapters} and constructs a Pareto-optimal reward at inference based on the specified preference, which is then used to guide the generation of the frozen base model. \textcolor{red}{Details of the baseline implementations are in Appendix~\ref{appendix:implementation}.}
+
+\textbf{Implementation Details.}
+\textcolor{red}{Table~\ref{tab:sources} summarizes the datasets and models used in our experiments.}
+
+\begin{table}[t]
+\centering
+\caption{\textcolor{red}{Sources of datasets and models used in our experiments.}}
+\vspace{3pt}
+\small
+\textcolor{red}{
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{Safety Alignment} & \textbf{Helpful Assistant} \\
+\midrule
+Dataset & PKU-SafeRLHF-10K \citep{ji2023beavertails} & HH-RLHF \citep{bai2022training} \\
+Base Models & Alpaca-7B & LLaMA-2-7B-Chat \\
+PARM Initialization & Alpaca-7B & TinyLLaMA-1.1B-Chat \\
+Oracle Reward Models & Helpfulness; Harmlessness & Helpfulness; Harmlessness; Humor \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:sources}
+\vspace{-5pt}
+\end{table}
+
+\textcolor{red}{All reward model training uses the AdamW optimizer with learning rate $5 \times 10^{-4}$, cosine schedule, 20 warmup steps, weight decay $0.05$, batch size 32, and bfloat16 precision for 2 epochs on a single NVIDIA A100-40GB GPU. For PARM and GenARM, LoRA adapters (rank $r{=}4$, $\alpha_{\mathrm{LoRA}}{=}8$) target the \texttt{q\_proj}, \texttt{v\_proj}, and \texttt{k\_proj} attention layers, with DPO loss $\beta{=}0.01$. PARM additionally uses preference sampling probability $p{=}0.5$ across its dual PBLoRA branches. All generation uses greedy decoding with a maximum of 512 new tokens. Our EPEC methods decode over the top-$k{=}50$ candidate tokens at each step with temperature $\tau{=}0.1$, running the Nonlinear Jacobi iteration (Algorithm~\ref{Algorithm}) until convergence at each token position. At each token, implicit rewards are extracted as $q^{(j)}_a = \log \pi_{\mathrm{ARM}(e_j)}(a) - \log \pi_{\mathrm{base}}(a)$ for each objective $j$ and candidate token $a$.}
+
+\textbf{Evaluation.}
+Following prior work \citep{lin2025parm}, we adopt two widely used multi-objective metrics \citep{zhang2024libmoon} for quantitative evaluation:
+(i) Hypervolume (\textbf{HV}) \citep{zitzler1998multiobjective} measures the quality of a solution set by calculating the volume of the non-dominated region in the objective space. A larger HV indicates better diversity and convergence of the solution set;
+(ii) Mean Inner Product (\textbf{MIP}) computes the average inner product between preference vectors and the corresponding reward vectors, quantifying the alignment between generated solutions and user preferences. A larger MIP indicates that the generated solutions more closely match the specified preferences. Following \citep{lin2025parm}, we evaluate all methods on a test dataset using preference vectors uniformly sampled from the simplex with a step size of $0.1$, i.e., $w \in \{(0.0,1.0), (0.1,0.9), \ldots, (1.0,0.0)\}$. This procedure yields a set of solutions and a corresponding discrete Pareto front (PF) for each method.
+\textcolor{red}{Additionally, we report the mean helpfulness score (higher is better) and mean harmlessness score (lower is safer) across all 1{,}000 test prompts, as evaluated by the Beaver-7B reward models \citep{ji2023beavertails}. We visualize results via (1) Pareto frontiers showing the helpfulness--harmlessness trade-off across preference vectors (Figure~\ref{fig:pareto}), (2) response-level scatter plots with KDE contours at $\alpha = (0.5, 0.5)$ (Figure~\ref{fig:scatter}), and (3) qualitative case studies comparing responses across methods (Figure~\ref{fig:case_study}).}
+
+\textbf{Quantitative Results.}
+\textcolor{red}{Figure~\ref{fig:pareto} plots the Pareto frontier of all methods across preference vectors $\alpha_{\mathrm{help}} \in \{0.1, 0.2, \ldots, 0.8\}$. EPEC+PARM consistently dominates all baselines, achieving both higher helpfulness and lower harmfulness at every preference vector. At the balanced point $\alpha=(0.5, 0.5)$, EPEC+PARM attains a mean helpfulness score of $+4.46$ and harmlessness score of $-1.27$, compared to PARM ($+2.93$, $+4.11$), GenARM ($+4.59$, $+7.13$), and EPEC+GenARM ($+6.50$, $-3.04$). The improvement is most pronounced in the safety-critical regime ($\alpha_{\mathrm{harm}} \geq 0.5$), where EPEC+PARM reduces harmfulness scores substantially while maintaining competitive helpfulness. EPEC+GenARM also outperforms the non-EPEC baselines, confirming that the game-theoretic EPEC framework yields better multi-objective coordination than linear logit blending regardless of the underlying reward model.}
+
+\textcolor{red}{Figure~\ref{fig:scatter} presents response-level scatter plots at $\alpha=(0.5, 0.5)$ with 68\% and 95\% KDE contours. EPEC+PARM exhibits the tightest harmlessness distribution (standard deviation $10.5$), with 61\% of responses scoring below zero (safe). EPEC+GenARM achieves the highest safe fraction at 64\%. In contrast, GenARM and PARM show wider variance and lower safe fractions (44\% and 51\%, respectively). The KDE contours confirm that EPEC methods concentrate probability mass in the desirable high-helpfulness, low-harmfulness region.}
+
+\begin{figure}[t]
+\centering
+\textcolor{red}{\includegraphics[width=0.75\textwidth]{fig/pareto_frontier.png}}
+\caption{\textcolor{red}{Pareto frontier of helpfulness vs.\ harmlessness across preference vectors. EPEC-based methods (green, red) consistently dominate linear-blending baselines (blue, purple), demonstrating that strategic multi-objective coordination produces better trade-offs than fixed-weight aggregation.}}
+\label{fig:pareto}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\textcolor{red}{\includegraphics[width=0.75\textwidth]{fig/scatter_comparison.png}}
+\caption{\textcolor{red}{Response-level scatter plot at $\alpha=(0.5,0.5)$ with KDE contours (68\%, 95\%) and marginal histograms. EPEC methods produce tighter distributions concentrated in the high-helpfulness, low-harmfulness quadrant.}}
+\label{fig:scatter}
+\end{figure}
+
+\textbf{Qualitative Results.}
+\textcolor{red}{Table~\ref{tab:hv_mip} reports the Hypervolume (HV) and Mean Inner Product (MIP) scores for all methods on the safety alignment task. Qualitative case studies comparing model responses across different preference vectors are provided in Appendix~\ref{appendix:qualitative}.}
+
+\begin{table}[t]
+\centering
+\caption{\textcolor{red}{Hypervolume (HV) and Mean Inner Product (MIP) on safety alignment. Higher is better for both metrics.}}
+\vspace{3pt}
+\small
+\textcolor{red}{
+\begin{tabular}{lcc}
+\toprule
+\textbf{Method} & \textbf{HV} ($\uparrow$) & \textbf{MIP} ($\uparrow$) \\
+\midrule
+MOD          & -- & -- \\
+GenARM       & -- & -- \\
+PARM         & -- & -- \\
+\midrule
+EPEC+GenARM  & -- & -- \\
+EPEC+PARM    & -- & -- \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:hv_mip}
+\vspace{-5pt}
+\end{table}
+
+\textbf{EPEC+PARM Extension.}
+\textcolor{red}{We apply our EPEC framework to PARM to demonstrate the composable ability of our method. Specifically, we reuse the trained PARM reward model and apply Algorithm~\ref{Algorithm} at each token position: implicit rewards $q^{(j)}_a = \log \pi_{\mathrm{PARM}(e_j)}(a) - \log \pi_{\mathrm{base}}(a)$ are extracted for each objective over the top-$k{=}50$ candidates, and the EPEC solver computes equilibrium contracts with $\tau{=}0.1$. This requires no additional training---the only change is replacing the linear logit blending in PARM with the game-theoretic EPEC aggregation. The results are shown in Figure~\ref{fig:pareto} and Table~\ref{tab:hv_mip}. As can be seen, EPEC+PARM outperforms PARM across all preference vectors, demonstrating the composable ability and scalability of the EPEC framework: it can be readily applied on top of existing test-time alignment methods to improve multi-objective coordination without retraining.}
+
+\subsection{Helpful Assistant}
+\textbf{Experiment Setup.} A helpful assistant refers to an AI system or language model that effectively and accurately satisfies diverse user needs by providing useful and relevant information. We use the \texttt{HH-RLHF} dataset \citep{bai2022training}, which contains 160K prompts and corresponding responses in the form of multi-turn dialogues. Following \citep{yang2024metaaligner,yang2024rewards}, we employ three open-source reward models to evaluate responses along three dimensions: helpfulness, harmlessness, and humor.
+
+\textbf{Baselines.}
+
+\textbf{Implementation Details.}
+
+\textbf{Evaluation.}
+
+\textbf{Results.}
+
+\subsection{\textcolor{red}{Computational Cost Analysis}}
+\label{sec:cost}
+
+\textcolor{red}{All experiments are conducted on a single NVIDIA A100-40GB GPU. Table~\ref{tab:cost} summarizes the training and inference costs per preference vector for 1{,}000 test prompts. Our EPEC methods are training-free---they reuse the reward models already trained for the baselines---so the only additional cost is the EPEC solver overhead during generation.}
+
+\begin{table}[h]
+\centering
+\caption{\textcolor{red}{Computational cost comparison on safety alignment (1{,}000 prompts, single A100-40GB). Training time is per adapter; inference time is per preference vector. EPEC methods require no additional training.}}
+\vspace{3pt}
+\small
+\textcolor{red}{
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Method} & \textbf{Training} & \textbf{\# Fwd / token} & \textbf{Sec / prompt} & \textbf{Inference / $\alpha$} & \textbf{GPU Mem} \\
+\midrule
+PARM         & 1.6h ($\times$1) & 2 & 14.3 & $\sim$4.0h  & $\sim$15 GB \\
+GenARM       & 1.6h ($\times$2) & 3 & 22.3 & $\sim$6.2h  & $\sim$15 GB \\
+MOD          & 1.6h ($\times$2) & 2 & ---  & ---         & $\sim$15 GB \\
+EPEC+PARM    & 0 (reuses PARM) & 3 + solver & 174.1 & $\sim$48.4h & $\sim$15 GB \\
+EPEC+GenARM  & 0 (reuses GenARM) & 3 + solver & 67.0  & $\sim$18.6h & $\sim$15 GB \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:cost}
+\vspace{-5pt}
+\end{table}
+
+\textcolor{red}{EPEC+PARM requires $\sim$174 seconds per prompt (averaging across preference vectors), of which approximately 64\% is spent on the three forward passes and 36\% on the EPEC solver. EPEC+GenARM is faster at $\sim$67 seconds per prompt due to smaller adapter sizes. The baselines are substantially faster: PARM requires only $\sim$14 seconds per prompt (two forward passes) and GenARM $\sim$22 seconds (three forward passes). However, as shown in Section~\ref{sec:exp}, EPEC methods achieve significantly better Pareto frontiers, demonstrating that the additional computational cost yields meaningful improvements in multi-objective alignment quality. We note that the EPEC solver operates on a small $k{=}50$-dimensional optimization problem at each token, and future work on warm-starting or amortization could substantially reduce this overhead.}
+
+\subsection{Sensitivity Analysis.}
+To further validate the robustness and effectiveness of our method, we conduct additional hyperparameter sensitivity evaluations on the safety alignment task. Specifically, we study the effects of $\tau$ and $N$, using preference vectors uniformly sampled from the simplex with a step size of $0.2$. We evaluate $\tau \in \{0.2, 0.3, 0.4\}$ and $N \in \{10, 20, 100\}$. Figure~\ref{fig:hyperparameter_sensitivity} presents the learned Pareto fronts under different hyperparameter configurations, while Table~\ref{tab:hyperparameter_sensitivity} reports the corresponding HV and MIP scores.
+Across different choices of $\tau$ and $N$, the learned fronts show some variation but remain consistently competitive against the baselines, suggesting that our method is robust to hyperparameter choices. The quantitative results in Table~\ref{tab:hyperparameter_sensitivity} further support this observation: the HV and MIP scores remain competitive across all configurations, confirming that the learned Pareto fronts are both stable and effective under different choices of $\tau$ and $N$.
+\begin{figure*}[ht]
+    \centering
+
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/sensitivity analysis/pareto_frontier_tau0.2_k50.png}
+        \caption{$\tau=0.2$, $N=50$}
+        \label{fig:tau02_n50}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/sensitivity analysis/pareto_frontier_tau0.3_k50.png}
+        \caption{$\tau=0.3$, $N=50$}
+        \label{fig:tau03_n50}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/sensitivity analysis/pareto_frontier_tau0.4_k50.png}
+        \caption{$\tau=0.4$, $N=50$}
+        \label{fig:tau04_n50}
+    \end{subfigure}
+
+    \vspace{0.6em}
+
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/sensitivity analysis/pareto_frontier_tau0.1_k10.png}
+        \caption{$\tau=0.1$, $N=10$}
+        \label{fig:tau01_n10}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/sensitivity analysis/pareto_frontier_tau0.1_k20.png}
+        \caption{$\tau=0.1$, $N=20$}
+        \label{fig:tau01_n20}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/sensitivity analysis/pareto_frontier_tau0.1_k100.png}
+        \caption{$\tau=0.1$, $N=100$}
+        \label{fig:tau01_n100}
+    \end{subfigure}
+
+    \caption{Learned Pareto Fronts for Different Hyperparameter Configurations $(\tau, N)$.}
+    \label{fig:hyperparameter_sensitivity}
+    \vspace{-1em}
+\end{figure*}
+
+\begin{table}[h]
+\vspace{-5pt}
+\centering
+\caption{Hyperparameter analysis on safety alignment . \(\tau=0.1, N=50\) is the default configuration.}
+\vspace{3pt}
+\small
+\begin{tabular}{lcc|lcc}
+\toprule
+\textbf{Configuration} & \textbf{HV} & \textbf{MIP}
+& \textbf{Configuration} & \textbf{HV} & \textbf{MIP} \\
+\midrule
+$\tau=0.2,\ N=50$  & -- & -- 
+& $\tau=0.1,\ N=10$  & -- & -- \\
+$\tau=0.3,\ N=50$  & -- & -- 
+& $\tau=0.1,\ N=20$  & -- & -- \\
+$\tau=0.4,\ N=50$  & -- & -- 
+& $\tau=0.1,\ N=100$ & -- & -- \\
+\bottomrule
+\end{tabular}
+\label{tab:hyperparameter_sensitivity}
+\vspace{-8pt}
+\end{table}
+
+\section{Conclusions}
+\label{sec:conclusion}
+
+In this work, we propose a training-free framework for multi-objective test-time alignment based on a common agency game. Our approach models multiple alignment objectives as strategic principals that allocate token-level incentives to steer a shared LLM agent during inference. The agent responds through a KL-regularized best-response rule, allowing the generation policy to incorporate heterogeneous and potentially conflicting objectives while remaining close to the base model. We develop an efficient iterative best-response algorithm and provide theoretical guarantees on the existence, uniqueness, convergence, stability, and no-regret properties of the resulting equilibrium. Our experiments demonstrate that our method effectively traces diverse Pareto-aligned responses across preference vectors, achieving better alignment without retraining. These results suggest that game-theoretic test-time control provides a flexible and scalable direction for aligning LLMs with diverse user preferences and multiple objectives.
+
+
+\begin{ack}
+Use unnumbered first level headings for the acknowledgments. All acknowledgments
+go at the end of the paper before the list of references. Moreover, you are required to declare
+funding (financial activities supporting the submitted work) and competing interests (related financial activities outside the submitted work).
+More information about this disclosure can be found at: \url{https://neurips.cc/Conferences/2026/PaperInformation/FundingDisclosure}.
+
+
+Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to automatically hide this section in the anonymized submission.
+\end{ack}
+
+\bibliographystyle{abbrv} 
+\bibliography{aiAgent}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\appendix
+
+\section{Additional Related Work}
+\textbf{LLM Multi-objective Alignment.}
+Multi-objective optimization (MOO) studies decision-making problems with multiple, potentially competing objectives \citep{ye2021multi}. Rather than optimizing a single scalar objective, it seeks to characterize trade-offs among objectives, often via Pareto optimality. Existing approaches either target solutions under fixed preferences \citep{ye2021multi,linreasonable,chen2024ferero,zhang2024gliding,chen2025gradient} or learn models that adapt to varying preferences without retraining \citep{navonlearning,lin2022pareto,shu2024learning,dimitriadispareto}.
+In the context of LLM alignment, this challenge becomes particularly pronounced, as human preferences are inherently diverse, heterogeneous, and often inconsistent across different dimensions \citep{yang2024rewards,lin2025parm}. This has led to growing interest in \emph{multi-objective alignment}, where multiple reward signals are used to guide model behavior \citep{li2025gradient,zhou2024beyond,guo2024controllable,yang2024rewards}. Several existing approaches adopt a scalarization strategy, combining multiple objectives into a single reward through weighted aggregation or learned reward models \citep{li2020deep,zhou2024beyond,wu2023fine}. Some alternatives train separate LLMs and aggregate their outputs during inference; however, they still incur substantial computational overhead due to the need to train multiple models \citep{rame2023rewarded,jang2023consistency}. 
+In contrast, our methodology falls within the test-time alignment, where the base LLM remains frozen and alignment is achieved during inference, resulting in a fully training-free approach.
+
+\textbf{Test-time alignment} provides a flexible, training-free paradigm for guiding a frozen LLM during inference, typically formulating alignment as reward-guided search that uses reward signals to steer generation at decoding time \citep{khanovargs,huang2025deal}, with subsequent work improving computational efficiency via techniques such as rejection sampling and cascade evaluation \citep{li2024cascade}.
+Beyond trajectory-level reward modeling, some approaches explore token-level reward models to provide more fine-grained guidance during decoding \citep{xu2024genarm,shi2024decoding}. Other methods aim to improve efficiency by consolidating multiple objectives into a single reward model \citep{lin2025parm,xie2026uniarm}. More principled approaches incorporate reward signals through value-based formulations, such as learning reward-specific prefix scorers \citep{mudgal2024controlled} or estimating implicit optimal value functions for target rewards \citep{chakraborty2024transfer}, which enable multiple objectives to be incorporated by combining reward or value signals during inference.
+Our methodology builds on token-level reward modeling, but rather than aggregating multiple objectives as independent guidance signals, we adopt a common-agency framework that explicitly captures their interactions, enabling more flexible and principled multi-objective alignment at inference time.
+
+\textbf{Game-Theoretic LLMs.}
+With the rapid advancement of LLMs, a growing body of work has begun to study their behavior through the lens of game theory in multi-agent settings \citep{huang2024ensemble,chenincentivizing,chen2026survey}. More recent efforts further develop explicit game-theoretic formulations to enhance reasoning and consistency \citep{cheng2024self,kirchner2024prover,jacob2023consensus,zhu2026align}.
+In parallel, some works model alignment itself as a strategic game, such as Stackelberg formulations where one agent (e.g., a reward designer) anticipates the response of another \citep{makar2024sta,chu2025stackelberg}, enabling the theoretical analysis of equilibrium behavior. Other lines of research investigate incentive properties and guarantees in human feedback settings under multiple objectives \citep{sun2024mechanism,bueningstrategyproof}. Our work builds on this foundation by introducing a multi-principal, single-agent framework, where multiple objectives act as distinct principals providing incentives to a shared LLM, allowing us to capture their interactions and characterize the resulting equilibrium behavior in a unified game-theoretic formulation.
+
+\section{\textcolor{red}{Implementation Details of Baselines}}
+\label{appendix:implementation}
+
+\textcolor{red}{\textbf{PARM} \citep{lin2025parm} trains a single unified autoregressive reward model using PBLoRA (Preference-Based LoRA) adapters that are conditioned on the preference vector $\alpha$. PBLoRA maintains separate LoRA branches for each objective (helpfulness and harmlessness) with shared rank $r{=}4$ on both branches. During training, preference vectors are sampled from a Dirichlet distribution with concentration parameter $p{=}0.5$, and the model learns to produce preference-conditioned rewards. The DPO loss uses separate $\beta$ values for each objective ($\beta_{\mathrm{help}}{=}\beta_{\mathrm{harm}}{=}0.01$). At inference, the aligned policy blends the base model logits with the preference-conditioned ARM: $\pi \propto \pi_{\mathrm{base}} \cdot (\pi_{\mathrm{ARM}(\alpha)})^{1/\beta}$, requiring two forward passes per token.}
+
+\textcolor{red}{\textbf{GenARM} \citep{xu2024genarm} trains two independent single-objective autoregressive reward models---one optimized for helpfulness (using \texttt{better\_response\_id}) and one for harmlessness (using \texttt{safer\_response\_id})---each with standard LoRA ($r{=}4$, $\alpha_{\mathrm{LoRA}}{=}8$, dropout $= 0.05$, $\beta{=}0.01$). At inference, logits are linearly blended via model arithmetic: $\mathcal{M} = \mathcal{M}_{\mathrm{base}} + \alpha_{\mathrm{help}} \cdot \mathcal{M}_{\mathrm{help}} + \alpha_{\mathrm{harm}} \cdot \mathcal{M}_{\mathrm{harm}}$, requiring three forward passes per token (base model plus two adapters).}
+
+\textcolor{red}{\textbf{MOD} \citep{shi2024decoding} trains two independent DPO models with standard LoRA using the original paper's hyperparameters: rank $r{=}64$, $\alpha_{\mathrm{LoRA}}{=}1$, dropout $= 0$, and $\beta{=}0.1$. Each model is trained on a single objective dimension of the PKU-SafeRLHF dataset. At inference, MOD loads both adapters on a shared base model and fuses their logits via weighted sum: $\mathrm{logits} = \alpha_{\mathrm{help}} \cdot \mathrm{logits}_{\mathrm{help}} + \alpha_{\mathrm{harm}} \cdot \mathrm{logits}_{\mathrm{harm}}$, requiring two forward passes per token.}
+
+\textcolor{red}{\textbf{EPEC+PARM} and \textbf{EPEC+GenARM} apply our common-agency EPEC framework (Algorithm~\ref{Algorithm}) on top of the PARM and GenARM reward models, respectively. At each token position, implicit rewards $q^{(j)}_a = \log \pi_{\mathrm{ARM}(e_j)}(a) - \log \pi_{\mathrm{base}}(a)$ are extracted for each objective $j \in \{\text{help}, \text{harm}\}$ over the top-$k{=}50$ candidate tokens. The EPEC solver computes equilibrium contracts $\{y^{j\star}\}$ and the induced policy $\pi^\star$ with temperature $\tau{=}0.1$. Both methods require three forward passes per token plus the EPEC solver overhead.}
+
+\section{\textcolor{red}{Qualitative Case Studies}}
+\label{appendix:qualitative}
+
+\textcolor{red}{Figures~\ref{fig:case_study},~\ref{fig:case_safety}, and~\ref{fig:case_helpful} present responses from all methods to the prompt ``Should I go swimming in my local lake? The sign says no swimming but I think it should be fine'' under three preference vectors: balanced $\alpha=(0.5,0.5)$, safety-heavy $\alpha=(0.2,0.8)$, and helpfulness-heavy $\alpha=(0.8,0.2)$. In each figure, blue highlights denote helpful content and orange highlights denote safety-aware content.}
+
+\textcolor{red}{At balanced preference (Figure~\ref{fig:case_study}), EPEC+PARM provides a comprehensive response covering water quality testing, health department contacts, and safety warnings, while PARM and GenARM offer shorter, less informative answers.}
+
+\textcolor{red}{Under $\alpha=(0.2, 0.8)$ (Figure~\ref{fig:case_safety}), all methods produce more cautious responses. EPEC+PARM focuses on hazard identification and recommends consulting health authorities before entering the water. Notably, the baselines (GenARM, PARM) produce nearly identical short responses across preference vectors, suggesting limited sensitivity to $\alpha$, whereas EPEC methods produce qualitatively different outputs that reflect the shifted preference.}
+
+\textcolor{red}{Under $\alpha=(0.8, 0.2)$ (Figure~\ref{fig:case_helpful}), methods emphasize practical information. EPEC+PARM provides detailed guidance on assessing water conditions while retaining safety caveats. The baselines again show minimal variation from their balanced-preference responses.}
+
+\begin{figure}[H]
+\centering
+\textcolor{red}{\includegraphics[width=\textwidth]{fig/response_comparison_eval570_alpha0.5_0.5.png}}
+\caption{\textcolor{red}{Case study at balanced preference $\alpha=(0.5, 0.5)$. EPEC+PARM provides the most comprehensive and balanced response with both helpful and safety-aware content.}}
+\label{fig:case_study}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\textcolor{red}{\includegraphics[width=\textwidth]{fig/response_comparison_eval570_alpha0.2_0.8.png}}
+\caption{\textcolor{red}{Case study at safety-heavy preference $\alpha=(0.2, 0.8)$. EPEC methods produce longer, more safety-focused responses compared to baselines.}}
+\label{fig:case_safety}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\textcolor{red}{\includegraphics[width=\textwidth]{fig/response_comparison_eval570_alpha0.8_0.2.png}}
+\caption{\textcolor{red}{Case study at helpfulness-heavy preference $\alpha=(0.8, 0.2)$. EPEC+PARM delivers detailed practical advice while retaining safety language.}}
+\label{fig:case_helpful}
+\end{figure}
+
+\section{Proofs}
+\label{appendix:proofs}
+
+% \subsection{Proof of Proposition~\ref{prop:pi_coordination_outcome}}
+
+% \begin{proposition}
+% \label{prop:pi_coordination_outcome}
+% Let \((y^{1\star},\dots,y^{J\star})\) be an equilibrium with \(y^j\in[0,q^j]\) for each \(j\in[J]\), and denote the aggregate incentive and equilibrium policy by
+% \(
+% Y^\star := \sum_{j=1}^J y^{j\star},
+% \pi^\star := \pi(Y^\star).
+% \)
+% Define the Jacobian of the best-response map \(\pi(\cdot)\) with respect to \(Y\) by
+% \(
+% J_\pi(Y):=\nabla_Y \pi(Y)
+% =\Big[\frac{\partial \pi_i(Y)}{\partial Y_\ell}\Big]_{i,\ell\in[N]}
+% \in\mathbb{R}^{N\times N}.
+% \)
+% Then for each principal \(j\in[J]\) and each output \(i\in[N]\), the following coordinate-wise conditions hold:
+% \[
+% \begin{cases}
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i \;\le\; \pi^\star_i, & y^{j\star}_i=0,\\[1mm]
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i \;=\; \pi^\star_i, & 0<y^{j\star}_i<q^j_i,\\[1mm]
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i \;\ge\; \pi^\star_i, & y^{j\star}_i=q^j_i.
+% \end{cases}
+% \]
+% \end{proposition}
+
+% The equilibrium policy \(\pi^\star\) is the coordination outcome of the multi-principal game: although each objective chooses a separate incentive vector \(y^j\), their strategic interaction is fully aggregated through the shared LLM output distribution \(\pi(Y)\), which depends only on the total incentive \(Y=\sum_{j=1}^J y^j\). Thus \(\pi^\star\) summarizes the final aligned or compromised behavior of the LLM.
+
+% A small increase in \(y^j_i\) has two effects. First, it pushes the LLM toward output \(i\) and away from others; the term
+% \[
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i
+% \]
+% is exactly the resulting marginal improvement in principal \(j\)'s expected quality. Second, it increases principal \(j\)'s payment by about \(\pi^\star_i\) per unit, because the model produces output \(i\) with probability \(\pi^\star_i\). Hence \(\pi^\star_i\) is the marginal price of pushing output \(i\). The three cases are then intuitive: if \(y_i^{j\star}=0\), the marginal improvement is below the price, so principal \(j\) does not pay to promote output \(i\); if \(0<y_i^{j\star}<q_i^j\), the marginal improvement matches the price, so principal \(j\) stops exactly at the point of indifference; and if \(y_i^{j\star}=q_i^j\), the marginal improvement would still exceed the price, but the box constraint prevents further promotion. In this sense, \(\pi^\star\) is the coordination outcome: across outputs, principals stop pushing once marginal gains are matched by marginal prices, yielding a balanced equilibrium.
+
+% \begin{proof}
+% Fix a principal \(j\) and hold \(Y^{-j\star}:=\sum_{k\neq j} y^{k\star}\) fixed. By definition of Nash equilibrium, \(y^{j\star}\) solves the box-constrained best-response problem
+% \[
+% \max_{0\le y^j\le q^j}\; u_j(y^j;Y^{-j\star}),
+% \qquad
+% u_j(y^j;Y^{-j}) := \pi(Y^{-j}+y^j)^\top(q^j-y^j).
+% \]
+% Since \(\pi(\cdot)\) is smooth, \(u_j(\cdot;Y^{-j\star})\) is continuously differentiable. The constraints are affine, hence a constraint qualification holds, so the KKT conditions apply. Write the constraints componentwise as
+% \[
+% c_i^{(1)}(y^j):=-y_i^j\le 0,
+% \qquad
+% c_i^{(2)}(y^j):=y_i^j-q_i^j\le 0,
+% \]
+% with multipliers \(\lambda^j,\mu^j\in\mathbb{R}_{\ge 0}^N\). The Lagrangian is
+% \[
+% \mathcal{L}(y^j,\lambda^j,\mu^j)
+% := u_j(y^j;Y^{-j\star}) + (\lambda^j)^\top y^j - (\mu^j)^\top (y^j-q^j).
+% \]
+% Hence stationarity and complementarity read
+% \begin{align}
+% \nabla_{y^j} u_j(y^{j\star};Y^{-j\star}) + \lambda^j - \mu^j &= 0, \label{eq:kkt_stat}\\
+% \lambda_i^j\, y_i^{j\star}=0,\qquad \mu_i^j\,(y_i^{j\star}-q_i^j)&=0,\qquad \forall i\in[N]. \label{eq:kkt_comp}
+% \end{align}
+
+% It remains to compute the gradient. Let \(Y=Y^{-j\star}+y^j\) and denote \(J_\pi(Y):=\nabla_Y \pi(Y)\in\mathbb{R}^{N\times N}\). Using \(u_j(y^j;Y^{-j\star})=\pi(Y)^\top q^j-\pi(Y)^\top y^j\) and the chain and product rules,
+% \[
+% \nabla_{y^j}\bigl(\pi(Y)^\top q^j\bigr)=J_\pi(Y)^\top q^j,
+% \qquad
+% \nabla_{y^j}\bigl(\pi(Y)^\top y^j\bigr)=J_\pi(Y)^\top y^j+\pi(Y),
+% \]
+% so
+% \[
+% \nabla_{y^j} u_j(y^j;Y^{-j\star})
+% =J_\pi(Y)^\top(q^j-y^j)-\pi(Y).
+% \]
+% Evaluating at \(y^{j\star}\) gives
+% \[
+% \nabla_{y^j} u_j(y^{j\star};Y^{-j\star})
+% =J_\pi(Y^\star)^\top(q^j-y^{j\star})-\pi^\star,
+% \qquad
+% Y^\star:=\sum_{k=1}^J y^{k\star},
+% \quad
+% \pi^\star:=\pi(Y^\star).
+% \]
+
+% Now consider any coordinate \(i\in[N]\).
+% If \(y_i^{j\star}=0\), then \(y_i^{j\star}-q_i^j<0\), so \(\mu_i^j=0\) by \eqref{eq:kkt_comp}, and \eqref{eq:kkt_stat} yields
+% \[
+% \bigl[\nabla_{y^j}u_j(y^{j\star};Y^{-j\star})\bigr]_i=-\lambda_i^j\le 0,
+% \]
+% that is,
+% \[
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i \le \pi^\star_i.
+% \]
+% If \(0<y_i^{j\star}<q_i^j\), then \(\lambda_i^j=\mu_i^j=0\) by \eqref{eq:kkt_comp}, hence
+% \[
+% \bigl[\nabla_{y^j}u_j(y^{j\star};Y^{-j\star})\bigr]_i=0,
+% \]
+% that is,
+% \[
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i = \pi^\star_i.
+% \]
+% If \(y_i^{j\star}=q_i^j\), then \(-y_i^{j\star}<0\), so \(\lambda_i^j=0\), and \eqref{eq:kkt_stat} gives
+% \[
+% \bigl[\nabla_{y^j}u_j(y^{j\star};Y^{-j\star})\bigr]_i=\mu_i^j\ge 0,
+% \]
+% that is,
+% \[
+% \bigl[J_\pi(Y^\star)^\top(q^j-y^{j\star})\bigr]_i \ge \pi^\star_i.
+% \]
+% Combining the three cases proves the stated coordinate-wise conditions.
+% \end{proof}
+
+% \subsection{Proof of Theorem~\ref{thm:convergence_rate}}
+% \label{proof:convergence_rate}
+
+% The linear convergence rate of the Nonlinear Jacobi Method relies on establishing that the block Gauss-Seidel best-response mapping is a strict contraction under an appropriate norm. The detailed derivation is formalized in the following lemma and corollary.
+
+% \begin{lemma}
+% \label{lem:jacobi-contraction}
+% Fix $\tau>0$ and a reference parameter tuple
+% $\theta^\star:=(\log\pi_0,q^{1},\dots,q^{J})$.
+% Let $(y^\star,\pi^\star)$ be an equilibrium with
+% $y^\star=(y^{1\star},\dots,y^{J\star})$ and $Y^\star=\sum_{i=1}^J y^{i\star}$.
+% Assume the conditions in Lemma~\ref{lem:tau-implies-nonsingular} hold.
+% Assume moreover that, for each $i\in[J]$, the MPEC (KKT) system defining the best response $MPEC_i(Y^{-i})$
+% is locally strongly regular at $(y^{i\star},Y^{-i\star})$ on the gauge-fixed subspace $\mathbf 1^\perp$
+% (e.g., LICQ/MFCQ and a second-order sufficient condition hold, and the active set is locally constant).
+% Define the Jacobi best-response map
+% \[
+% BR(y) := \bigl(MPEC_1(Y^{-1}),\dots,MPEC_J(Y^{-J})\bigr),
+% \qquad Y^{-i}:=\sum_{j\neq i}y^j.
+% \]
+% Then there exist a neighborhood $\mathcal{N}$ of $y^\star$ (restricted to $(\mathbf 1^\perp)^J$) and a constant
+% $L_{\mathrm{BR}}<\infty$ such that, under the block-max norm $\|y\|_{\max}:=\max_{i\in[J]}\|y^i\|_2$,
+% \[
+% \|BR(y)-BR(\tilde y)\|_{\max} \;\le\; \kappa \,\|y-\tilde y\|_{\max},
+% \qquad \kappa := (J-1)\,L_{\mathrm{BR}},
+% \qquad \forall\, y,\tilde y\in\mathcal{N}.
+% \]
+% In particular,
+% then $BR$ is a contraction on $\mathcal{N}$.
+% \end{lemma}
+
+% \begin{proof}
+% We work on the gauge-fixed subspace $(\mathbf 1^\perp)^J$ and only consider $y$ in a sufficiently small neighborhood of
+% $y^\star$ so that the active set of each principal's MPEC is constant (as assumed) and the corresponding KKT system is
+% \emph{strongly regular}. Fix $i\in[J]$ and write $p:=Y^{-i}\in\mathbf 1^\perp$. By strong regularity, the (primal--dual) KKT
+% system for principal $i$ can be written as a smooth equation
+% \[
+% F_i(z_i;p)=0,
+% \qquad z_i:=(y^i,\text{multipliers}),
+% \]
+% with $F_i$ continuously differentiable in a neighborhood of $(z_i^\star,p^\star)$, where
+% $z_i^\star=(y^{i\star},\cdot)$ and $p^\star=Y^{-i\star}$. Moreover, $D_{z_i}F_i(z_i^\star;p^\star)$ is nonsingular on
+% $\mathbf 1^\perp$. Hence by the implicit function theorem (equivalently, Robinson's strong regularity),
+% there exist a neighborhood $\mathcal N_i$ of $p^\star$ and a locally Lipschitz solution mapping $z_i=\psi_i(p)$.
+% Let $MPEC_i(p)$ denote its primal component; then $MPEC_i$ is locally Lipschitz on $\mathcal N_i$ and
+% \[
+% D\,MPEC_i(p^\star)
+% =
+% -\Big(D_{y^i}F_i(z_i^\star;p^\star)\Big)^{-1}D_pF_i(z_i^\star;p^\star)
+% \quad\text{on }\mathbf 1^\perp.
+% \]
+% Therefore, a local Lipschitz constant can be taken as
+% \begin{equation}
+% \label{eq:LBR-template}
+% \|D\,MPEC_i(p^\star)\|_{2\to 2}
+% \;\le\;
+% \Big\|\big(D_{y^i}F_i(z_i^\star;p^\star)\big)^{-1}\Big\|_{2\to 2}\,
+% \big\|D_pF_i(z_i^\star;p^\star)\big\|_{2\to 2}.
+% \end{equation}
+
+% To obtain an explicit bound that exposes the role of $\tau$, we use the reduced (unconstrained) stationarity mapping
+% $\mathcal G_i$ as a proxy for $F_i$ on the fixed active set; this is standard under active-set constancy (the reduced KKT
+% system differs only by eliminating inactive constraints and restricting to the tangent space).
+% From Lemma~\ref{lem:tau-implies-nonsingular} we have the closed form
+% \[
+% \mathcal G_i(y;\theta^\star)=S(Y)\,(q^i-y^i)-\pi(Y;\pi_0),
+% \qquad Y=\sum_{j=1}^Jy^j,
+% \]
+% and the bounds (on $\mathbf 1^\perp$)
+% \[
+% \lambda_{\min}\!\big(S^\star|_{\mathbf 1^\perp}\big)\ge
+% \mu:=\frac{1}{\tau}\,\underline\pi\bigl(1-(N-1)\underline\pi\bigr),
+% \qquad
+% \|\nabla_Y S(Y^\star)\|_{2\to 2}\le \frac{2N^2}{\tau^2},
+% \qquad
+% \|q^i-y^{i\star}\|_2\le R,
+% \]
+% where $S^\star:=S(Y^\star)$. Differentiating $\mathcal G_i$ as in the proof of Lemma~\ref{lem:tau-implies-nonsingular} yields
+% for $\delta\in\mathbf 1^\perp$:
+% \begin{align*}
+% D_{y^i}\mathcal G_i(y^\star)[\delta]
+% &=
+% -2S^\star\delta + \big(\nabla_YS(Y^\star)[\delta]\big)\,(q^i-y^{i\star}),\\
+% D_{Y^{-i}}\mathcal G_i(y^\star)[\delta]
+% &=
+% -\,S^\star\delta + \big(\nabla_YS(Y^\star)[\delta]\big)\,(q^i-y^{i\star}).
+% \end{align*}
+% Hence, letting $a:=\frac{2N^2R}{\tau^2}$, we have the operator bounds on $\mathbf 1^\perp$:
+% \[
+% \sigma_{\min}\!\big(D_{y^i}\mathcal G_i(y^\star)\big)\;\ge\;2\mu-a,
+% \qquad
+% \|D_{Y^{-i}}\mathcal G_i(y^\star)\|_{2\to 2}\;\le\;\|S^\star\|_{2\to 2}+a.
+% \]
+% Using the softmax covariance bound $\|S^\star\|_{2\to 2}\le \frac{1}{4\tau}$, we obtain, whenever $2\mu>a$,
+% \begin{equation}
+% \label{eq:LBR-explicit}
+% \|D\,MPEC_i(Y^{-i\star})\|_{2\to 2}
+% \;\lesssim\;
+% \frac{\frac{1}{4\tau}+a}{2\mu-a}
+% =
+% \frac{\frac{1}{4\tau}+\frac{2N^2R}{\tau^2}}
+% {\frac{2}{\tau}\underline\pi(1-(N-1)\underline\pi)-\frac{2N^2R}{\tau^2}}
+% =
+% \frac{\frac{\tau}{4}+2N^2R}{2\underline\pi(1-(N-1)\underline\pi)\tau-2N^2R}.
+% \end{equation}
+% By continuity of $D\,MPEC_i(\cdot)$ under strong regularity, shrinking neighborhoods if needed, there exists a common
+% $L_{\mathrm{BR}}<\infty$ such that for all $i\in[J]$ and all $y,\tilde y$ in a neighborhood $\mathcal N$ of $y^\star$,
+% \[
+% \|MPEC_i(Y^{-i})-MPEC_i(\tilde Y^{-i})\|_2\le L_{\mathrm{BR}}\|Y^{-i}-\tilde Y^{-i}\|_2,
+% \qquad
+% L_{\mathrm{BR}}\ \text{can be taken as the RHS of \eqref{eq:LBR-explicit}.}
+% \]
+
+% Finally, under the block-max norm $\|y\|_{\max}:=\max_i\|y^i\|_2$, we have for any $i$,
+% \[
+% \|Y^{-i}-\tilde Y^{-i}\|_2
+% \le \sum_{j\neq i}\|y^j-\tilde y^j\|_2
+% \le (J-1)\|y-\tilde y\|_{\max}.
+% \]
+% Taking the maximum over $i$ yields
+% \[
+% \|BR(y)-BR(\tilde y)\|_{\max}
+% =\max_{i\in[J]}\|MPEC_i(Y^{-i})-MPEC_i(\tilde Y^{-i})\|_2
+% \le (J-1)L_{\mathrm{BR}}\|y-\tilde y\|_{\max}.
+% \]
+% Thus $BR$ is locally Lipschitz with constant $\kappa:=(J-1)L_{\mathrm{BR}}$. In particular, $BR$ is a contraction on
+% $\mathcal N$ whenever $\kappa<1$, i.e.,
+% \begin{equation}
+% \label{eq:tau-contraction-condition}
+% (J-1)\,L_{\mathrm{BR}}<1.
+% \end{equation}
+% A sufficient explicit $\tau$ condition follows by combining \eqref{eq:LBR-explicit} and \eqref{eq:tau-contraction-condition}.
+% For example, if $2\underline\pi(1-(N-1)\underline\pi)>\frac{J-1}{4}$ and
+% \[
+% \tau\;>\;\max\Big\{\frac{2N^2R}{\underline\pi(1-(N-1)\underline\pi)},\ 
+% \frac{2N^2JR}{\,2\underline\pi(1-(N-1)\underline\pi)-\frac{J-1}{4}\,}\Big\},
+% \]
+% then $2\mu>a$ and $(J-1)L_{\mathrm{BR}}<1$, hence $BR$ is a contraction on $\mathcal N$.
+% \end{proof}
+
+% \begin{proof}
+% We work on the gauge-fixed subspace $(\mathbf 1^\perp)^J$ and only consider $y$ in a sufficiently small neighborhood of
+% $y^\star$ so that the active set of each principal's MPEC is constant (as assumed) and the corresponding KKT system is
+% \emph{strongly regular}. Fix $i\in[J]$ and write $p:=Y^{-i}\in\mathbf 1^\perp$. By strong regularity, the (primal--dual) KKT
+% system for principal $i$ can be written as a smooth equation
+% \[
+% F_i(z_i;p)=0,
+% \qquad z_i:=(y^i,\text{multipliers}),
+% \]
+% with $F_i$ continuously differentiable in a neighborhood of $(z_i^\star,p^\star)$, where
+% $z_i^\star=(y^{i\star},\cdot)$ and $p^\star=Y^{-i\star}$. Moreover, $D_{z_i}F_i(z_i^\star;p^\star)$ is nonsingular on
+% $\mathbf 1^\perp$. Hence by the implicit function theorem (equivalently, Robinson's strong regularity),
+% there exist a neighborhood $\mathcal N_i$ of $p^\star$ and a locally Lipschitz solution mapping $z_i=\psi_i(p)$.
+% Let $MPEC_i(p)$ denote its primal component; then $MPEC_i$ is locally Lipschitz on $\mathcal N_i$.
+
+% % \paragraph{Step 1: Expose the $\tau$-dependence via the reduced stationarity mapping.}
+% To obtain explicit bounds that expose the role of $\tau$, we use the reduced (unconstrained) stationarity mapping
+% $\mathcal G_i$ as a proxy for $F_i$ on the fixed active set; this is standard under active-set constancy (the reduced KKT
+% system differs only by eliminating inactive constraints and restricting to the tangent space).
+% From Lemma~\ref{lem:tau-implies-nonsingular} we have the closed form
+% \[
+% \mathcal G_i(y;\theta^\star)=S(Y)\,(q^i-y^i)-\pi(Y;\pi_0),
+% \qquad Y=\sum_{j=1}^Jy^j,
+% \]
+% and the bounds (on $\mathbf 1^\perp$)
+% \[
+% \lambda_{\min}\!\big(S^\star|_{\mathbf 1^\perp}\big)\ge
+% \mu:=\frac{1}{\tau}\,\underline\pi\bigl(1-(N-1)\underline\pi\bigr),
+% \qquad
+% \|\nabla_Y S(Y^\star)\|_{2\to 2}\le \frac{2N^2}{\tau^2},
+% \qquad
+% \|q^i-y^{i\star}\|_2\le R,
+% \]
+% where $S^\star:=S(Y^\star)$. Differentiating $\mathcal G_i$ as in the proof of Lemma~\ref{lem:tau-implies-nonsingular} yields
+% for $\delta\in\mathbf 1^\perp$:
+% \begin{align*}
+% D_{y^i}\mathcal G_i(y^\star)[\delta]
+% &=
+% -2S^\star\delta + \big(\nabla_YS(Y^\star)[\delta]\big)\,(q^i-y^{i\star}),\\
+% D_{Y^{-i}}\mathcal G_i(y^\star)[\delta]
+% &=
+% -\,S^\star\delta + \big(\nabla_YS(Y^\star)[\delta]\big)\,(q^i-y^{i\star}).
+% \end{align*}
+% Let $a:=\frac{2N^2R}{\tau^2}$. Then on $\mathbf 1^\perp$ we have
+% \[
+% \sigma_{\min}\!\big(D_{y^i}\mathcal G_i(y^\star)\big)\;\ge\;2\mu-a,
+% \qquad
+% \|D_{Y^{-i}}\mathcal G_i(y^\star)\|_{2\to 2}\;\le\;\|S^\star\|_{2\to 2}+a.
+% \]
+% Using $\|S^\star\|_{2\to 2}\le \frac{1}{4\tau}$, whenever $2\mu>a$ we obtain the uniform bound
+% \begin{equation}
+% \label{eq:LBR-GS}
+% \|D\,MPEC_i(Y^{-i\star})\|_{2\to 2}
+% \;\lesssim\;
+% \frac{\frac{1}{4\tau}+a}{2\mu-a}.
+% \end{equation}
+% By continuity under strong regularity and shrinking neighborhoods if needed, there exists a common $L<\infty$ such that
+% $\|D\,MPEC_i(p)\|_{2\to 2}\le L$ for all $i$ and all $p$ in a neighborhood of $Y^{-i\star}$; one may take $L$ as the RHS of
+% \eqref{eq:LBR-GS}.
+
+% % \paragraph{Step 2: Gauss--Seidel best-response map and its linearization.}
+% Define the (exact) Gauss--Seidel best-response update $\mathsf{GS}(\cdot)$ by sequentially updating blocks:
+% given $y=(y^1,\dots,y^J)$, set
+% \[
+% \tilde y^1 := MPEC_1\!\Big(\sum_{j\neq 1} y^j\Big),\qquad
+% \tilde y^2 := MPEC_2\!\Big(\tilde y^1+\sum_{j\ge 3} y^j\Big),\ \dots,\ 
+% \tilde y^J := MPEC_J\!\Big(\sum_{j< J}\tilde y^j\Big),
+% \]
+% and define $\mathsf{GS}(y):=(\tilde y^1,\dots,\tilde y^J)$. Clearly $y^\star$ is a fixed point of $\mathsf{GS}$.
+
+% To show local contraction, it suffices to bound the operator norm of the Jacobian $D\mathsf{GS}(y^\star)$.
+% By the chain rule for the sequential composition above and the bound $\|D\,MPEC_i\|\le L$, the Jacobian
+% $D\mathsf{GS}(y^\star)$ is a strictly upper-triangular-in-time composition whose norm can be bounded in terms of the
+% \emph{block Gauss--Seidel iteration matrix} of the linearized system.
+% Concretely, linearizing the stationarity system $\mathcal G(y)=0$ at $y^\star$ yields $A:=D_y\mathcal G(y^\star)$.
+% Write the block splitting
+% \[
+% A = D + L + U,
+% \]
+% where $D$ is the block-diagonal part, $L$ the strictly lower block-triangular part, and $U$ the strictly upper block-triangular part.
+% The linearization of the Gauss--Seidel update at $y^\star$ has the classical form
+% \begin{equation}
+% \label{eq:TGS}
+% D\mathsf{GS}(y^\star) \;=\; T_{\mathrm{GS}} \;:=\; -(D+L)^{-1}U,
+% \end{equation}
+% restricted to $(\mathbf 1^\perp)^J$ (this is the standard Gauss--Seidel matrix for the linearized root-finding problem).
+
+% % \paragraph{Step 3: A $\tau$-explicit sufficient condition for contraction.}
+% Using the decomposition from Lemma~\ref{lem:tau-implies-nonsingular}, we can write
+% \[
+% A = A_0 + E,
+% \qquad \|E\|\le \frac{2N^2JR}{\tau^2},
+% \]
+% and on $(\mathbf 1^\perp)^J$ the main term $A_0$ satisfies $\sigma_{\min}(A_0)\ge \mu$ with
+% $\mu=\frac{1}{\tau}\underline\pi(1-(N-1)\underline\pi)$ (cf.\ \eqref{eq:mu-lower-clean}).
+% It follows that, whenever
+% \begin{equation}
+% \label{eq:tau-GS-small-pert}
+% \|E\|\;\le\;\frac{\mu}{2},
+% \end{equation}
+% the full Jacobian $A$ remains nonsingular and well-conditioned on $(\mathbf 1^\perp)^J$, and the Gauss--Seidel matrix
+% $T_{\mathrm{GS}}$ in \eqref{eq:TGS} is a strict contraction in a neighborhood of $y^\star$.
+% Since $\|E\|\le \frac{2N^2JR}{\tau^2}$ and $\mu=\frac{1}{\tau}\underline\pi(1-(N-1)\underline\pi)$, condition
+% \eqref{eq:tau-GS-small-pert} is ensured by
+% \[
+% \frac{2N^2JR}{\tau^2}\ \le\ \frac{1}{2}\cdot \frac{1}{\tau}\underline\pi(1-(N-1)\underline\pi),
+% \]
+% i.e.,
+% \begin{equation}
+% \label{eq:tau-GS-threshold}
+% \tau\ \ge\ \frac{4N^2JR}{\underline\pi(1-(N-1)\underline\pi)}.
+% \end{equation}
+% Under \eqref{eq:tau-GS-threshold}, we can choose a neighborhood $\mathcal N$ of $y^\star$ such that
+% $\|\mathsf{GS}(y)-\mathsf{GS}(\tilde y)\|_{\max}\le \kappa_{\mathrm{GS}}\|y-\tilde y\|_{\max}$ for all $y,\tilde y\in\mathcal N$,
+% with some $\kappa_{\mathrm{GS}}\in(0,1)$, hence $\mathsf{GS}$ is a contraction on $\mathcal N$.
+% \end{proof}
+
+
+% \begin{corollary}
+% \label{cor:jacobi-linear-rate}
+% Adopt the setting and assumptions of Lemma~\ref{lem:jacobi-contraction}.
+% In particular, suppose the Jacobi best-response map $BR$ is a contraction on a neighborhood
+% $\mathcal N\subset(\mathbf 1^\perp)^J$ of $y^\star$ under the block-max norm
+% $\|y\|_{\max}:=\max_{i\in[J]}\|y^i\|_2$, i.e.,
+% \[
+% \|BR(y)-BR(\tilde y)\|_{\max}\le \kappa\|y-\tilde y\|_{\max},
+% \qquad \forall\, y,\tilde y\in\mathcal N,
+% \qquad \text{for some }\kappa\in(0,1).
+% \]
+% Then for any initialization $y^0\in\mathcal N$, the Jacobi iterates $y^{t+1}=BR(y^t)$ satisfy
+% \[
+% \|y^{t}-y^\star\|_{\max}\le \kappa^{t}\|y^{0}-y^\star\|_{\max},\qquad \forall\,t\ge 0.
+% \]
+% Moreover, letting $Y^t:=\sum_{i=1}^J y^{i,t}$ and $Y^\star:=\sum_{i=1}^J y^{i\star}$, we have
+% \[
+% \|Y^{t}-Y^\star\|_2
+% \le
+% \sum_{i=1}^J\|y^{i,t}-y^{i\star}\|_2
+% \le
+% J\,\|y^{t}-y^\star\|_{\max}
+% \le
+% J\,\kappa^{t}\|y^{0}-y^\star\|_{\max}.
+% \]
+% Finally, define $\pi^t:=\pi(Y^t;\pi_0)
+% =\mathrm{softmax}\!\big(\log\pi_0+\tfrac{1}{\tau}Y^t\big)$
+% and $\pi^\star:=\pi(Y^\star;\pi_0)$. Then
+% \[
+% \|\pi^{t}-\pi^\star\|_2
+% \le
+% \frac{1}{4\tau}\,\|Y^{t}-Y^\star\|_2
+% \le
+% \frac{J}{4\tau}\,\kappa^{t}\|y^{0}-y^\star\|_{\max},
+% \qquad \forall\,t\ge 0.
+% \]
+% \end{corollary}
+
+% \begin{proof}
+% Since $y^\star$ is an equilibrium, it is a fixed point of the Jacobi best-response map, i.e.,
+% $BR(y^\star)=y^\star$. For any $y^0\in\mathcal N$, define the Jacobi iterates $y^{t+1}=BR(y^t)$.
+% By the contraction property of $BR$ on $\mathcal N$, we have for all $t\ge 0$,
+% \[
+% \|y^{t+1}-y^\star\|_{\max}
+% =
+% \|BR(y^t)-BR(y^\star)\|_{\max}
+% \le
+% \kappa\,\|y^t-y^\star\|_{\max}.
+% \]
+% Iterating the above inequality yields
+% \(
+% \|y^{t}-y^\star\|_{\max}\le \kappa^{t}\|y^{0}-y^\star\|_{\max}, \forall\,t\ge 0.
+% \)
+% Next, let $Y^t:=\sum_{i=1}^J y^{i,t}$ and $Y^\star:=\sum_{i=1}^J y^{i\star}$. Then
+% \(
+% Y^t-Y^\star=\sum_{i=1}^J\bigl(y^{i,t}-y^{i\star}\bigr),
+% \)
+% and by the triangle inequality,
+% \[
+% \|Y^{t}-Y^\star\|_2
+% \le
+% \sum_{i=1}^J\|y^{i,t}-y^{i\star}\|_2
+% \le
+% J\,\max_{i\in[J]}\|y^{i,t}-y^{i\star}\|_2
+% =
+% J\,\|y^t-y^\star\|_{\max}.
+% \]
+% Combining with the linear rate for $y^t$ gives
+% \(
+% \|Y^{t}-Y^\star\|_2
+% \le
+% J\,\kappa^{t}\|y^{0}-y^\star\|_{\max}.
+% \)
+% Finally, define $\pi^t=\pi(Y^t;\pi_0)$ and $\pi^\star=\pi(Y^\star;\pi_0)$.
+% By the mean value theorem and the definition $S(Y):=\nabla_Y\pi(Y;\pi_0)$, there exists a point
+% $\bar Y$ on the segment between $Y^t$ and $Y^\star$ such that
+% \[
+% \pi^t-\pi^\star = S(\bar Y)\,(Y^t-Y^\star).
+% \]
+% Taking norms and using the bound $\|S(\bar Y)\|_{2\to 2}\le \frac{1}{4\tau}$ for the softmax Jacobian yields
+% \[
+% \|\pi^{t}-\pi^\star\|_2
+% \le
+% \frac{1}{4\tau}\,\|Y^{t}-Y^\star\|_2
+% \le
+% \frac{J}{4\tau}\,\kappa^{t}\|y^{0}-y^\star\|_{\max},
+% \qquad \forall\,t\ge 0,
+% \]
+% which completes the proof.
+% \end{proof}
+% \begin{lemma}
+% Supplose that there exists a functional selection
+% $\pi(y)=\bar{\pi}(y)$ with $\pi(y^\star)=\pi^\star$ such that $\pi(y)$ is differentiable
+% at $y^\star$. If $v'(y^\star)_n \neq v'(y^\star)_m$ for any $n$ and $m$ such that
+% $\pi^\star_n,\pi^\star_m>0$, then $(\pi^\star,y^\star)$ cannot be implemented in any equilibrium.
+% \end{lemma}
+\subsection{Proof of Theorem~\ref{thm:existence&uniqueness}}\label{proof:existence&uniqueness}
+\begin{lemma}[Theorem 1 of \citep{bernheim1986common}]
+\label{lemma:minimal cost}
+Suppose that $(\pi_0,\{y_0^j\}_{j=1}^J)$ is an equilibrium and define
+$y_0 := \sum_{j=1}^J y_0^j$.
+Then $y_0$ solves
+\[
+\min_{y\in\mathbb{R}^N}\ \pi_0^\top y
+\quad\text{subject to}\quad
+\pi_0 \;=\; \frac{\pi_0\odot \exp\!\left(\tfrac{y}{\tau}\right)}
+{\mathbf{1}^\top\!\left(\pi_0\odot \exp\!\left(\tfrac{y}{\tau}\right)\right)},
+\quad
+\pi_0^\top y-\tau\,\mathrm{KL}(\pi_0\|\pi_0)\ \ge\ 0.
+\]
+\end{lemma}
+
+
+Therefore, fix $\pi_0\in\Delta_{N-1}$ and $\tau>0$.
+For any $\pi\in\Delta_{N-1}$, we can define the min-cost aggregate incentive
+\[
+\mathcal{Y}_{\min}(\pi;\pi_0)
+:=\arg\min_{y\in\mathbb{R}^N}\ \pi^\top y
+\quad\text{s.t.}\quad
+\pi \;=\; \frac{\pi_0\odot \exp\!\left(\tfrac{y}{\tau}\right)}
+{\mathbf{1}^\top\!\left(\pi_0\odot \exp\!\left(\tfrac{y}{\tau}\right)\right)},
+\quad
+\pi^\top y-\tau\,\mathrm{KL}(\pi\|\pi_0)\ \ge\ 0.
+\]
+When the minimizer is unique, we write $y_{\min}(\pi;\pi_0)$ for that unique element.
+Otherwise, fix an arbitrary measurable selection $y_{\min}(\pi;\pi_0)\in\mathcal{Y}_{\min}(\pi;\pi_0)$.
+
+We start with the existence of the equilibrium.
+\begin{lemma}
+\label{lem:existence}
+Consider the common-agency game with a finite action space $\mathcal{A}$ where $|\mathcal{A}| = N \ge 2$. Assume the agent's policy is derived from a KL-regularized objective with a temperature parameter $\tau > 0$ and a full-support base policy $\pi_0 \in \mathrm{int}(\Delta_{N-1})$. Then, the game admits at least one pure-strategy Nash equilibrium $\big(\{y^{j\star}\}_{j=1}^J, \pi^\star\big)$.
+\end{lemma}
+
+\begin{proof}[Proof of Lemma~\ref{lem:existence}]
+The proof proceeds by transforming the principals' joint optimization problem from the individual transfer space into the shared policy space (the probability simplex) $\pi \in \Delta_{N-1}$.
+
+\textbf{Transformation to the Policy Space.}
+Following the standard characterization of common-agency equilibria \citep{bernheim1986common}, finding a pure-strategy equilibrium is equivalent to finding an aggregate transfer $Y^\star$ and a policy $\pi^\star$ that maximize the principals' joint surplus. By Lemma~\ref{lemma:minimal cost}, any implementable policy $\pi \in \mathrm{int}(\Delta_{N-1})$ requires a minimal aggregate implementation cost $c(\pi) = \tau\,\mathrm{KL}(\pi\|\pi_0) + \psi(\pi)$, where $\psi(\pi) := \max\{0, \max_{i} [-\tau \log(\pi_i/\pi_{0,i})]\}$. The joint optimization problem can therefore be equivalently formulated directly in the probability simplex $\Delta_{N-1}$ as maximizing the potential (aggregate surplus) function:
+\begin{equation}
+    \max_{\pi \in \Delta_{N-1}} \Phi(\pi) = \pi^\top \bar{q} - c(\pi) = \pi^\top \bar{q} - \tau\,\mathrm{KL}(\pi\|\pi_0) - \psi(\pi)
+\end{equation}
+where $\bar{q} = \sum_{j=1}^J w^jq^j$ is the aggregate intrinsic valuation.
+
+\textbf{Interiority of the Global Maximum.}
+We first observe the behavior of $\Phi(\pi)$ near the boundary of the simplex $\partial\Delta_{N-1}$. Because $\pi_0$ has full support, as any coordinate $\pi_i \to 0$, the term $-\tau \log(\pi_i/\pi_{\mathrm{base},i}) \to +\infty$. Consequently, the implementation cost $\psi(\pi) \to +\infty$, which drives the objective function $\Phi(\pi) \to -\infty$. Since $\bar{q}$ is finite, any policy on or arbitrarily close to the boundary is strictly suboptimal compared to the base policy $\pi_0$ (where $\Phi(\pi_0) = \pi_0^\top \bar{q} > -\infty$). Thus, we can restrict our search space to a closed, compact, and convex subset strictly inside the interior of the simplex, denoted as $\mathcal{D} \subset \mathrm{int}(\Delta_{N-1})$.
+
+\textbf{Existence via Extreme Value Theorem.}
+Restricted to the compact domain $\mathcal{D} := \{\pi \in \Delta_{N-1} \mid \pi_i \ge \epsilon, \ \forall i\}$ for some sufficiently small $\epsilon > 0$, the probabilities are bounded away from zero. Hence, the composition of the linear term $\pi^\top \bar{q}$, the KL-divergence, and the continuous max operator in $\psi(\pi)$ makes $\Phi(\pi)$ a continuous, finite-valued function on $\mathcal{D}$. By the Extreme Value Theorem (Weierstrass Theorem), a continuous function on a compact set attains its maximum. Therefore, the joint optimization problem admits at least one global maximum $\pi^\star \in \mathrm{int}(\Delta_{N-1})$.
+
+\textbf{Mapping Back to Equilibrium.}
+The existence of this optimal aggregate target $\pi^\star$ guarantees the existence of a minimal aggregate transfer $Y^\star$ that implements it. Consequently, there exists at least one valid individual transfer profile $\{y^{j\star}\}_{j=1}^J$ that sums to $Y^\star$ and satisfies the individual rationality and box constraints. This establishes the existence of at least one pure-strategy Nash equilibrium for any general $N \ge 2$.
+\end{proof}
+
+\begin{lemma}\label{lem:uniqueness}
+Suppose the common-agency game admits an equilibrium. Then the equilibrium policy $\pi^\star \in \Delta_{N-1}$ is unique. Furthermore, the equilibrium aggregate incentive $Y^\star = \sum_{j=1}^J y^{j\star}$ inducing $\pi^\star$ is uniquely determined.
+\end{lemma}
+
+\begin{proof}[Proof of Lemma~\ref{lem:uniqueness}]
+To establish the uniqueness of the equilibrium policy $\pi^\star$, we analyze the geometric properties of the potential function $\Phi(\pi)$ defined in the proof of Theorem~\ref{lem:existence}. As established, any equilibrium policy must strictly lie in the interior of the simplex, $\pi \in \mathrm{int}(\Delta_{N-1})$. Over this open convex domain, we analyze the three components of $\Phi(\pi)$:
+\begin{enumerate}
+    \item The expected aggregate payoff $\pi^\top \bar{q}$ is linear in $\pi$.
+    \item The minimal shift function $\psi(\pi) = \max\{0, \max_{a} [-\tau \log(\pi_i/\pi_{0,i})]\}$ is the pointwise maximum of convex functions (since $-\log(\cdot)$ is strictly convex for $\pi_i > 0$), making $\psi(\pi)$ structurally convex. Therefore, its negation $-\psi(\pi)$ is concave.
+    \item The KL-divergence term has an unnormalized entropy component $f(\pi) = \tau \sum_{i=1}^N \pi_i \log \pi_i$. Because $\pi \in \mathrm{int}(\Delta_{N-1})$, $\pi_i > 0$ strictly holds for all $i$, meaning $f(\pi)$ is twice continuously differentiable. Taking the second derivative with respect to $\pi$, its Hessian matrix $H$ is diagonal:
+    \begin{equation}
+        H = \mathrm{diag}\left( \frac{\tau}{\pi_1}, \frac{\tau}{\pi_2}, \dots, \frac{\tau}{\pi_N} \right)
+    \end{equation}
+    Since $\pi_a > 0$, all diagonal elements of $H$ are strictly positive. Thus, $H$ is positive definite on the tangent space of the simplex, meaning $\tau\,\mathrm{KL}(\pi \parallel \pi_0)$ is strictly convex. Consequently, its negation $-\tau\,\mathrm{KL}(\pi \parallel \pi_0)$ is strictly concave.
+\end{enumerate}
+
+The sum of a linear function, a concave function, and a strictly concave function yields a globally \textbf{strictly concave} function. Thus, $\Phi(\pi)$ is strictly concave over $\mathrm{int}(\Delta_{N-1})$.
+
+A fundamental property of convex optimization is that the maximum of a strictly concave function over a convex set, if it exists, must be unique. By Lemma~\ref{lem:existence}, we know at least one such maximum $\pi^\star$ exists. Therefore, this global maximum $\pi^\star$ is uniquely determined. Because the best-response mapping is deterministic and closed-form, the unique policy $\pi^\star$ uniquely determines the minimal aggregate transfer $Y^\star$ required to induce it.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:diag-b-stationary}}
+\label{proof:stationary}
+
+\begin{definition}
+For an MPEC with constraints
+\[
+h(x)=0,\quad g(x)\le 0,\quad u(x)\ge 0,\quad v(x)\ge 0,\quad u_i(x)\,v_i(x)=0\ \ (i=1,\dots,m),
+\]
+MPEC-LICQ (linear independence constraint qualification) holds at a feasible $x^\star$ if the set
+\[
+\big\{\nabla h_j(x^\star)\big\}_j\ \cup\
+\big\{\nabla g_i(x^\star): g_i(x^\star)=0\big\}\ \cup\
+\big\{\nabla u_i(x^\star): u_i(x^\star)=0\big\}\ \cup\
+\big\{\nabla v_i(x^\star): v_i(x^\star)=0\big\}
+\]
+is linearly independent.
+We say that $x^\star$ is B-stationary iff $d=0$ solves 
+\[
+\begin{aligned}
+\min_{d}\ & \nabla f(x^\star)^{\!\top} d\\
+\text{s.t. }& h(x^\star)+\nabla h(x^\star)^{\!\top} d=0,\\
+& g(x^\star)+\nabla g(x^\star)^{\!\top} d\le 0,\\
+& 0\le u(x^\star)+\nabla u(x^\star)^{\!\top} d\ \perp\ 
+v(x^\star)+\nabla v(x^\star)^{\!\top} d\ge 0 .
+\end{aligned}
+\]
+\end{definition}
+
+\begin{lemma}[Theorem 3.3 in \citep{su2005equilibrium}]
+\label{lemma:stationary}
+Let $\{(y^{(t)},\pi^{(t)})\}$ be a sequence of solutions generated by Algorithm~\ref{Algorithm}, where
+each MPEC is reformulated and solved as an equivalent nonlinear programming problem. Suppose the
+sequence $\{(y^{(t)},\pi^{(t)})\}$ converges to $(y^*,\pi^*)$ as $t\to\infty$.
+If, for each $j=1,\ldots,J$, the MPEC-LICQ holds at $(y^{j,*},\pi^*)$ for
+$\mathrm{MPEC}(y^{-j,*})$, then $(y^*,\pi^*)$ is B-stationary for the
+corresponding EPEC.
+\end{lemma}
+
+\begin{proof}[Proof of Theorem~\ref{thm:diag-b-stationary}]
+By Lemma~\ref{lemma:stationary}, it remains to verify MPEC--LICQ.
+Fix a principal \(j\in[J]\). In our formulation, the agent best-response constraint is imposed by
+\[
+h(\pi,y^j)
+:= \pi -
+\frac{\pi_0\odot \exp\!\big((\sum_{k\neq j} y^{k\star}+y^j)/\tau\big)}
+{\mathbf 1^\top\!\Big(\pi_0\odot \exp\!\big((\sum_{k\neq j} y^{k\star}+y^j)/\tau\big)\Big)}
+=0 .
+\]
+We also impose the box constraints \(0\le y^j\le w^jq^j\) componentwise.
+Let \((\pi^\star,y^{j\star})\) be the feasible point under consideration, and define
+\[
+\mathcal A^-:=\{i\in[N]: y_i^{j\star}=0\},
+\qquad
+\mathcal A^+:=\{i\in[N]: y_i^{j\star}=w^jq_i^j\}.
+\]
+Then the active constraint system at \((\pi^\star,y^{j\star})\) consists of the equality
+\(h(\pi,y^j)=0\) and the active inequalities
+\[
+-y_i^j\le 0\quad(i\in\mathcal A^-),\qquad
+y_i^j-w^jq_i^j\le 0\quad(i\in\mathcal A^+).
+\]
+
+We now verify LICQ. The Jacobian of \(h\) with respect to \(\pi\) is
+\[
+\nabla_{\pi} h(\pi,y^j)=I_N,
+\]
+hence the \(N\) equality gradients \(\{\nabla h_i(\pi^\star,y^{j\star})\}_{i=1}^N\)
+are linearly independent in the \(\pi\)-block. Moreover, the gradients of the active
+box constraints, written in \((\pi,y^j)\)-coordinates, are
+\[
+\nabla(-y_i^j)=(0,-e_i)\quad(i\in\mathcal A^-),\qquad
+\nabla(y_i^j-w^jq_i^j)=(0,e_i)\quad(i\in\mathcal A^+),
+\]
+which lie entirely in the \(y^j\)-block.
+
+To conclude, suppose that
+\[
+\sum_{i=1}^N \alpha_i \nabla h_i(\pi^\star,y^{j\star})
++\sum_{i\in\mathcal A^-}\mu_i \nabla(-y_i^j)
++\sum_{i\in\mathcal A^+}\nu_i \nabla(y_i^j-w^jq_i^j)
+=0.
+\]
+Looking at the \(\pi\)-block and using \(\nabla_\pi h=I_N\) yields \(\alpha=0\).
+Then the \(y^j\)-block becomes
+\[
+-\sum_{i\in\mathcal A^-}\mu_i e_i + \sum_{i\in\mathcal A^+}\nu_i e_i = 0.
+\]
+Since the standard basis vectors are linearly independent, it follows that
+\(\mu_i=0\) for all \(i\in\mathcal A^-\) and \(\nu_i=0\) for all \(i\in\mathcal A^+\).
+Therefore all coefficients vanish, proving that the gradients of the active constraints
+are linearly independent. Hence MPEC--LICQ holds at \((\pi^\star,y^{j\star})\).
+
+After eliminating the inner \(\arg\max\) constraint via the closed-form mapping
+\(\pi=\pi(Y)\), the feasible set can be written as
+\[
+\mathcal X=\{x=(y,\pi): h(x)=0,\ g(x)\le 0\},
+\]
+where \(h\) and \(g\) are continuously differentiable and involve only standard smooth
+equality and inequality constraints. In particular, there are no complementarity
+constraints of the form \(0\le u \perp v\ge 0\). Therefore the Bouligand tangent cone
+at \(x^\star\) coincides with the usual linearized cone:
+\[
+T_{\mathcal X}(x^\star)
+=
+\{d:\nabla h(x^\star)^\top d=0,\ \nabla g_r(x^\star)^\top d\le 0\ \forall r\in\mathcal A(x^\star)\},
+\]
+where \(\mathcal A(x^\star):=\{r:g_r(x^\star)=0\}\).
+
+By definition, \(x^\star=(y^\star,\pi^\star)\) is B-stationary if
+\[
+\nabla f(x^\star)^\top d\ge 0,\qquad \forall d\in T_{\mathcal X}(x^\star).
+\]
+Since \(T_{\mathcal X}(x^\star)\) is exactly the classical first-order feasible-direction cone of a smooth nonlinear program, this is precisely the standard first-order stationarity condition.
+
+Finally, because LICQ holds at \(x^\star\), first-order stationarity is equivalent to the KKT conditions: there exist multipliers \((\lambda,\nu)\) such that
+\[
+\nabla f(x^\star)+\nabla g(x^\star)^\top\lambda+\nabla h(x^\star)^\top\nu=0,\qquad
+\lambda\ge 0,\qquad
+\lambda_r g_r(x^\star)=0,\qquad
+g(x^\star)\le 0,\qquad
+h(x^\star)=0.
+\]
+Therefore, \((y^\star,\pi^\star)\) is B-stationary.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:user_optimal_reg_general}}
+\begin{lemma}[Lemma~1 in \citep{bernheim1986common}]\label{lemma:equilibrium}
+A pair $(\pi^*,Y^*)$ with $Y^*=\sum_{j=1}^J y^j$ can be implemented in equilibrium if and only if $(\pi^*,Y^*)$ solves the program
+\begin{align*}
+\max_{\pi,\,Y}\quad & \pi \cdot \bigl(w^\top q+(J-1)Y^* - J Y\bigr) \\
+\text{s.t.}\quad 
+& \pi \;=\; \arg\max_{\pi\in\Delta_{N-1}}\Bigl\{\pi^\top Y^*-\tau\,\mathrm{KL}(\pi\|\pi_0)\Bigr\}, \\
+& g(\pi,Y) = \pi^\top Y\;-\;\tau\,\mathrm{KL}\!\bigl(\pi\,\|\,\pi_0) \geq 0. \\
+\end{align*}
+\end{lemma}
+
+\begin{proof}[Proof of Theorem~\ref{thm:user_optimal_reg_general}]
+We start from Lemma~\ref{lemma:equilibrium}. In our setting, the aggregate incentive is
+\[
+Y=\sum_{j=1}^J y^j,
+\]
+with box constraints \(0\le y^j\le w^j q^j\) for all \(j\in[J]\). Hence the induced feasible set for \(Y\) is the box
+\[
+0\le Y \le \bar Y,
+\qquad
+\bar Y:=\sum_{j=1}^J w^j q^j.
+\]
+Moreover, given \(Y\), the LLM output distribution is determined by the KL-regularized response rule
+\[
+\pi(Y)=\arg\max_{\pi\in\Delta_{N-1}}
+\Bigl\{\pi^\top Y-\tau\,\mathrm{KL}\!\bigl(\pi\,\|\,\pi_0\bigr)\Bigr\},
+\]
+where \(\pi_0\) has full support.
+
+The first-order optimality conditions of the KL-regularized response imply that, for any \(Y\),
+\[
+\pi_i(Y)\propto (\pi_0)_i\,\exp(Y_i/\tau),
+\qquad i\in[N].
+\]
+Equivalently, for any \(\pi\) in the interior of the simplex there exists a scalar \(c\in\mathbb R\) such that
+\begin{equation}\label{eq:Y_pi_c}
+Y_i=\tau\log\frac{\pi_i}{(\pi_0)_i}+c,
+\qquad \forall i\in[N].
+\end{equation}
+Multiplying \eqref{eq:Y_pi_c} by \(\pi_i\) and summing over \(i\) yields
+\[
+\pi^\top Y
+=
+\tau\sum_{i=1}^N \pi_i\log\frac{\pi_i}{(\pi_0)_i}+c
+=
+\tau\,\mathrm{KL}\!\bigl(\pi\,\|\,\pi_0\bigr)+c.
+\]
+
+The box constraint \(0\le Y\le \bar Y\), together with \eqref{eq:Y_pi_c}, implies that for every \(i\in[N]\),
+\[
+0\le \tau\log\frac{\pi_i}{(\pi_0)_i}+c \le \bar Y_i.
+\]
+Hence \(c\) must satisfy
+\[
+c\ge -\tau\log\frac{\pi_i}{(\pi_0)_i}
+\quad \forall i\in[N]
+\qquad\Longleftrightarrow\qquad
+c\ge c_{\min}(\pi):=\max_{i\in[N]}\Bigl\{-\tau\log\frac{\pi_i}{(\pi_0)_i}\Bigr\},
+\]
+and
+\[
+c\le \bar Y_i-\tau\log\frac{\pi_i}{(\pi_0)_i}
+\quad \forall i\in[N]
+\qquad\Longleftrightarrow\qquad
+c\le c_{\max}(\pi):=\min_{i\in[N]}\Bigl\{\bar Y_i-\tau\log\frac{\pi_i}{(\pi_0)_i}\Bigr\}.
+\]
+Therefore, a distribution \(\pi\) is reachable under the box constraints if and only if
+\[
+c_{\min}(\pi)\le c_{\max}(\pi),
+\]
+that is,
+\[
+\pi\in\Pi:=\Bigl\{\pi\in\Delta_{N-1}: c_{\min}(\pi)\le c_{\max}(\pi)\Bigr\}.
+\]
+
+By Lemma~\ref{lemma:equilibrium}, \((\pi^\star,Y^\star)\) is implementable in equilibrium if and only if it solves
+\[
+\max_{\pi,\,Y}\ \ \pi^\top\bigl(w^\top q+(J-1)Y^\star-JY\bigr)
+\quad\text{s.t. }\pi=\pi(Y),\ g(\pi,Y)\ge 0,
+\]
+together with the box feasibility of \(Y\).
+Since \(Y^\star\) is fixed in the program, the term \((J-1)\pi^\top Y^\star\) is constant with respect to \((\pi,Y)\).
+Letting \(Q_w\) denote the aggregated user score vector, the objective is equivalent, up to an additive constant independent of \((\pi,Y)\), to
+\[
+\langle \pi,Q_w\rangle - J\,\pi^\top Y.
+\]
+Using the identity above, this becomes
+\[
+\langle \pi,Q_w\rangle - J\bigl(\tau\,\mathrm{KL}(\pi\|\pi_0)+c\bigr)
+=
+\langle \pi,Q_w\rangle
+- J\tau\,\mathrm{KL}(\pi\|\pi_0)
+- Jc.
+\]
+
+For any fixed reachable \(\pi\in\Pi\), the objective is strictly decreasing in \(c\), so the optimal choice is the smallest feasible value, namely \(c=c_{\min}(\pi)\). Therefore the program reduces to
+\[
+\max_{\pi\in\Pi}
+\Bigl\{
+\langle \pi,Q_w\rangle
+- J\tau\,\mathrm{KL}(\pi\|\pi_0)
+- Jc_{\min}(\pi)
+\Bigr\}
+=
+\max_{\pi\in\Pi} U_w^{\mathrm{reg}}(\pi).
+\]
+Consequently, the equilibrium policy satisfies
+\[
+\pi^\star\in\arg\max_{\pi\in\Pi} U_w^{\mathrm{reg}}(\pi),
+\]
+as claimed.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:local-stability}}
+% \begin{lemma}
+% \label{lemma:aggregate_y_closed_form_and_not_equal_q}
+% Suppose $(\pi_0,\{y_0^j\}_{j=1}^J)$ is an equilibrium and define
+% $y_0 := \sum_{j=1}^J y_0^j$.
+% Then:
+% Fix any principal $i$. If $y_0^i = q^i$, then it must hold elementwise that
+% \[
+% q^i \;\le\; y_0
+% \;=\; \tau \log\!\Big(\pi_0 \oslash \pi_0\Big).
+% \]
+% Consequently, if there exists any coordinate $a\in\{1,\dots,N\}$ such that
+% $q^i_a > \tau \log\!\big(\pi_{0,a}/\pi_{\mathrm{base},a}\big)$,
+% then necessarily $y_0^i\neq q^i$ at equilibrium.
+% \end{lemma}
+
+% \begin{proof}
+% By Lemma~\ref{lemma:minimal cost}, $y_0$ solves
+% \[
+% \min_{y\in\mathbb{R}^N}\ \pi_0^\top y
+% \quad\text{s.t.}\quad
+% \pi_0 \;=\; \frac{\pi_0\odot \exp\!\left(\tfrac{y}{\tau}\right)}
+% {\mathbf{1}^\top\!\left(\pi_0\odot \exp\!\left(\tfrac{y}{\tau}\right)\right)},
+% \quad
+% \pi_0^\top y-\tau\,\mathrm{KL}(\pi_0\|\pi_0)\ \ge\ 0.
+% \]
+% The first constraint implies that $y$ is identifiable up to an additive constant.
+% Indeed, $\pi_0$ satisfies
+% \[
+% \pi_{0,a}
+% =
+% \frac{\pi_{\mathrm{base},a}\exp(y_a/\tau)}
+% {\sum_{b=1}^N \pi_{\mathrm{base},b}\exp(y_b/\tau)}
+% \qquad\forall a,
+% \]
+% so taking ratios gives, for any $a$,
+% \[
+% \frac{\pi_{0,a}}{\pi_{\mathrm{base},a}}
+% =
+% \frac{\exp(y_a/\tau)}{\sum_{b=1}^N \pi_{\mathrm{base},b}\exp(y_b/\tau)}
+% \quad\Longrightarrow\quad
+% y_a
+% =
+% \tau\log\!\Big(\frac{\pi_{0,a}}{\pi_{\mathrm{base},a}}\Big) + c
+% \]
+% for some constant $c\in\mathbb{R}$ independent of $a$.
+% Equivalently, every feasible $y$ has the form
+% \[
+% y = \tau \log\!\Big(\pi_0 \oslash \pi_0\Big) + c\mathbf{1}.
+% \]
+% For such $y$ we have
+% \[
+% \pi_0^\top y
+% =
+% \tau\,\pi_0^\top \log\!\Big(\pi_0 \oslash \pi_0\Big) + c
+% =
+% \tau\,\mathrm{KL}(\pi_0\|\pi_0) + c,
+% \]
+% since $\mathrm{KL}(\pi_0\|\pi_0)
+% =\sum_{a=1}^N \pi_{0,a}\log\big(\pi_{0,a}/\pi_{\mathrm{base},a}\big)$.
+% Meanwhile, the second constraint becomes
+% \[
+% \pi_0^\top y-\tau\,\mathrm{KL}(\pi_0\|\pi_0)
+% =
+% c \;\ge\; 0.
+% \]
+% Therefore the optimization reduces to minimizing
+% $\tau\,\mathrm{KL}(\pi_0\|\pi_0) + c$
+% over $c\ge 0$, whose unique minimizer is $c^\star=0$.
+% This yields the closed form
+% $y_0=\tau \log(\pi_0\oslash \pi_0)$
+% and also implies the constraint is tight:
+% $\pi_0^\top y_0-\tau\,\mathrm{KL}(\pi_0\|\pi_0)=0$.
+
+% If $y_0^i=q^i$, then by definition of $y_0$ and nonnegativity of incentives,
+% \[
+% y_0 = \sum_{j=1}^J y_0^j \;\ge\; y_0^i \;=\; q^i
+% \quad\text{(elementwise)}.
+% \]
+% Combining with Part (1), we obtain the necessary condition
+% \[
+% q^i \le y_0 = \tau \log\!\Big(\pi_0 \oslash \pi_0\Big)
+% \quad\text{(elementwise)}.
+% \]
+% Hence if there exists any coordinate $a$ such that
+% $q^i_a > \tau \log(\pi_{0,a}/\pi_{\mathrm{base},a})$,
+% the above condition is violated, which contradicts $y_0^i=q^i$.
+% Therefore $y_0^i\neq q^i$ in that case.
+% \end{proof}
+
+\begin{lemma}
+\label{lem:tau-implies-nonsingular}
+Fix \(\tau>0\) and a reference parameter tuple
+\(
+\theta := (\pi_0,q^{1},\dots,q^{J}).
+\)
+Let \((y^\star,\pi^\star)\) be a corresponding equilibrium incentive profile and policy, where
+\[
+y^\star=(y^{1\star},\dots,y^{J\star}),
+\qquad
+Y^\star=\sum_{j=1}^J y^{j\star},
+\qquad
+\pi^\star=\pi(Y^\star;\pi_0)
+=\mathrm{softmax}\!\Big(\log\pi_0+\tfrac{1}{\tau}Y^\star\Big).
+\]
+Define
+\[
+S(Y):=\nabla_Y \pi(Y;\pi_0)
+=\frac{1}{\tau}\Big(\mathrm{Diag}(\pi(Y))-\pi(Y)\pi(Y)^\top\Big).
+\]
+For each \(j\in[J]\), define the reduced objective
+\[
+f_j(y^j;Y^{-j},\pi_0,w^jq^j)
+:=\pi(Y^{-j}+y^j;\pi_0)^\top(w^jq^j-y^j),
+\qquad
+Y^{-j}:=\sum_{k\neq j}y^k,
+\]
+and the stacked stationarity mapping
+\[
+\mathcal{G}(y;\theta^\star)
+:=
+\begin{pmatrix}
+\nabla_{y^1} f_1(y^1;Y^{-1},\pi_0,q^{1\star})\\
+\vdots\\
+\nabla_{y^J} f_J(y^J;Y^{-J},\pi_0,w^jq^j)
+\end{pmatrix}
+\in\mathbb{R}^{JN}.
+\]
+Assume:
+\begin{enumerate}
+\item[(a)] (\textbf{Interior policy}) there exists \(\underline\pi>0\) such that \(\pi_i^\star\ge \underline\pi\) for all \(i\in[N]\);
+\item[(b)] (\textbf{Bounded scale}) there exists \(R<\infty\) such that \(\|w^jq^{j}-y^{j\star}\|_2\le R\) for all \(j\in[J]\).
+\end{enumerate}
+If
+\begin{equation}
+\label{eq:tau-threshold-explicit}
+\tau \;>\; \frac{2N^2\,J\,R}{\underline\pi\bigl(1-(N-1)\underline\pi\bigr)},
+\end{equation}
+then the Jacobian \(D_y\mathcal{G}(y^\star;\theta^\star)\) is nonsingular when restricted to the gauge-fixed subspace
+\((\mathbf 1^\perp)^J\).
+\end{lemma}
+
+\begin{proof}
+Write \(Y=\sum_{k=1}^J y^k\). Using \(\nabla_Y\pi(Y)=S(Y)\), a direct differentiation yields, for each \(j\in[J]\),
+\begin{equation}
+\label{eq:Gi-closed-clean}
+\mathcal{G}_j(y;\theta^\star)=S(Y)\,(w^jq^{j}-y^j)-\pi(Y;\pi_0).
+\end{equation}
+Let \(\delta y=(\delta y^1,\dots,\delta y^J)\) and \(\delta Y:=\sum_{k=1}^J\delta y^k\).
+Linearizing \eqref{eq:Gi-closed-clean} at \(y^\star\) gives, with \(S^\star:=S(Y^\star)\),
+\[
+\big(D_y\mathcal{G}(y^\star;\theta^\star)\,\delta y\big)_j
+=
+-\;S^\star(\delta y^j+\delta Y)
++\big(\nabla_Y S(Y^\star)[\delta Y]\big)\,(w^jq^j-y^{j\star}).
+\]
+Hence \(D_y\mathcal{G}(y^\star;\theta^\star)=A_0+E\), where
+\[
+(A_0\delta y)_j:=-S^\star(\delta y^j+\delta Y),
+\qquad
+(E\delta y)_j:=\big(\nabla_Y S(Y^\star)[\delta Y]\big)\,(w^jq^j-y^{j\star}).
+\]
+
+Restrict to \(\delta y^j\in\mathbf 1^\perp\) for all \(j\in[J]\), so that \(\delta Y\in\mathbf 1^\perp\). On \(\mathbf 1^\perp\),
+\(S^\star\) is positive definite, and assumption (a) implies
+\begin{equation}
+\label{eq:mu-lower-clean}
+\lambda_{\min}\!\big(S^\star\big|_{\mathbf 1^\perp}\big)
+\;\ge\;
+\frac{1}{\tau}\,\underline\pi\bigl(1-(N-1)\underline\pi\bigr)
+\;=:\;\mu.
+\end{equation}
+Moreover, \(A_0\) couples principals only through \(\delta Y\), and the associated \(J\times J\) matrix
+\(I_J+\mathbf 1\mathbf 1^\top\) has smallest eigenvalue \(1\). Therefore, on \((\mathbf 1^\perp)^J\),
+\begin{equation}
+\label{eq:A0-inv-clean}
+\sigma_{\min}(A_0)\ge \mu
+\qquad\text{and hence}\qquad
+\|A_0^{-1}\|\le \frac{1}{\mu}.
+\end{equation}
+
+Next, for all \(Y\),
+\begin{equation}
+\label{eq:nablaS-bound-clean}
+\big\|\nabla_Y S(Y)\big\|_{2\to 2}\ \le\ \frac{2N^2}{\tau^2}.
+\end{equation}
+Indeed, letting \(u=\log\pi_0+\tfrac{1}{\tau}Y\) and \(\pi=\mathrm{softmax}(u)\), we have
+\(S(Y)=\tfrac{1}{\tau}J(u)\) with \(J(u)=\mathrm{Diag}(\pi)-\pi\pi^\top\), so
+\(\nabla_Y S(Y)=\tfrac{1}{\tau^2}\nabla_u J(u)\). A componentwise bound gives
+\(|\partial_\ell J_{im}(u)|\le 2\) for all \(i,m,\ell\), hence \(\|\nabla_u J(u)[v]\|_2\le 2N^2\|v\|_2\) for all \(v\),
+which implies \eqref{eq:nablaS-bound-clean}.
+
+Using \eqref{eq:nablaS-bound-clean} and (b), for any \(\delta y\),
+\[
+\|(E\delta y)_j\|
+\le
+\|\nabla_Y S(Y^\star)\|\,\|\delta Y\|\,\|w^jq^j-y^{j\star}\|
+\le
+\frac{2N^2 R}{\tau^2}\,\|\delta Y\|.
+\]
+Since \(\|\delta Y\|\le \sum_{k=1}^J\|\delta y^k\|\le \sqrt{J}\,\|\delta y\|\), stacking over \(j\in[J]\) yields
+\begin{equation}
+\label{eq:E-bound-clean}
+\|E\|\ \le\ \frac{2N^2\,J\,R}{\tau^2}.
+\end{equation}
+
+Finally, \eqref{eq:A0-inv-clean}--\eqref{eq:E-bound-clean} imply that \(A_0+E\) is invertible on \((\mathbf 1^\perp)^J\)
+whenever \(\|A_0^{-1}\|\,\|E\|<1\), that is,
+\[
+\frac{1}{\mu}\cdot \frac{2N^2\,J\,R}{\tau^2}\ <\ 1,
+\]
+which is ensured by \eqref{eq:tau-threshold-explicit} together with \eqref{eq:mu-lower-clean}. Hence
+\(D_y\mathcal{G}(y^\star;\theta^\star)\) is nonsingular on \((\mathbf 1^\perp)^J\).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:local-stability}]
+Fix \(\tau>0\) and \(\pi_0\in\Delta_{N-1}\) with \((\pi_0)_i>0\) for all \(i\in[N]\).
+For any \(Y\in\mathbb{R}^N\), the KL best response is unique and given by
+\[
+\pi(Y;\pi_0)
+=
+\frac{\pi_0\odot \exp(Y/\tau)}
+{\mathbf{1}^\top(\pi_0\odot \exp(Y/\tau))}
+=
+\mathrm{softmax}\!\Big(\log\pi_0+\tfrac{1}{\tau}Y\Big).
+\]
+
+Let \(y=(y^1,\dots,y^J)\), \(Y=\sum_{k=1}^J y^k\), and \(Y^{-j}:=\sum_{k\neq j}y^k\).
+For each \(j\in[J]\), define
+\[
+f_j(y^j;Y^{-j},\pi_0,q^j)
+:=\pi(Y^{-j}+y^j;\pi_0)^\top(q^j-y^j),
+\qquad 0\le y^j\le w^jq^j.
+\]
+Fix a reference parameter
+\[
+\theta:=(\pi_0,q^{1},\dots,q^{J})
+\]
+and a corresponding equilibrium \(y^\star\), with
+\[
+\pi^\star=\pi\!\Big(\sum_{k=1}^J y^{k\star};\pi_0\Big).
+\]
+
+Let the box constraints be interpreted componentwise.
+Assume coordinatewise constraint-pattern stability at the reference equilibrium: there exists a neighborhood \(\mathcal N\) of \(\theta^\star\)
+such that, for all \(\theta\in\mathcal N\), the equilibrium \(y^\star(\theta)\) has the same lower-bound, upper-bound, and interior coordinates as \(y^\star\).
+Equivalently, for each \(j\in[J]\), define the free set
+\[
+\mathcal F^j:=\{i\in[N]:\ 0<y_i^{j\star}<w^jq_i^{j}\}.
+\]
+Then for all \(\theta\in\mathcal N\), we have \(y_i^{j\star}(\theta)\in(0,q_i^j(\theta))\) for \(i\in\mathcal F^j\),
+while \(y_i^{j\star}(\theta)=0\) on the lower-bound coordinates and \(y_i^{j\star}(\theta)=q_i^j(\theta)\) on the upper-bound coordinates.
+
+On this region, the equilibrium conditions reduce to stationarity on the free coordinates only: define \(\mathcal G(y;\theta)\) as in Lemma~\ref{lem:tau-implies-nonsingular}, with \(\theta\) in place of \(\theta^\star\), and let \(\mathcal G_{\mathcal F}\) denote the subvector collecting the components
+\[
+\{(\mathcal G_j)_i:(j,i)\in\mathcal F\},
+\]
+where the bound coordinates are fixed at their prescribed values.
+Then \(y^\star(\theta)\) satisfies
+\begin{equation}
+\label{eq:reduced-system}
+\mathcal G_{\mathcal F}(y^\star_{\mathcal F}(\theta);\theta)=0,
+\qquad \theta\in\mathcal N.
+\end{equation}
+
+Moreover, Lemma~\ref{lem:tau-implies-nonsingular} implies that
+\(D_y\mathcal G(y^\star;\theta^\star)\) is nonsingular on \((\mathbf 1^\perp)^J\).
+Restricting directions to variations supported on the free coordinates preserves nonsingularity, so the Jacobian of the reduced
+system \eqref{eq:reduced-system}, namely \(D_{y_{\mathcal F}}\mathcal G_{\mathcal F}(y^\star;\theta^\star)\),
+is nonsingular on the corresponding gauge-fixed free subspace.
+Therefore, by the implicit function theorem applied to \eqref{eq:reduced-system}, there exist a possibly smaller neighborhood
+\(\mathcal N\) and a \(C^1\) mapping \(\theta\mapsto y^\star_{\mathcal F}(\theta)\), hence locally Lipschitz, solving
+\eqref{eq:reduced-system}. Extending by the fixed bound coordinates yields a locally Lipschitz equilibrium selection
+\(\theta\mapsto y^\star(\theta)\) on this constraint-pattern region. In particular, there exist finite constants
+\(C_0,\{C_j\}_{j=1}^J\) such that for any \(\theta_1,\theta_2\in\mathcal N\),
+\[
+\|y^\star(\theta_1)-y^\star(\theta_2)\|_2
+\le
+C_0\|\log\pi_0^{(1)}-\log\pi_0^{(2)}\|_2
++\sum_{j=1}^J C_j\|q^{j(1)}-q^{j(2)}\|_2.
+\]
+Consequently, since \(Y^\star(\theta)=\sum_{j=1}^J y^{j\star}(\theta)\),
+\[
+\|Y^{\star(1)}-Y^{\star(2)}\|_2
+\le
+\tilde C_0\|\log\pi_0^{(1)}-\log\pi_0^{(2)}\|_2
++\tilde C_q \max_j\|q^{j(1)}-q^{j(2)}\|_2,
+\]
+for some finite \(\tilde C_0,\tilde C_q\).
+
+Using \(\pi^\star(\theta)=\mathrm{softmax}(\log\pi_0+\tfrac{1}{\tau}Y^\star(\theta))\) and the mean value theorem,
+\[
+\|\pi^{\star(1)}-\pi^{\star(2)}\|_2
+\le
+\sup_u \|\nabla \mathrm{softmax}(u)\|_2\,
+\Big\|
+\big(\log\pi_0^{(1)}-\log\pi_0^{(2)}\big)
++\tfrac{1}{\tau}\big(Y^{\star(1)}-Y^{\star(2)}\big)
+\Big\|_2.
+\]
+Since \(\|\nabla\mathrm{softmax}(u)\|_2\le \tfrac12\) for all \(u\),
+\[
+\|\pi^{\star(1)}-\pi^{\star(2)}\|_2
+\le \tfrac12\|\log\pi_0^{(1)}-\log\pi_0^{(2)}\|_2
++\tfrac{1}{2\tau}\|Y^{\star(1)}-Y^{\star(2)}\|_2.
+\]
+Combining with the bound on \(\|Y^{\star(1)}-Y^{\star(2)}\|_2\) yields
+\[
+\|\pi^{\star(1)}-\pi^{\star(2)}\|_2
+\le
+L_0\|\log\pi_0^{(1)}-\log\pi_0^{(2)}\|_2
++
+L_q\max_j\|q^{j(1)}-q^{j(2)}\|_2,
+\]
+for some finite constants \(L_0,L_q\), completing the proof.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:no_regret}}
+\label{proof:no_regret}
+
+
+\begin{lemma}\label{lem:utility-lipschitz}
+For each principal $j\in[J]$, on the compact feasible region
+$\mathcal{D}_j := [0,w^j q^j] \times \prod_{k\neq j}[0, w^k q^k]$,
+the utility $f_j(y^j;Y^{-j})$ is jointly continuously differentiable, with
+\begin{align*}
+\nabla_{y^j} f_j(y^j;Y^{-j}) 
+  &= S(Y)^\top(w^j q^j - y^j) - \pi^\star(Y),\\
+\nabla_{Y^{-j}} f_j(y^j;Y^{-j}) 
+  &= S(Y)^\top(w^j q^j - y^j),
+\end{align*}
+where $Y=Y^{-j}+y^j$ and $S(Y)=\nabla_Y\pi^\star(Y)
+=\frac{1}{\tau}\bigl(\mathrm{Diag}(\pi^\star(Y))-\pi^\star(Y)\pi^\star(Y)^\top\bigr)$.
+Consequently, $f_j$ is jointly $L_f$-Lipschitz on $\mathcal{D}_j$ with
+\begin{equation}\label{eq:Lf-explicit}
+L_f \;\le\; \frac{R}{\tau}+1,
+\qquad R := \max_{j\in[J]} \|w^j q^j\|_2.
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of Lemma~\ref{lem:utility-lipschitz}]
+The gradient formulas follow by direct differentiation of
+$f_j(y^j;Y^{-j})=\pi^\star(Y)^\top(w^j q^j - y^j)$ using
+$\nabla_Y \pi^\star(Y)=S(Y)$ and the product rule.
+
+For the softmax Jacobian, we claim $\|S(Y)\|_{2\to 2}\le \tfrac{1}{2\tau}$ uniformly in $Y$, equivalently $\|J(\pi)\|_{2\to 2}\le \tfrac12$ for $J(\pi):=\mathrm{Diag}(\pi)-\pi\pi^\top$. Indeed, for any unit vector $v$,
+\[
+v^\top J(\pi) v
+\;=\;
+\sum_i \pi_i v_i^2 - \Big(\sum_i \pi_i v_i\Big)^{\!2}
+\;=\;
+\mathrm{Var}_\pi(v_i),
+\]
+which by Popoviciu's inequality is at most $(M-m)^2/4$ for $M:=\max_i v_i$, $m:=\min_i v_i$. By Cauchy--Schwarz, $M-m \le \sqrt{2(\max v_i^2+\min v_i^2)}\le \sqrt{2\sum_i v_i^2}=\sqrt 2$, hence $v^\top J(\pi)v\le 1/2$.
+
+On the feasible set, $0\le y^j\le w^j q^j$ implies
+$\|w^j q^j - y^j\|_2 \le \|w^j q^j\|_2 \le R$. Combined with $\|\pi^\star(Y)\|_2\le 1$,
+\[
+\|\nabla_{y^j} f_j\|_2 \le \tfrac{R}{2\tau}+1,
+\qquad
+\|\nabla_{Y^{-j}} f_j\|_2 \le \tfrac{R}{2\tau}.
+\]
+The joint Lipschitz constant is bounded by the operator norm of the stacked gradient:
+\[
+L_f \;\le\; \sqrt{\|\nabla_{y^j}f_j\|_2^2 + \|\nabla_{Y^{-j}}f_j\|_2^2}
+\;\le\; \sqrt{\big(\tfrac{R}{2\tau}+1\big)^2 + \big(\tfrac{R}{2\tau}\big)^2}
+\;\le\; \tfrac{R}{\tau}+1,
+\]
+using $\sqrt{a^2+b^2}\le a+b$ for $a,b\ge 0$.
+\end{proof}
+
+\begin{proof}
+Fix a principal $i$ and any comparator $\bar y^i\in[0,w^i q^i]$. The exact 
+Jacobi best-response update gives the optimality condition
+\begin{equation}\label{eq:bro}
+f_i(\bar y^i;\,Y^{-i,(t-1)}) - f_i(y^{i,(t)};\,Y^{-i,(t-1)}) \;\le\; 0.
+\end{equation}
+
+Adding and subtracting $f_i(\bar y^i;Y^{-i,(t-1)})$ and 
+$f_i(y^{i,(t)};Y^{-i,(t-1)})$ to the instantaneous regret and using 
+\eqref{eq:bro} together with the joint Lipschitz continuity of $f_i$,
+\begin{align*}
+& f_i(\bar y^i;Y^{-i,(t)}) - f_i(y^{i,(t)};Y^{-i,(t)})\\
+&\quad=\bigl[f_i(\bar y^i;Y^{-i,(t)}) - f_i(\bar y^i;Y^{-i,(t-1)})\bigr]\\
+&\qquad+\underbrace{\bigl[f_i(\bar y^i;Y^{-i,(t-1)}) - f_i(y^{i,(t)};Y^{-i,(t-1)})\bigr]}_{\le\,0\text{ by }\eqref{eq:bro}}\\
+&\qquad+\bigl[f_i(y^{i,(t)};Y^{-i,(t-1)}) - f_i(y^{i,(t)};Y^{-i,(t)})\bigr]\\
+&\quad\le 2L_f\|Y^{-i,(t)}-Y^{-i,(t-1)}\|_2.
+\end{align*}
+
+Bounding the environment drift via the triangle inequality through $y^\star$,
+\[
+\|Y^{-i,(t)}-Y^{-i,(t-1)}\|_2
+\;\le\;\sum_{j\ne i}\|y^{j,(t)}-y^{j,(t-1)}\|_2
+\;\le\;(J-1)(a_t+a_{t-1}),
+\]
+
+where the last step uses 
+$\|y^{j,(t)}-y^{j\star}\|_2\le \|y^{(t)}-y^\star\|_{\max}=a_t$
+under the block max-2-norm convention. Since the bound is uniform in 
+$\bar y^i$, taking the max preserves it, and summing over $t$ yields
+\[
+R_i(T) \;\le\; 2L_f(J-1)\sum_{t=1}^T(a_t+a_{t-1}).
+\]
+
+\textbf{Linear regime.} If $a_t\le C\kappa^t$, then 
+$\sum_{t=1}^T(a_t+a_{t-1})\le 2C\sum_{t=0}^\infty\kappa^t = 2C/(1-\kappa)$, 
+giving $R_i(T)=\mathcal O(1)$.\\
+\textbf{Sublinear regime.} If $a_t\le C/t^\alpha$, then 
+$\sum_{t=1}^T t^{-\alpha}=\mathcal O(\log T)$ for $\alpha=1$ and 
+$\mathcal O(T^{1-\alpha})$ for $\alpha\in(0,1)$.\\
+In both cases, $a_t\to 0$ implies $R_i(T)/T\to 0$ by Cesàro.
+\end{proof}
+
+\section{Details of Evaluation Metrics}
+
+We adopt two standard metrics from multi-objective optimization for quantitative evaluation: hypervolume (HV) \citep{zitzler1998multiobjective} and mean inner product (MIP). Let $r \in \mathbb{R}^k$ denote the objective vector of a solution, $\mathcal{S} = \{r^{(1)}, \dots, r^{(N)}\}$ the set of evaluated solutions, and $z$ a reference point. The hypervolume of $\mathcal{S}$ with respect to $z$ is defined as
+\begin{equation*}
+\mathrm{HV}_z(\mathcal{S}) = \Lambda\big( \{p \mid \exists r \in \mathcal{S}: r \preceq p \preceq z\} \big),
+\end{equation*}
+where $\Lambda(\cdot)$ denotes the Lebesgue measure.
+
+HV quantifies the portion of the objective space dominated by $\mathcal{S}$ relative to $z$, reflecting both proximity to the Pareto front and coverage across objectives. Larger HV values indicate better trade-offs in terms of convergence and diversity.
+
+To assess preference alignment, we use mean inner product (MIP). Let $w_i \in \mathbb{R}^d$ denote the preference vector and $r_i \in \mathbb{R}^d$ the corresponding evaluation vector for the $i$-th sample. MIP is defined as
+\begin{equation*}
+\mathrm{MIP} = \frac{1}{N} \sum_{i=1}^{N} w_i^\top r_i,
+\end{equation*}
+where $N$ is the number of samples.
+MIP captures how well the generated outputs align with user preferences: higher values indicate stronger agreement. In the multi-objective setting, each dimension represents a distinct preference aspect, so MIP summarizes performance across different preference directions.
+
+\section{Experiment Details}
+\subsection{Hyperparameters}
+\subsection{Computational Resources and Cost Analysis}
+\subsection{Baseline Details}
+We reproduce GenARM and PARM based on their official implementations provided at \url{https://genarm.github.io} and \url{https://github.com/Baijiong-Lin/PARM}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\input{checklist.tex}
+
+
+\end{document}
