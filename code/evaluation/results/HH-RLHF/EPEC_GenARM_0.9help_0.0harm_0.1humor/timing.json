@@ -1,0 +1,9 @@
+{
+  "method": "EPEC_GenARM_0.9help_0.0harm_0.1humor",
+  "n_prompts": 200,
+  "total_seconds": 8437.303396224976,
+  "fwd_seconds": 5404.052976369858,
+  "epec_seconds": 3019.1553156375885,
+  "tau": 0.1,
+  "k": 50
+}
