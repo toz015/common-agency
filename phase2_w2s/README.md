@@ -110,7 +110,11 @@ phase2_w2s/
 │
 ├── # Helpers
 ├── make_subset.py                  <- take first N prompts (deterministic prefix)
-├── plot_pareto_w2s.py              <- logit-sum Pareto plot from mean_result.json
+├── plot_pareto_w2s.py              <- logit-sum Pareto plot (PARM vs GenARM only)
+├── plot_3curve_w2s_epec.py         <- 3-curve Pareto: PARM + GenARM + CAGE (paper figure)
+├── plot_hitcap_w2s.py              <- 3-curve cap-hit-rate vs α (paper appendix figure)
+├── compute_hitcap_w2s.py           <- compute cap-hit JSON from generation.json (run on a100-demo)
+├── plot_case_study_w2s.py          <- 3-panel qualitative case study (PIL-rendered)
 ├── compute_hv.py                   <- 2D hypervolume (shared ref point)
 │
 ├── # Logit-sum baseline drivers
@@ -132,6 +136,11 @@ phase2_w2s/
 ├── pareto_n300.png                 <- PRIMARY Pareto plot
 ├── pareto_n100.csv                 <- initial n=100 sanity version
 ├── pareto_n100.png
+│
+├── # Paper figures (3-curve: PARM, GenARM, CAGE)
+├── hitcap_w2s.json                 <- cap-hit-rate per (method, α), n=300
+├── hitcap_w2s.png                  <- cap-hit-rate plot (appendix figure)
+├── case_study_w2s.png              <- qualitative 3-panel case study (Viagra prompt)
 │
 ├── results_n300_t512/              <- PRIMARY: 22 dirs × {mean,reward}_result.json
 │   ├── parm/PARM_<ah>help_<as>harm/{reward_result,mean_result}.json

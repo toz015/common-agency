@@ -1,9 +1,8 @@
 """
-4-curve Pareto: PARM/GenARM × logit-sum/EPEC, all on W2S 65B base.
+3-curve Pareto: PARM/GenARM logit-sum baselines + CAGE (EPEC+GenARM), all on W2S 65B base.
 
 Naming convention (paper-aligned):
   EPEC + GenARM   →  CAGE  (Ours)
-  EPEC + PARM     →  CAGE+ (Ours)
   GenARM logit-sum baseline →  GenARM
   PARM logit-sum baseline   →  PARM
 
@@ -11,9 +10,9 @@ Style: matches plot_pareto_tau.py from epec_parm_0.1_0.9 branch
 (white background, large axis fontsize, no title, paper-style colors/markers).
 
 Usage:
-  python phase2_w2s/plot_4curve_w2s_epec.py            # use existing mean_result.json
-  python phase2_w2s/plot_4curve_w2s_epec.py --n 50     # re-aggregate logit-sum over first 50 prompts
-  python phase2_w2s/plot_4curve_w2s_epec.py --n 300    # re-aggregate logit-sum over first 300 prompts
+  python phase2_w2s/plot_3curve_w2s_epec.py            # use existing mean_result.json
+  python phase2_w2s/plot_3curve_w2s_epec.py --n 50     # re-aggregate logit-sum over first 50 prompts
+  python phase2_w2s/plot_3curve_w2s_epec.py --n 300    # re-aggregate logit-sum over first 300 prompts
 """
 import argparse
 import json
@@ -103,10 +102,6 @@ def main():
     p.add_argument('--n', type=int, default=None,
                    help='If set, re-aggregate logit-sum baseline over first N prompts.')
     p.add_argument('--out', default='/tmp/pareto_4curve_w2s_epec.png')
-    p.add_argument('--include_cage_plus', action='store_true',
-                   help='Include CAGE+ (EPEC+PARM, currently n=50 only). Default off.')
-    p.add_argument('--include_parm', action='store_true',
-                   help='Include PARM logit-sum baseline. Default off.')
     args = p.parse_args()
 
     # Pick LS dir based on n
@@ -114,12 +109,11 @@ def main():
 
     parm_ls    = load_curve(ls_root,   'parm',   'PARM',         n=args.n)
     genarm_ls  = load_curve(ls_root,   'genarm', 'GenARM',       n=args.n)
-    parm_epec  = load_curve(EPEC_ROOT, 'parm',   'EPEC_PARM',    n=None)
     genarm_epec= load_curve(EPEC_ROOT, 'genarm', 'EPEC_GenARM',  n=None)
 
     n_label = f"n={args.n}" if args.n else "n=mean_result"
     print(f"Loaded: {len(parm_ls)} PARM ({n_label}), {len(genarm_ls)} GenARM ({n_label}), "
-          f"{len(parm_epec)} CAGE+ EPEC_PARM (n=50), {len(genarm_epec)} CAGE EPEC_GenARM\n")
+          f"{len(genarm_epec)} CAGE EPEC_GenARM\n")
 
     # ============================================================
     # Plot — style matches plot_pareto_tau.py
@@ -131,13 +125,10 @@ def main():
 
     # Color/marker per paper Figure 4 convention (matches plot_pareto_tau.py):
     #   CAGE  = EPEC+GenARM     → tab:blue,   marker o   (Ours, full n=300)
-    #   CAGE+ = EPEC+PARM       → tab:orange, marker s   (Ours, n=50 only — drop unless --include_cage_plus)
     #   GenARM (logit-sum)      → tab:green,  marker ^
     #   PARM (logit-sum)        → tab:red,    marker D
 
-    plot_method(ax, genarm_epec, label="CAGE",   marker="o", color="tab:blue")
-    if args.include_cage_plus:
-        plot_method(ax, parm_epec, label="CAGE+", marker="s", color="tab:orange")
+    plot_method(ax, genarm_epec, label="CAGE (Ours)",   marker="o", color="tab:blue")
     plot_method(ax, genarm_ls,   label="GenARM", marker="^", color="tab:green")
     plot_method(ax, parm_ls,     label="PARM",   marker="D", color="tab:red")
 
@@ -172,7 +163,7 @@ def main():
     # ============================================================
     # HV table
     # ============================================================
-    all_pts = parm_ls + genarm_ls + parm_epec + genarm_epec
+    all_pts = parm_ls + genarm_ls + genarm_epec
     if all_pts:
         ref = (min(r['help'] for r in all_pts) - 1.0,
                min(r['safe'] for r in all_pts) - 1.0)
@@ -180,7 +171,6 @@ def main():
         rows = [
             ('PARM',        parm_ls),
             ('GenARM',      genarm_ls),
-            ('CAGE+ (EPEC+PARM)',   parm_epec),
             ('CAGE (EPEC+GenARM)',  genarm_epec),
         ]
         print(f"{'Method':<28} {'n_alpha':>8} {'HV':>10}")
@@ -189,14 +179,12 @@ def main():
             hv = hv2d([(r['help'], r['safe']) for r in data], ref)
             print(f"{name:<28} {len(data):>8} {hv:>10.2f}")
         print()
-        for method, ls, ep in [('GenARM/CAGE', genarm_ls, genarm_epec),
-                               ('PARM/CAGE+',  parm_ls, parm_epec)]:
-            if ls and ep:
-                hv_ls = hv2d([(r['help'], r['safe']) for r in ls], ref)
-                hv_ep = hv2d([(r['help'], r['safe']) for r in ep], ref)
-                d = hv_ep - hv_ls
-                print(f"  {method}: baseline HV {hv_ls:.2f} -> EPEC HV {hv_ep:.2f}  "
-                      f"(Δ {d:+.2f}, {100*d/hv_ls:+.1f}%)")
+        if genarm_ls and genarm_epec:
+            hv_ls = hv2d([(r['help'], r['safe']) for r in genarm_ls], ref)
+            hv_ep = hv2d([(r['help'], r['safe']) for r in genarm_epec], ref)
+            d = hv_ep - hv_ls
+            print(f"  GenARM/CAGE: baseline HV {hv_ls:.2f} -> EPEC HV {hv_ep:.2f}  "
+                  f"(Δ {d:+.2f}, {100*d/hv_ls:+.1f}%)")
 
 
 if __name__ == '__main__':

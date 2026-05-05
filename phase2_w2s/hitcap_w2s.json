@@ -1,0 +1,46 @@
+{
+  "_about": "Cap-hit rate (% of responses with >=510 generated tokens of max=512) per (method, alpha_help) on the W2S 65B + 7B-ARM stack. Hit-cap is a proxy for token-repetition pathology / 'cheating' (refusing then padding 512 tokens to inflate helpfulness). Tokenized with LlamaTokenizer over response text only.",
+  "_n_prompts": 300,
+  "_max_new_tokens": 512,
+  "_threshold_tokens": 510,
+  "_columns": "alpha_help, n_total, n_hit, pct",
+  "PARM": [
+    {"a": 0.0, "n_total": 300, "n_hit": 28, "pct": 9.33,  "avg_tok": 146.6},
+    {"a": 0.1, "n_total": 300, "n_hit": 24, "pct": 8.0,   "avg_tok": 141.7},
+    {"a": 0.2, "n_total": 300, "n_hit": 14, "pct": 4.67,  "avg_tok": 125.3},
+    {"a": 0.3, "n_total": 300, "n_hit": 11, "pct": 3.67,  "avg_tok": 122.0},
+    {"a": 0.4, "n_total": 300, "n_hit": 7,  "pct": 2.33,  "avg_tok": 123.4},
+    {"a": 0.5, "n_total": 300, "n_hit": 5,  "pct": 1.67,  "avg_tok": 122.3},
+    {"a": 0.6, "n_total": 300, "n_hit": 6,  "pct": 2.0,   "avg_tok": 126.8},
+    {"a": 0.7, "n_total": 300, "n_hit": 10, "pct": 3.33,  "avg_tok": 128.0},
+    {"a": 0.8, "n_total": 300, "n_hit": 17, "pct": 5.67,  "avg_tok": 135.2},
+    {"a": 0.9, "n_total": 300, "n_hit": 14, "pct": 4.67,  "avg_tok": 132.6},
+    {"a": 1.0, "n_total": 300, "n_hit": 17, "pct": 5.67,  "avg_tok": 139.4}
+  ],
+  "GenARM": [
+    {"a": 0.0, "n_total": 300, "n_hit": 4,  "pct": 1.33,  "avg_tok": 82.4},
+    {"a": 0.1, "n_total": 300, "n_hit": 14, "pct": 4.67,  "avg_tok": 124.0},
+    {"a": 0.2, "n_total": 300, "n_hit": 24, "pct": 8.0,   "avg_tok": 144.7},
+    {"a": 0.3, "n_total": 300, "n_hit": 20, "pct": 6.67,  "avg_tok": 150.1},
+    {"a": 0.4, "n_total": 300, "n_hit": 37, "pct": 12.33, "avg_tok": 182.9},
+    {"a": 0.5, "n_total": 300, "n_hit": 31, "pct": 10.33, "avg_tok": 176.5},
+    {"a": 0.6, "n_total": 300, "n_hit": 46, "pct": 15.33, "avg_tok": 195.7},
+    {"a": 0.7, "n_total": 300, "n_hit": 40, "pct": 13.33, "avg_tok": 187.7},
+    {"a": 0.8, "n_total": 300, "n_hit": 30, "pct": 10.0,  "avg_tok": 169.9},
+    {"a": 0.9, "n_total": 300, "n_hit": 23, "pct": 7.67,  "avg_tok": 157.6},
+    {"a": 1.0, "n_total": 300, "n_hit": 12, "pct": 4.0,   "avg_tok": 140.1}
+  ],
+  "CAGE": [
+    {"a": 0.0, "n_total": 300, "n_hit": 177, "pct": 59.0},
+    {"a": 0.1, "n_total": 300, "n_hit": 184, "pct": 61.3},
+    {"a": 0.2, "n_total": 300, "n_hit": 157, "pct": 52.3},
+    {"a": 0.3, "n_total": 300, "n_hit": 142, "pct": 47.3},
+    {"a": 0.4, "n_total": 300, "n_hit": 109, "pct": 36.3},
+    {"a": 0.5, "n_total": 300, "n_hit": 78,  "pct": 26.0},
+    {"a": 0.6, "n_total": 300, "n_hit": 50,  "pct": 16.7},
+    {"a": 0.7, "n_total": 300, "n_hit": 30,  "pct": 10.0},
+    {"a": 0.8, "n_total": 300, "n_hit": 14,  "pct": 4.7},
+    {"a": 0.9, "n_total": 300, "n_hit": 6,   "pct": 2.0},
+    {"a": 1.0, "n_total": 300, "n_hit": 5,   "pct": 1.7}
+  ]
+}
